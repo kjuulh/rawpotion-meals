@@ -3,6 +3,82 @@ import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../../lib/redux/hooks";
 import { getUsersAsync } from "../../../lib/features/users/getUsersAsync";
 import { selectUserById } from "../../../lib/features/users/usersSlice";
+import { getRecipesForUser } from "../../../lib/features/recipes/getRecipesForUser";
+import {
+  Recipe,
+  selectRecipesForUser,
+} from "../../../lib/features/recipes/recipesSlice";
+
+const RecipeItem = (props: { recipe: Recipe; userId: string }) => {
+  const router = useRouter();
+
+  return (
+    <div>
+      <p>{props.recipe.name}</p>
+      {props.recipe.authorId === props.userId && (
+        <button
+          onClick={() =>
+            router.push({
+              pathname: `${router.route}/recipes/[recipeId]`,
+              query: {
+                userId: props.userId,
+                recipeId: props.recipe.id,
+              },
+            })
+          }
+        >
+          Edit
+        </button>
+      )}
+    </div>
+  );
+};
+
+const Recipes = (props: { userId: string }) => {
+  const dispatch = useAppDispatch();
+
+  const [loading, recipes] = useAppSelector(
+    selectRecipesForUser(props.userId as string)
+  );
+
+  useEffect(() => {
+    if (props.userId) {
+      dispatch(getRecipesForUser(props.userId));
+    }
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!recipes) {
+    return null;
+  }
+
+  if (recipes.length === 0) {
+    return <div>Empty</div>;
+  }
+
+  return (
+    <ul>
+      {recipes.map((r) => (
+        <li key={r.id}>
+          <RecipeItem {...props} recipe={r} />
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+function RecipesForUser(props: { userId: string }) {
+  return (
+    <div>
+      <h2>Recipes</h2>
+
+      <Recipes {...props} />
+    </div>
+  );
+}
 
 const UsersPage = () => {
   const router = useRouter();
@@ -26,6 +102,19 @@ const UsersPage = () => {
       <h1>User: {user.name}</h1>
 
       <p>Email: {user.email}</p>
+
+      <RecipesForUser userId={userId as string} />
+
+      <button
+        onClick={() =>
+          router.push({
+            pathname: `${router.route}/recipe/create`,
+            query: { userId },
+          })
+        }
+      >
+        Create recipe
+      </button>
     </div>
   );
 };

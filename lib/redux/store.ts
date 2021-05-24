@@ -9,6 +9,7 @@ import comments from "../features/comments/commentsSlice";
 import invitations from "../features/invitations/invitationsSlice";
 import requests from "../features/requests/requestsSlice";
 import mealRatings from "../features/mealRatings/mealRatingsSlice";
+import recipes from "../features/recipes/recipesSlice";
 
 export function makeStore() {
   return configureStore({
@@ -22,6 +23,7 @@ export function makeStore() {
       invitations,
       requests,
       mealRatings,
+      recipes,
     },
   });
 }
