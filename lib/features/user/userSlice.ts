@@ -1,69 +1,15 @@
-import {
-  ActionReducerMapBuilder,
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import firebase from "firebase/app";
 import { AppState } from "../../redux/store";
+import { loginAsync } from "./loginAsync";
+import { registerAsync } from "./registerAsync";
 
-export interface IsLoggedInUserState {
-  state: "logged-in";
-  userId: string;
-  email: string;
-  status: "idle";
-}
-export interface UnknownUserState {
-  state: "unknown";
-  status: "idle";
-}
-
-export interface IsNotLoggedInUserState {
-  state: "not-logged-in";
+export interface UserState {
+  state: "not-logged-in" | "logged-in" | "unknown";
   status: "idle" | "loading" | "failed";
-  userId: undefined;
-  email: undefined;
+  userId?: string;
+  email?: string;
 }
-
-type UserState =
-  | UnknownUserState
-  | IsLoggedInUserState
-  | IsNotLoggedInUserState;
-
-export interface RegisterInput {
-  name: string;
-  email: string;
-  password: string;
-}
-export const registerAsync = createAsyncThunk(
-  "user/register",
-  async (input: RegisterInput): Promise<IsLoggedInUserState> => {
-    const userCreationResponse = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(input.email, input.password);
-
-    const { uid, email } = userCreationResponse.user;
-    return { userId: uid, email, status: "idle", state: "logged-in" };
-  }
-);
-
-export interface LoginInput {
-  email: string;
-  password: string;
-}
-export const loginAsync = createAsyncThunk(
-  "user/login",
-  async (input: LoginInput): Promise<IsLoggedInUserState> => {
-    await firebase.auth().setPersistence("local");
-
-    const userCredential = await firebase
-      .auth()
-      .signInWithEmailAndPassword(input.email, input.password);
-
-    const { uid, email } = userCredential.user;
-    return { userId: uid, email, status: "idle", state: "logged-in" };
-  }
-);
 
 const initialState: UserState = {
   state: "unknown",
@@ -72,7 +18,7 @@ const initialState: UserState = {
 
 export const signOutAsync = createAsyncThunk(
   "user/sign-out",
-  async (): Promise<IsNotLoggedInUserState> => {
+  async (): Promise<UserState> => {
     await firebase.auth().signOut();
 
     return {
@@ -84,16 +30,7 @@ export const signOutAsync = createAsyncThunk(
   }
 );
 
-export const userSlice = createSlice<
-  UnknownUserState | IsNotLoggedInUserState | IsLoggedInUserState,
-  {
-    userIsAlreadySignedIn: (
-      state: IsNotLoggedInUserState | IsLoggedInUserState,
-      action: PayloadAction<{ email: string; userId: string }>
-    ) => void;
-  },
-  "user"
->({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -105,6 +42,12 @@ export const userSlice = createSlice<
       state.state = "logged-in";
       state.email = action.payload.email;
       state.userId = action.payload.userId;
+    },
+    resetUser: (state) => {
+      state.status = "idle";
+      state.state = "not-logged-in";
+      state.userId = undefined;
+      state.email = undefined;
     },
   },
   extraReducers: (builder) => {
@@ -136,8 +79,8 @@ export const userSlice = createSlice<
   },
 });
 
-export const { userIsAlreadySignedIn } = userSlice.actions;
+export const { userIsAlreadySignedIn, resetUser } = userSlice.actions;
 
-export const selectUser = (state: AppState) => state.userReducer;
+export const selectUser = (state: AppState) => state.user;
 
 export default userSlice.reducer;

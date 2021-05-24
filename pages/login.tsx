@@ -1,29 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AnyObject, Field, Form } from "react-final-form";
-import { loginAsync, selectUser } from "../lib/features/user/userSlice";
+import { resetUser, selectUser } from "../lib/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../lib/redux/hooks";
 import { useRouter } from "next/router";
+import { loginAsync } from "../lib/features/user/loginAsync";
 
 const required = (value) => (value ? undefined : "Required");
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const { returnUrl } = router.query;
   const user = useAppSelector(selectUser);
 
+  const [submitTriggered, setSubmitTriggered] = useState(false);
+
   useEffect(() => {
-    if (user.userId) {
+    if (user?.userId && submitTriggered) {
+      if (returnUrl && typeof returnUrl === "string") {
+        router.push(returnUrl);
+        return;
+      }
       router.push("/dashboard");
     }
   }, [user]);
 
   const onSubmit = (values: Record<string, any>) => {
+    dispatch(resetUser);
     dispatch(
       loginAsync({
         email: values["email"],
         password: values["password"],
       })
     );
+
+    setSubmitTriggered(true);
   };
 
   const validateForm = (values: Record<string, any>): AnyObject => {
@@ -66,7 +78,7 @@ const LoginPage = () => {
               )}
             />
 
-            <button>Create</button>
+            <button>Login</button>
           </form>
         )}
       />

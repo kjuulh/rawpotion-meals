@@ -1,10 +1,28 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
-import userReducer from "../features/user/userSlice";
+import user from "../features/user/userSlice";
+import groups from "../features/groups/groupsSlice";
+import currentGroup from "../features/currentGroup/currentGroupSlice";
+import users from "../features/users/usersSlice";
+import meals from "../features/meals/mealsSlice";
+import comments from "../features/comments/commentsSlice";
+import invitations from "../features/invitations/invitationsSlice";
+import requests from "../features/requests/requestsSlice";
+import mealRatings from "../features/mealRatings/mealRatingsSlice";
 
 export function makeStore() {
   return configureStore({
-    reducer: { userReducer },
+    reducer: {
+      user,
+      groups,
+      currentGroup,
+      users,
+      meals,
+      comments,
+      invitations,
+      requests,
+      mealRatings,
+    },
   });
 }
 

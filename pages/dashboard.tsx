@@ -2,6 +2,8 @@ import { useAppDispatch, useAppSelector } from "../lib/redux/hooks";
 import { selectUser, signOutAsync } from "../lib/features/user/userSlice";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import GroupsList from "../lib/features/groups/groupsList";
+import { getGroupsForMemberAsync } from "../lib/features/groups/getGroupsForMemberAsync";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -9,9 +11,12 @@ const DashboardPage = () => {
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    if (user.state === "not-logged-in") {
+    if (user?.state === "not-logged-in") {
       router.push("/login");
+      return;
     }
+
+    dispatch(getGroupsForMemberAsync(user.userId));
   }, [user]);
 
   if (!user?.userId) {
@@ -22,10 +27,17 @@ const DashboardPage = () => {
     <div>
       <h1>Dashboard Page</h1>
 
-      <p>{user.userId}</p>
-      <p>{user.email}</p>
+      <div>
+        <GroupsList
+          onGroupClick={(groupId) => router.push(`/groups/${groupId}`)}
+        />
+      </div>
 
+      <button onClick={() => router.push(`/users/${user.userId}`)}>
+        Profile
+      </button>
       <button onClick={() => dispatch(signOutAsync())}>Sign out</button>
+      <button onClick={() => router.push("/group/create")}>Create group</button>
     </div>
   );
 };

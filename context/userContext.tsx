@@ -12,7 +12,6 @@ export default function UserContextComp({ children }) {
     // Listen authenticated user
     const unsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
       try {
-        console.log(user);
         if (user) {
           dispatch(
             userIsAlreadySignedIn({ userId: user.uid, email: user.email })

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AnyObject, Field, Form } from "react-final-form";
-import { registerAsync, selectUser } from "../lib/features/user/userSlice";
+import { selectUser } from "../lib/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "../lib/redux/hooks";
 import { useRouter } from "next/router";
+import { registerAsync } from "../lib/features/user/registerAsync";
 
 const composeValidators =
   (...validators) =>
@@ -19,8 +20,10 @@ const RegisterPage = () => {
   const router = useRouter();
   const user = useAppSelector(selectUser);
 
+  const [submitTriggered, setSubmitTriggered] = useState(false);
+
   useEffect(() => {
-    if (user.userId) {
+    if (user.userId && submitTriggered) {
       router.push("/dashboard");
     }
   }, [user]);
@@ -33,6 +36,8 @@ const RegisterPage = () => {
         password: values["password"],
       })
     );
+
+    setSubmitTriggered(true);
   };
 
   const validateForm = (values: Record<string, any>): AnyObject => {

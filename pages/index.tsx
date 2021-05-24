@@ -8,7 +8,7 @@ const HomePage = () => {
       <h1>Home Page</h1>
       <div>
         <button onClick={() => router.push("/login")}>Login</button>
-        <button>Register</button>
+        <button onClick={() => router.push("/register")}>Register</button>
       </div>
     </div>
   );
