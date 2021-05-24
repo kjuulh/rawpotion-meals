@@ -1,4 +1,4 @@
-import AdminArea from "../../../lib/features/admin/adminArea";
+import AdminArea from "../../../src/lib/features/admin/adminArea";
 import { useRouter } from "next/router";
 
 const AdminPage = () => {

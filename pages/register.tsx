@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { AnyObject, Field, Form } from "react-final-form";
-import { selectUser } from "../lib/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../lib/redux/hooks";
+import { selectUser } from "../src/lib/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../src/lib/redux/hooks";
 import { useRouter } from "next/router";
-import { registerAsync } from "../lib/features/user/registerAsync";
+import { registerAsync } from "../src/lib/features/user/registerAsync";
+import { AuthForm } from "../src/lib/features/auth/authForm";
+import { AuthHeading } from "../src/lib/features/auth/authHeading";
+import { AuthFormTitle } from "../src/lib/features/auth/authFormTitle";
+import { AuthFormCancelButton } from "../src/lib/features/auth/authFormCancelButton";
+import { AuthInputGroup } from "../src/lib/features/auth/authInputGroup";
+import { AuthFormInput } from "../src/lib/features/auth/authFormInput";
+import { AuthFormButtonGroup } from "../src/lib/features/auth/authFormButtonGroup";
+import { AuthFormButton } from "../src/lib/features/auth/authFormButton";
+import { AuthFormLink } from "../src/lib/features/auth/authFormLink";
 
 const composeValidators =
   (...validators) =>
@@ -45,57 +54,43 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h1>Register Page</h1>
+    <Form
+      onSubmit={onSubmit}
+      render={({ handleSubmit }) => (
+        <AuthForm onSubmit={handleSubmit}>
+          <AuthHeading>
+            <AuthFormTitle>Register</AuthFormTitle>
+            <AuthFormCancelButton onClick={() => router.push("/")} />
+          </AuthHeading>
 
-      <Form
-        onSubmit={onSubmit}
-        validate={validateForm}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <Field
-              name="name"
-              validate={required}
-              render={({ input, meta }) => (
-                <div>
-                  <label>Name</label>
-                  <input type="text" placeholder="Your name" {...input} />
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
+          <AuthInputGroup>
+            <AuthFormInput
+              name={"name"}
+              text={"Name"}
+              type="text"
+              placeholder="NAME"
             />
-            <Field
-              name="email"
-              validate={required}
-              render={({ input, meta }) => (
-                <div>
-                  <label>Email</label>
-                  <input type="email" placeholder="Your email" {...input} />
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
+            <AuthFormInput
+              name={"email"}
+              text={"Email"}
+              type="email"
+              placeholder="EMAIL"
             />
-            <Field
+            <AuthFormInput
               name="password"
-              validate={required}
-              render={({ input, meta }) => (
-                <div>
-                  <label>password</label>
-                  <input
-                    type="password"
-                    placeholder="Your Password"
-                    {...input}
-                  />
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
+              text="Password"
+              type="password"
+              placeholder="PASSWORD"
             />
+          </AuthInputGroup>
 
-            <button>Create</button>
-          </form>
-        )}
-      />
-    </div>
+          <AuthFormButtonGroup>
+            <AuthFormButton>Register</AuthFormButton>
+            <AuthFormLink href="/login">Login</AuthFormLink>
+          </AuthFormButtonGroup>
+        </AuthForm>
+      )}
+    />
   );
 };
 

@@ -5,12 +5,12 @@ import {
   useAppDispatch,
   useAppSelector,
   useDispatchOnMount,
-} from "../../../lib/redux/hooks";
+} from "../../../src/lib/redux/hooks";
 import {
   resetCreateMeal,
   selectCreateMealStatus,
-} from "../../../lib/features/meals/mealsSlice";
-import { createMealEventForGroup } from "../../../lib/features/meals/createMealEventForGroup";
+} from "../../../src/lib/features/meals/mealsSlice";
+import { createMealEventForGroup } from "../../../src/lib/features/meals/createMealEventForGroup";
 
 const required = (value) => (value ? undefined : "Required");
 

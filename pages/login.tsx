@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { AnyObject, Field, Form } from "react-final-form";
-import { resetUser, selectUser } from "../lib/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../lib/redux/hooks";
+import { AnyObject, Form } from "react-final-form";
+import { resetUser, selectUser } from "../src/lib/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../src/lib/redux/hooks";
 import { useRouter } from "next/router";
-import { loginAsync } from "../lib/features/user/loginAsync";
-
-const required = (value) => (value ? undefined : "Required");
+import { loginAsync } from "../src/lib/features/user/loginAsync";
+import { AuthFormLink } from "../src/lib/features/auth/authFormLink";
+import { AuthFormButtonGroup } from "../src/lib/features/auth/authFormButtonGroup";
+import { AuthFormButton } from "../src/lib/features/auth/authFormButton";
+import { AuthFormTitle } from "../src/lib/features/auth/authFormTitle";
+import { AuthFormCancelButton } from "../src/lib/features/auth/authFormCancelButton";
+import { AuthFormInput } from "../src/lib/features/auth/authFormInput";
+import { AuthInputGroup } from "../src/lib/features/auth/authInputGroup";
+import { AuthHeading } from "../src/lib/features/auth/authHeading";
+import { AuthForm } from "../src/lib/features/auth/authForm";
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -38,51 +45,38 @@ const LoginPage = () => {
     setSubmitTriggered(true);
   };
 
-  const validateForm = (values: Record<string, any>): AnyObject => {
-    return;
-  };
-
   return (
-    <div>
-      <h1>Login Page</h1>
+    <Form
+      onSubmit={onSubmit}
+      render={({ handleSubmit }) => (
+        <AuthForm onSubmit={handleSubmit}>
+          <AuthHeading>
+            <AuthFormTitle>Login</AuthFormTitle>
+            <AuthFormCancelButton onClick={() => router.push("/")} />
+          </AuthHeading>
 
-      <Form
-        onSubmit={onSubmit}
-        validate={validateForm}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <Field
-              name="email"
-              validate={required}
-              render={({ input, meta }) => (
-                <div>
-                  <label>Email</label>
-                  <input type="email" placeholder="Your email" {...input} />
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
+          <AuthInputGroup>
+            <AuthFormInput
+              name={"email"}
+              text={"Email"}
+              type="email"
+              placeholder="EMAIL"
             />
-            <Field
+            <AuthFormInput
               name="password"
-              validate={required}
-              render={({ input, meta }) => (
-                <div>
-                  <label>password</label>
-                  <input
-                    type="password"
-                    placeholder="Your Password"
-                    {...input}
-                  />
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
+              text="Password"
+              type="password"
+              placeholder="PASSWORD"
             />
+          </AuthInputGroup>
 
-            <button>Login</button>
-          </form>
-        )}
-      />
-    </div>
+          <AuthFormButtonGroup>
+            <AuthFormButton>Login</AuthFormButton>
+            <AuthFormLink href="/register">Register</AuthFormLink>
+          </AuthFormButtonGroup>
+        </AuthForm>
+      )}
+    />
   );
 };
 

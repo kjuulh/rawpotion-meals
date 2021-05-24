@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import {
   getGroupByIdAsync,
   selectGroup,
-} from "../../../lib/features/currentGroup/currentGroupSlice";
-import { Members } from "../../../lib/features/users/members";
-import { Meals } from "../../../lib/features/meals/meals";
-import { useAppSelector } from "../../../lib/redux/hooks";
-import { selectUser } from "../../../lib/features/user/userSlice";
-import Requests from "../../../lib/features/requests/Requests";
-import { getMealsByGroupIdAsync } from "../../../lib/features/meals/getMealsByGroupIdAsync";
+} from "../../../src/lib/features/currentGroup/currentGroupSlice";
+import { Members } from "../../../src/lib/features/users/members";
+import { Meals } from "../../../src/lib/features/meals/meals";
+import { useAppSelector } from "../../../src/lib/redux/hooks";
+import { selectUser } from "../../../src/lib/features/user/userSlice";
+import Requests from "../../../src/lib/features/requests/Requests";
+import { getMealsByGroupIdAsync } from "../../../src/lib/features/meals/getMealsByGroupIdAsync";
 
 const GroupPage = () => {
   const router = useRouter();

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getRatingsForMeal } from "./getRatingsForMeal";
 import { selectMealRating } from "./mealRatingsSlice";
 
-export const MealRating = (props: { mealId: string }) => {
+export const MealRatingComponent = (props: { mealId: string }) => {
   const dispatch = useAppDispatch();
   const [loading, [ratings, userRating]] = useAppSelector(selectMealRating);
 

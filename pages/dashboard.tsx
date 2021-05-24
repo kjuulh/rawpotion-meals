@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../lib/redux/hooks";
-import { selectUser, signOutAsync } from "../lib/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../src/lib/redux/hooks";
+import { selectUser, signOutAsync } from "../src/lib/features/user/userSlice";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import GroupsList from "../lib/features/groups/groupsList";
-import { getGroupsForMemberAsync } from "../lib/features/groups/getGroupsForMemberAsync";
+import GroupsList from "../src/lib/features/groups/groupsList";
+import { getGroupsForMemberAsync } from "../src/lib/features/groups/getGroupsForMemberAsync";
 
 const DashboardPage = () => {
   const router = useRouter();

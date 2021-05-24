@@ -1,12 +1,15 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../lib/redux/hooks";
-import { selectUser } from "../../../../lib/features/user/userSlice";
-import { getInvitationAsync } from "../../../../lib/features/invitations/getInvitationAsync";
-import { selectInvitation } from "../../../../lib/features/invitations/invitationsSlice";
-import { joinGroupAsync } from "../../../../lib/features/groups/joinGroupAsync";
-import { selectGroupById } from "../../../../lib/features/groups/groupsSlice";
-import { getGroupByIdAsync } from "../../../../lib/features/groups/getGroupByIdAsync";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../src/lib/redux/hooks";
+import { selectUser } from "../../../../src/lib/features/user/userSlice";
+import { getInvitationAsync } from "../../../../src/lib/features/invitations/getInvitationAsync";
+import { selectInvitation } from "../../../../src/lib/features/invitations/invitationsSlice";
+import { joinGroupAsync } from "../../../../src/lib/features/groups/joinGroupAsync";
+import { selectGroupById } from "../../../../src/lib/features/groups/groupsSlice";
+import { getGroupByIdAsync } from "../../../../src/lib/features/groups/getGroupByIdAsync";
 
 const AcceptInvitationPage = () => {
   const router = useRouter();

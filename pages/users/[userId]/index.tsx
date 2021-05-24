@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useAppDispatch, useAppSelector } from "../../../lib/redux/hooks";
-import { getUsersAsync } from "../../../lib/features/users/getUsersAsync";
-import { selectUserById } from "../../../lib/features/users/usersSlice";
-import { getRecipesForUser } from "../../../lib/features/recipes/getRecipesForUser";
+import { useAppDispatch, useAppSelector } from "../../../src/lib/redux/hooks";
+import { getUsersAsync } from "../../../src/lib/features/users/getUsersAsync";
+import { selectUserById } from "../../../src/lib/features/users/usersSlice";
+import { getRecipesForUser } from "../../../src/lib/features/recipes/getRecipesForUser";
 import {
   Recipe,
   selectRecipesForUser,
-} from "../../../lib/features/recipes/recipesSlice";
+} from "../../../src/lib/features/recipes/recipesSlice";
 
 const RecipeItem = (props: { recipe: Recipe; userId: string }) => {
   const router = useRouter();

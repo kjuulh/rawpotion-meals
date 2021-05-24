@@ -1,13 +1,16 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../lib/redux/hooks";
-import { selectGetMealById } from "../../../../lib/features/meals/mealsSlice";
-import Members from "../../../../lib/features/users/members";
-import { selectUser } from "../../../../lib/features/user/userSlice";
-import { Comments } from "../../../../lib/features/comments/comments";
-import { MealRating } from "../../../../lib/features/mealRatings/mealRating";
-import { toggleAttendingAsync } from "../../../../lib/features/meals/toggleAttendingAsync";
-import { getMealEventById } from "../../../../lib/features/meals/getMealEventById";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../src/lib/redux/hooks";
+import { selectGetMealById } from "../../../../src/lib/features/meals/mealsSlice";
+import Members from "../../../../src/lib/features/users/members";
+import { selectUser } from "../../../../src/lib/features/user/userSlice";
+import { Comments } from "../../../../src/lib/features/comments/comments";
+import { toggleAttendingAsync } from "../../../../src/lib/features/meals/toggleAttendingAsync";
+import { getMealEventById } from "../../../../src/lib/features/meals/getMealEventById";
+import { MealRatingComponent } from "../../../../src/lib/features/mealRatings/mealRatingComponent";
 
 export const Participants = (props: { participants: string[] }) => (
   <Members members={props.participants} />
@@ -49,7 +52,7 @@ const MealPage = () => {
         </p>
 
         <div>
-          <MealRating mealId={mealId as string} />
+          <MealRatingComponent mealId={mealId as string} />
         </div>
 
         <div>
