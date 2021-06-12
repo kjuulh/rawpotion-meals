@@ -1,20 +1,43 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../src/lib/redux/hooks";
-import { selectGetMealById } from "../../../../src/lib/features/meals/mealsSlice";
-import Members from "../../../../src/lib/features/users/members";
-import { selectUser } from "../../../../src/lib/features/user/userSlice";
-import { Comments } from "../../../../src/lib/features/comments/comments";
-import { toggleAttendingAsync } from "../../../../src/lib/features/meals/toggleAttendingAsync";
-import { getMealEventById } from "../../../../src/lib/features/meals/getMealEventById";
-import { MealRatingComponent } from "../../../../src/lib/features/mealRatings/mealRatingComponent";
+import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
+import { selectGetMealById } from "@features/meals/mealsSlice";
+import Members from "../../../../features/users/members";
+import { selectUser } from "@features/user/userSlice";
+import { Comments } from "@features/comments/comments";
+import { toggleAttendingAsync } from "@features/meals/toggleAttendingAsync";
+import { getMealEventById } from "@features/meals/getMealEventById";
+import { MealRatingComponent } from "@features/mealRatings/mealRatingComponent";
+import { Meal } from "@features/meals/meal";
+import { PrimaryButton } from "@components/common/buttons/primaryButton";
+import DashboardLayout from "@components/layouts/dashboardLayout";
+import { DashboardTitle } from "@components/common/typography/dashboardTitle";
+import { Card } from "@components/common/card/card";
+import { CardTitle } from "@components/common/card/cardTitle";
 
-export const Participants = (props: { participants: string[] }) => (
-  <Members members={props.participants} />
-);
+export const Participants = (props: {
+  participants: string[];
+  mealEvent: Meal;
+  userId: string;
+}) => {
+  const dispatch = useAppDispatch();
+
+  return (
+    <Members
+      text="Participating members"
+      members={props.participants}
+      actions={() => (
+        <PrimaryButton
+          onClick={() => dispatch(toggleAttendingAsync(props.mealEvent.id))}
+        >
+          {props.mealEvent.participating.find((p) => p === props.userId)
+            ? "Dont attend"
+            : "Attend"}
+        </PrimaryButton>
+      )}
+    />
+  );
+};
 
 const MealPage = () => {
   const router = useRouter();
@@ -40,37 +63,32 @@ const MealPage = () => {
   }
 
   return (
-    <div>
-      <h1>Meal page</h1>
+    <div className="space-y-8">
+      <DashboardTitle>Meal</DashboardTitle>
 
-      <div>
-        <p>
+      <Card>
+        <CardTitle>
           Name: <span>{mealEvent.recipe}</span>
-        </p>
+        </CardTitle>
         <p>
-          Date: <span>{mealEvent.date}</span>
+          <span className="font-medium uppercase">Date:</span>{" "}
+          <span className="text-md">{mealEvent.date}</span>
         </p>
 
-        <div>
-          <MealRatingComponent mealId={mealId as string} />
-        </div>
+        <MealRatingComponent mealId={mealId as string} />
+      </Card>
 
-        <div>
-          Participants:
-          <Participants participants={mealEvent.participating} />
-        </div>
-      </div>
-      <button onClick={() => dispatch(toggleAttendingAsync(mealEvent.id))}>
-        {mealEvent.participating.find((p) => p === user.userId)
-          ? "Dont attend"
-          : "Attend"}
-      </button>
+      <Participants
+        participants={mealEvent.participating}
+        mealEvent={mealEvent}
+        userId={user.userId}
+      />
 
-      <div>
-        <Comments mealId={mealEvent.id} />
-      </div>
+      <Comments mealId={mealEvent.id} />
     </div>
   );
 };
+
+MealPage.Layout = DashboardLayout;
 
 export default MealPage;

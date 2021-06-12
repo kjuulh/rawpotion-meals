@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { AnyObject, Form } from "react-final-form";
-import { resetUser, selectUser } from "../src/lib/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../src/lib/redux/hooks";
+import { Form } from "react-final-form";
+import { resetUser, selectUser } from "@features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
-import { loginAsync } from "../src/lib/features/user/loginAsync";
-import { AuthFormLink } from "../src/lib/features/auth/authFormLink";
-import { AuthFormButtonGroup } from "../src/lib/features/auth/authFormButtonGroup";
-import { AuthFormButton } from "../src/lib/features/auth/authFormButton";
-import { AuthFormTitle } from "../src/lib/features/auth/authFormTitle";
-import { AuthFormCancelButton } from "../src/lib/features/auth/authFormCancelButton";
-import { AuthFormInput } from "../src/lib/features/auth/authFormInput";
-import { AuthInputGroup } from "../src/lib/features/auth/authInputGroup";
-import { AuthHeading } from "../src/lib/features/auth/authHeading";
-import { AuthForm } from "../src/lib/features/auth/authForm";
+import { loginAsync } from "@features/user/loginAsync";
+import { AuthFormLink } from "@features/auth/authFormLink";
+import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
+import { AuthFormButton } from "@features/auth/authFormButton";
+import { AuthFormTitle } from "@features/auth/authFormTitle";
+import { AuthFormCancelButton } from "@features/auth/authFormCancelButton";
+import { AuthFormInput } from "@features/auth/authFormInput";
+import { AuthInputGroup } from "@features/auth/authInputGroup";
+import { AuthHeading } from "@features/auth/authHeading";
+import { AuthForm } from "@features/auth/authForm";
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();

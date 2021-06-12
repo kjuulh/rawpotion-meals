@@ -1,10 +1,15 @@
-import UserProvider from "../src/context/userContext";
+import UserProvider from "../lib/context/userContext";
 import { Provider } from "react-redux";
 
-import store from "../src/lib/redux/store";
+import store from "../lib/redux/store";
 import "tailwindcss/tailwind.css";
+import { FC } from "react";
+
+const Noop: FC = ({ children }) => <>{children}</>;
 
 export default function App({ Component, pageProps }) {
+  const Layout = (Component as any).Layout || Noop;
+
   return (
     <>
       <style global jsx>
@@ -12,12 +17,14 @@ export default function App({ Component, pageProps }) {
           html {
             height: 100%;
             height: -webkit-fill-available;
+            box-sizing: border-box;
           }
+          }
+
           body {
             min-height: 100vh;
             min-height: -webkit-fill-available;
-            position: fixed;
-            width: 100vw;
+            box-sizing: border-box;
           }
 
           input:-webkit-autofill,
@@ -26,6 +33,7 @@ export default function App({ Component, pageProps }) {
           input:-webkit-autofill:active {
             -webkit-box-shadow: 0 0 0 30px white inset !important;
           }
+
           @supports (-webkit-appearance: none) {
             body {
               min-height: calc(100vh - 56px);
@@ -36,7 +44,9 @@ export default function App({ Component, pageProps }) {
 
       <Provider store={store}>
         <UserProvider>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </UserProvider>
       </Provider>
     </>

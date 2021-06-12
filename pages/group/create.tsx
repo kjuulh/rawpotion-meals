@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   resetGroupState,
   selectHasBeenCreated,
-} from "../../src/lib/features/groups/groupsSlice";
+} from "@features/groups/groupsSlice";
 import { useRouter } from "next/router";
-import { createGroupAsync } from "../../src/lib/features/groups/createGroupAsync";
+import { createGroupAsync } from "@features/groups/createGroupAsync";
 
 const required = (value) => (value ? undefined : "Required");
 

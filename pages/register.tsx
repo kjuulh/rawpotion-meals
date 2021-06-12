@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { AnyObject, Field, Form } from "react-final-form";
-import { selectUser } from "../src/lib/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "../src/lib/redux/hooks";
+import { AnyObject, Form } from "react-final-form";
+import { selectUser } from "@features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
-import { registerAsync } from "../src/lib/features/user/registerAsync";
-import { AuthForm } from "../src/lib/features/auth/authForm";
-import { AuthHeading } from "../src/lib/features/auth/authHeading";
-import { AuthFormTitle } from "../src/lib/features/auth/authFormTitle";
-import { AuthFormCancelButton } from "../src/lib/features/auth/authFormCancelButton";
-import { AuthInputGroup } from "../src/lib/features/auth/authInputGroup";
-import { AuthFormInput } from "../src/lib/features/auth/authFormInput";
-import { AuthFormButtonGroup } from "../src/lib/features/auth/authFormButtonGroup";
-import { AuthFormButton } from "../src/lib/features/auth/authFormButton";
-import { AuthFormLink } from "../src/lib/features/auth/authFormLink";
+import { registerAsync } from "@features/user/registerAsync";
+import { AuthForm } from "@features/auth/authForm";
+import { AuthHeading } from "@features/auth/authHeading";
+import { AuthFormTitle } from "@features/auth/authFormTitle";
+import { AuthFormCancelButton } from "@features/auth/authFormCancelButton";
+import { AuthInputGroup } from "@features/auth/authInputGroup";
+import { AuthFormInput } from "@features/auth/authFormInput";
+import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
+import { AuthFormButton } from "@features/auth/authFormButton";
+import { AuthFormLink } from "@features/auth/authFormLink";
 
 const composeValidators =
   (...validators) =>

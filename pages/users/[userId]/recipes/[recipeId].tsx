@@ -1,23 +1,20 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../src/lib/redux/hooks";
-import { getRecipeByIdAsync } from "../../../../src/lib/features/recipes/getRecipeByIdAsync";
-import { selectRecipeById } from "../../../../src/lib/features/recipes/recipesSlice";
+import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
+import { getRecipeByIdAsync } from "@features/recipes/getRecipeByIdAsync";
+import { selectRecipeById } from "@features/recipes/recipesSlice";
 import dynamic from "next/dynamic";
-import { selectUser } from "../../../../src/lib/features/user/userSlice";
+import { selectUser } from "@features/user/userSlice";
 
 const EditorContainer = dynamic(
-  () => import("../../../../src/lib/components/editor/editorContainer"),
+  () => import("@components/editor/editorContainer"),
   {
     ssr: false,
   }
 );
 
 const RenderHtml = dynamic(
-  () => import("../../../../src/lib/features/recipes/renderHtml"),
+  () => import("../../../../features/recipes/renderHtml"),
   {
     ssr: false,
   }

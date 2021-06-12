@@ -1,9 +1,13 @@
-import { useAppDispatch, useAppSelector } from "../src/lib/redux/hooks";
-import { selectUser, signOutAsync } from "../src/lib/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
+import { selectUser, signOutAsync } from "@features/user/userSlice";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import GroupsList from "../src/lib/features/groups/groupsList";
-import { getGroupsForMemberAsync } from "../src/lib/features/groups/getGroupsForMemberAsync";
+import GroupsList from "../features/groups/groupsList";
+import { getGroupsForMemberAsync } from "@features/groups/getGroupsForMemberAsync";
+import DashboardLayout from "@components/layouts/dashboardLayout";
+import { PrimaryButton } from "@components/common/buttons/primaryButton";
+import { OutlinedButton } from "@components/common/buttons/outlinedButton";
+import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -24,8 +28,8 @@ const DashboardPage = () => {
   }
 
   return (
-    <div>
-      <h1>Dashboard Page</h1>
+    <div className="space-y-4 box-border">
+      <DashboardTitle>Dashboard Page</DashboardTitle>
 
       <div>
         <GroupsList
@@ -33,13 +37,21 @@ const DashboardPage = () => {
         />
       </div>
 
-      <button onClick={() => router.push(`/users/${user.userId}`)}>
-        Profile
-      </button>
-      <button onClick={() => dispatch(signOutAsync())}>Sign out</button>
-      <button onClick={() => router.push("/group/create")}>Create group</button>
+      <div className="flex flex-row gap-4">
+        <OutlinedButton onClick={() => router.push(`/users/${user.userId}`)}>
+          Profile
+        </OutlinedButton>
+        <OutlinedButton onClick={() => dispatch(signOutAsync())}>
+          Sign out
+        </OutlinedButton>
+        <PrimaryButton onClick={() => router.push("/group/create")}>
+          Create group
+        </PrimaryButton>
+      </div>
     </div>
   );
 };
+
+DashboardPage.Layout = DashboardLayout;
 
 export default DashboardPage;

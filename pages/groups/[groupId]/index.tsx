@@ -4,13 +4,31 @@ import { useEffect } from "react";
 import {
   getGroupByIdAsync,
   selectGroup,
-} from "../../../src/lib/features/currentGroup/currentGroupSlice";
-import { Members } from "../../../src/lib/features/users/members";
-import { Meals } from "../../../src/lib/features/meals/meals";
-import { useAppSelector } from "../../../src/lib/redux/hooks";
-import { selectUser } from "../../../src/lib/features/user/userSlice";
-import Requests from "../../../src/lib/features/requests/Requests";
-import { getMealsByGroupIdAsync } from "../../../src/lib/features/meals/getMealsByGroupIdAsync";
+} from "@features/currentGroup/currentGroupSlice";
+import { Members } from "@features/users/members";
+import { Meals } from "@features/meals/meals";
+import { useAppSelector } from "@lib/redux/hooks";
+import { selectUser } from "@features/user/userSlice";
+import Requests from "@features/requests/Requests";
+import { getMealsByGroupIdAsync } from "@features/meals/getMealsByGroupIdAsync";
+import DashboardLayout from "@components/layouts/dashboardLayout";
+import { DashboardTitle } from "@components/common/typography/dashboardTitle";
+import { PrimaryButton } from "@components/common/buttons/primaryButton";
+import { Group } from "@features/groups/group";
+
+function GoToAdmin(props: {
+  userId: string;
+  group: Group;
+  onClick: () => Promise<boolean>;
+}) {
+  return (
+    <>
+      {props.userId === props.group.admin && (
+        <PrimaryButton onClick={props.onClick}>Go to admin</PrimaryButton>
+      )}
+    </>
+  );
+}
 
 const GroupPage = () => {
   const router = useRouter();
@@ -35,27 +53,20 @@ const GroupPage = () => {
   }
 
   return (
-    <div>
-      <h1>{group.name}</h1>
-
+    <div className="space-y-8">
+      <DashboardTitle>{group.name}</DashboardTitle>
       <Meals groupId={group.id} limit={5} order={"newest"} hide={"old"} />
-
-      <Members members={group.members} />
-      <button onClick={() => router.push(`/groups/${groupId}/create-event`)}>
-        Create meal event
-      </button>
-
-      {user && user.userId === group.admin && (
-        <button onClick={() => router.push(`/groups/${group.id}/admin`)}>
-          Go to admin
-        </button>
-      )}
-
-      <div>
-        <Requests groupId={groupId as string} />
-      </div>
+      <Members text="Members" members={group.members} />
+      <GoToAdmin
+        userId={user.userId}
+        group={group}
+        onClick={() => router.push(`/groups/${group.id}/admin`)}
+      />
+      <Requests groupId={groupId as string} />
     </div>
   );
 };
+
+GroupPage.Layout = DashboardLayout;
 
 export default GroupPage;
