@@ -14,6 +14,8 @@ import DashboardLayout from "@components/layouts/dashboardLayout";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import { Card } from "@components/common/card/card";
 import { CardTitle } from "@components/common/card/cardTitle";
+import { getGroupByIdAsync } from "@features/groups/getGroupByIdAsync";
+import BreadCrumbs from "@components/layouts/breadCrumbs";
 
 export const Participants = (props: {
   participants: string[];
@@ -51,6 +53,7 @@ const MealPage = () => {
   useEffect(() => {
     if (typeof groupId === "string" && typeof mealId === "string") {
       dispatch(getMealEventById(mealId));
+      dispatch(getGroupByIdAsync(groupId));
     }
   }, [groupId, mealId]);
 
@@ -65,6 +68,7 @@ const MealPage = () => {
   return (
     <div className="space-y-8">
       <DashboardTitle>Meal</DashboardTitle>
+      <BreadCrumbs />
 
       <Card>
         <CardTitle>

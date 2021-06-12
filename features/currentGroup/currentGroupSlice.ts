@@ -21,7 +21,7 @@ const initialState: CurrentGroupState = {
   errorMessage: undefined,
 };
 
-export const getGroupByIdAsync = createAsyncThunk(
+export const getCurrentGroupByIdAsync = createAsyncThunk(
   "currentGroup/getById",
   async (groupId: string, thunkAPI) => {
     const documentSnapshot = await firebase
@@ -47,19 +47,19 @@ export const currentGroupSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getGroupByIdAsync.pending, (state, action) => {
+    builder.addCase(getCurrentGroupByIdAsync.pending, (state, action) => {
       state.status = "loading";
       state.state = "called";
       state.group = undefined;
     });
 
-    builder.addCase(getGroupByIdAsync.fulfilled, (state, action) => {
+    builder.addCase(getCurrentGroupByIdAsync.fulfilled, (state, action) => {
       state.status = "idle";
       state.state = "called";
       state.group = action.payload;
     });
 
-    builder.addCase(getGroupByIdAsync.rejected, (state, action) => {
+    builder.addCase(getCurrentGroupByIdAsync.rejected, (state, action) => {
       state.status = "failed";
       state.state = "called";
       state.group = undefined;
@@ -74,7 +74,7 @@ export const selectGroup = (
   const { currentGroup } = state;
 
   return [
-    currentGroup.status === "loading" || currentGroup.state === "not-called",
+    currentGroup.status === "loading" && currentGroup.state === "not-called",
     currentGroup.group,
   ];
 };

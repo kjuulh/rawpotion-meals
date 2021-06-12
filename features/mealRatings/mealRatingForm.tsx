@@ -9,7 +9,6 @@ export const MealRatingForm = (props: {
 }) => {
   const dispatch = useAppDispatch();
   const [rating, setRating] = useState(props.currentRating);
-  console.log(rating);
 
   useEffect(() => {
     if (rating && props.mealId) {

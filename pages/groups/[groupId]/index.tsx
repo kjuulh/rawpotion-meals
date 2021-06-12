@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
-  getGroupByIdAsync,
+  getCurrentGroupByIdAsync,
   selectGroup,
 } from "@features/currentGroup/currentGroupSlice";
 import { Members } from "@features/users/members";
@@ -15,6 +15,8 @@ import DashboardLayout from "@components/layouts/dashboardLayout";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import { Group } from "@features/groups/group";
+import BreadCrumbs from "@components/layouts/breadCrumbs";
+import { getGroupByIdAsync } from "@features/groups/getGroupByIdAsync";
 
 function GoToAdmin(props: {
   userId: string;
@@ -39,6 +41,7 @@ const GroupPage = () => {
   useEffect(() => {
     if (groupId && typeof groupId === "string") {
       dispatch(getGroupByIdAsync(groupId));
+      dispatch(getCurrentGroupByIdAsync(groupId));
       dispatch(getMealsByGroupIdAsync(groupId));
     }
   }, [groupId]);
@@ -49,12 +52,13 @@ const GroupPage = () => {
     return <div>Loading...</div>;
   }
   if (!group) {
-    return <div>Not found group!</div>;
+    return <div>Could not find group!</div>;
   }
 
   return (
     <div className="space-y-8">
       <DashboardTitle>{group.name}</DashboardTitle>
+      <BreadCrumbs />
       <Meals groupId={group.id} limit={5} order={"newest"} hide={"old"} />
       <Members text="Members" members={group.members} />
       <GoToAdmin

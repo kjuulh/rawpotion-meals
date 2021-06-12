@@ -8,6 +8,7 @@ import DashboardLayout from "@components/layouts/dashboardLayout";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import { OutlinedButton } from "@components/common/buttons/outlinedButton";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
+import BreadCrumbs from "@components/layouts/breadCrumbs";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -30,6 +31,7 @@ const DashboardPage = () => {
   return (
     <div className="space-y-4 box-border">
       <DashboardTitle>Dashboard Page</DashboardTitle>
+      <BreadCrumbs />
 
       <div>
         <GroupsList

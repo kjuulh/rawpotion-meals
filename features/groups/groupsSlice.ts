@@ -50,8 +50,7 @@ export const groupSlice = createSlice({
       state.groups = [
         ...state.groups.filter((g) => g.id !== action.payload.id),
         {
-          ...action.payload.data(),
-          id: action.payload.id,
+          ...action.payload,
         },
       ];
     });
