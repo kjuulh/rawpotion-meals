@@ -9,7 +9,7 @@ const HomePage = () => {
         Rawpotion
       </h1>
       <p className="text-xl">Easily share your meals with friends and family</p>
-      <div className="flex flex-col space-y-5">
+      <div className="flex flex-row space-y-5">
         <button
           className="border-2 border-yellow-300 hover:border-yellow-500 transition-all uppercase font-medium text-yellow-300 hover:bg-yellow-100 hover:text-yellow-500 px-4 py-2 rounded-md text-lg"
           onClick={() => router.push("/login")}

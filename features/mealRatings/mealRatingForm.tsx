@@ -23,7 +23,7 @@ export const MealRatingForm = (props: {
 
   return (
     <Form
-      onSubmit={() => _}
+      onSubmit={() => {}}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <Field
