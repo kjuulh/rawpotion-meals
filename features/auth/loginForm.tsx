@@ -1,46 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { AnyObject, Form } from "react-final-form";
-import { selectUser } from "@features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
-import { registerAsync } from "@features/user/registerAsync";
+import { resetUser, selectUser } from "@features/user/userSlice";
+import React, { useEffect, useState } from "react";
+import { loginAsync } from "@features/user/loginAsync";
+import { Form } from "react-final-form";
 import { AuthForm } from "@features/auth/authForm";
 import { AuthHeading } from "@features/auth/authHeading";
 import { AuthFormTitle } from "@features/auth/authFormTitle";
 import { AuthFormCancelButton } from "@features/auth/authFormCancelButton";
 import { AuthInputGroup } from "@features/auth/authInputGroup";
-import AuthFormInput from "@features/auth/authFormInput";
 import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
 import { AuthFormButton } from "@features/auth/authFormButton";
 import { AuthFormLink } from "@features/auth/authFormLink";
+import AuthFormInput from "@features/auth/authFormInput";
 
-const composeValidators =
-  (...validators) =>
-  (value) =>
-    validators.reduce(
-      (error, validator) => error || validator(value),
-      undefined
-    );
-
-const required = (value) => (value ? undefined : "Required");
-
-const RegisterPage = () => {
+export const LoginForm = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const { returnUrl } = router.query;
   const user = useAppSelector(selectUser);
 
   const [submitTriggered, setSubmitTriggered] = useState(false);
 
   useEffect(() => {
-    if (user.userId && submitTriggered) {
+    if (user?.userId && submitTriggered) {
+      if (returnUrl && typeof returnUrl === "string") {
+        router.push(returnUrl);
+        return;
+      }
       router.push("/dashboard");
     }
   }, [user]);
 
   const onSubmit = (values: Record<string, any>) => {
+    dispatch(resetUser);
     dispatch(
-      registerAsync({
-        name: values["name"],
+      loginAsync({
         email: values["email"],
         password: values["password"],
       })
@@ -49,27 +45,17 @@ const RegisterPage = () => {
     setSubmitTriggered(true);
   };
 
-  const validateForm = (values: Record<string, any>): AnyObject => {
-    return;
-  };
-
   return (
     <Form
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
         <AuthForm onSubmit={handleSubmit}>
           <AuthHeading>
-            <AuthFormTitle>Register</AuthFormTitle>
+            <AuthFormTitle>Login</AuthFormTitle>
             <AuthFormCancelButton onClick={() => router.push("/")} />
           </AuthHeading>
 
           <AuthInputGroup>
-            <AuthFormInput
-              name={"name"}
-              text={"Name"}
-              type="text"
-              placeholder="NAME"
-            />
             <AuthFormInput
               name={"email"}
               text={"Email"}
@@ -85,8 +71,8 @@ const RegisterPage = () => {
           </AuthInputGroup>
 
           <AuthFormButtonGroup>
-            <AuthFormButton>Register</AuthFormButton>
-            <AuthFormLink href="/login">Login</AuthFormLink>
+            <AuthFormButton>Login</AuthFormButton>
+            <AuthFormLink href="/register">Register</AuthFormLink>
           </AuthFormButtonGroup>
         </AuthForm>
       )}
@@ -94,4 +80,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginForm;

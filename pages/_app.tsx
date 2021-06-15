@@ -2,8 +2,9 @@ import UserProvider from "../lib/context/userContext";
 import { Provider } from "react-redux";
 
 import store from "../lib/redux/store";
-import "tailwindcss/tailwind.css";
 import { FC } from "react";
+
+import "styles/globals.css";
 
 const Noop: FC = ({ children }) => <>{children}</>;
 

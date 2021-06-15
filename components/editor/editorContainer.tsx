@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Paragraph from "@editorjs/paragraph";
 import Embed from "@editorjs/embed";
 import Table from "@editorjs/table";
