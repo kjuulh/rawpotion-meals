@@ -14,6 +14,7 @@ import { OutlinedButton } from "@components/common/buttons/outlinedButton";
 import { selectUserById } from "@features/users/usersSlice";
 import { getUsersAsync } from "@features/users/getUsersAsync";
 import React from "react";
+import { PrimaryButton } from "@components/common/buttons/primaryButton";
 
 function InvitationMember(props: { memberId: string }) {
   const member = useAppSelector(selectUserById(props.memberId));
@@ -84,25 +85,39 @@ const AcceptInvitationPage = () => {
 
   if (state === "not-logged-in" || state === "unknown") {
     return (
-      <div>
-        <h1>Accept invitation page</h1>
+      <div className="py-8 px-10 space-y-8 md:max-w-[calc(80%+1rem)] lg:max-w-[calc(50%+1rem)] mx-auto">
+        <DashboardTitle>Accept invitation page</DashboardTitle>
 
         <p>
           We need to you to login to your account before you can accept an
           invite
         </p>
 
-        <button
-          onClick={() =>
-            router.push(`/login`, {
-              query: {
-                returnUrl: router.asPath,
-              },
-            })
-          }
-        >
-          Login
-        </button>
+        <div className="space-x-4">
+          <PrimaryButton
+            onClick={() =>
+              router.push(`/login`, {
+                query: {
+                  returnUrl: router.asPath,
+                },
+              })
+            }
+          >
+            Login
+          </PrimaryButton>
+
+          <OutlinedButton
+            onClick={() =>
+              router.push(`/register`, {
+                query: {
+                  returnUrl: router.asPath,
+                },
+              })
+            }
+          >
+            Register
+          </OutlinedButton>
+        </div>
       </div>
     );
   }
