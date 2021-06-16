@@ -6,6 +6,7 @@ import {
 import { AppState } from "@lib/redux/store";
 import firebase from "firebase";
 import { groupConverter } from "./groupConverter";
+import { getGroupByIdAsync } from "@features/groups/getGroupByIdAsync";
 
 export const joinGroupAsync = createAsyncThunk(
   "groups/join",
@@ -48,6 +49,9 @@ export const joinGroupAsync = createAsyncThunk(
     if (!groupDoc.exists) {
       return thunkAPI.rejectWithValue("could not join group");
     }
+
+    thunkAPI.dispatch(getGroupByIdAsync(groupDoc.id));
+
     return groupDoc.data();
   }
 );
