@@ -5,7 +5,12 @@ const HomePage = () => {
 
   return (
     <div className="text- min-h-screen flex flex-col text-center py-20 space-y-10 justify-center items-center">
-      <h1 className="text-yellow-400 text-4xl uppercase font-bold">
+      <h1
+        className="text-yellow-400 text-4xl uppercase font-bold"
+        onClick={() => {
+          throw new Error("Lets get an error");
+        }}
+      >
         Rawpotion
       </h1>
       <p className="text-xl">Easily share your meals with friends and family</p>
