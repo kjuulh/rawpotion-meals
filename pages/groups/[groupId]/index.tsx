@@ -36,6 +36,7 @@ const GroupPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { groupId } = router.query;
+  const [loading, group] = useSelector(selectGroup);
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
@@ -46,13 +47,12 @@ const GroupPage = () => {
     }
   }, [groupId]);
 
-  const [loading, group] = useSelector(selectGroup);
-
   if (loading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
+
   if (!group) {
-    return <div>Could not find group!</div>;
+    return <div>Not found group...</div>;
   }
 
   return (

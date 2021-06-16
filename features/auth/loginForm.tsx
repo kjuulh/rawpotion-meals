@@ -48,7 +48,7 @@ export const LoginForm = () => {
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit }) => (
+      render={({ handleSubmit, valid }) => (
         <AuthForm onSubmit={handleSubmit}>
           <AuthHeading>
             <AuthFormTitle>Login</AuthFormTitle>
@@ -71,7 +71,7 @@ export const LoginForm = () => {
           </AuthInputGroup>
 
           <AuthFormButtonGroup>
-            <AuthFormButton>Login</AuthFormButton>
+            <AuthFormButton disabled={!valid}>Login</AuthFormButton>
             <AuthFormLink href="/register">Register</AuthFormLink>
           </AuthFormButtonGroup>
         </AuthForm>
