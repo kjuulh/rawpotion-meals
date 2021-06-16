@@ -1,15 +1,13 @@
 import CreateInvitation from "./createInvitation";
 import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { Invitation, selectInvitationForGroup } from "./invitationsSlice";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { getInvitationsForGroupAsync } from "./getInvitationsForGroupAsync";
 import { Card } from "@components/common/card/card";
 import { OutlinedButton } from "@components/common/buttons/outlinedButton";
-import React from "react";
 
-function calculateInvitationUrl(invitation: Invitation) {
-  return `${window.location.hostname}/groups/${invitation.groupId}/invitations/${invitation.id}`;
-}
+const calculateInvitationUrl = (invitation: Invitation) =>
+  `${window.location.origin}/groups/${invitation.groupId}/invitations/${invitation.id}`;
 
 function InvitationItem(props: { invitation: Invitation }) {
   return (
