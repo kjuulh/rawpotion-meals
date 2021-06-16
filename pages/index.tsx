@@ -8,7 +8,7 @@ const HomePage = () => {
       <h1
         className="text-yellow-400 text-4xl uppercase font-bold"
         onClick={() => {
-          throw new Error("Lets get an error");
+          throw new Error("Lets get an error!");
         }}
       >
         Rawpotion
