@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Meal } from "./meal";
+import { getDateFromTimestamp, Meal } from "./meal";
 
 export const MealItem = ({
   meal: { groupId, id, recipe, date },
@@ -15,7 +15,9 @@ export const MealItem = ({
         onClick={() => router.push(`/groups/${groupId}/meals/${id}`)}
       >
         <p className="flex-1">{recipe}</p>
-        <p className="text-sm">{date}</p>
+        <p className="text-sm">
+          {getDateFromTimestamp(date).toDate().toDateString()}
+        </p>
       </div>
     </li>
   );

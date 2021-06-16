@@ -62,6 +62,9 @@ const CreateEventPage = () => {
     if (hasBeenCreated && meal) {
       router.push(`/groups/${groupId}/meals/${meal.id}`);
     }
+    return () => {
+      dispatch(resetCreateMeal());
+    };
   }, [hasBeenCreated, meal]);
 
   const onSubmit = (values: Record<string, any>) => {

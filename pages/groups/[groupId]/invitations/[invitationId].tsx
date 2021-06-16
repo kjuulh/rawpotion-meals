@@ -7,6 +7,44 @@ import { selectInvitation } from "@features/invitations/invitationsSlice";
 import { joinGroupAsync } from "@features/groups/joinGroupAsync";
 import { selectGroupById } from "@features/groups/groupsSlice";
 import { getGroupByIdAsync } from "@features/groups/getGroupByIdAsync";
+import { DashboardTitle } from "@components/common/typography/dashboardTitle";
+import { CardTitle } from "@components/common/card/cardTitle";
+import { Card } from "@components/common/card/card";
+import { OutlinedButton } from "@components/common/buttons/outlinedButton";
+import { selectUserById } from "@features/users/usersSlice";
+import { getUsersAsync } from "@features/users/getUsersAsync";
+import React from "react";
+
+function InvitationMember(props: { memberId: string }) {
+  const member = useAppSelector(selectUserById(props.memberId));
+  if (!member) {
+    return null;
+  }
+
+  return <>{member.name}</>;
+}
+
+function renderMembers(members: string[]) {
+  if (members.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="space-y-4">
+      <h5 className="text-lg">Members:</h5>
+      <ul className="space-y-4">
+        {members.map((m) => (
+          <React.Fragment key={m}>
+            <li>
+              <InvitationMember memberId={m} />
+            </li>
+            <hr />
+          </React.Fragment>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 const AcceptInvitationPage = () => {
   const router = useRouter();
@@ -25,6 +63,12 @@ const AcceptInvitationPage = () => {
       dispatch(getGroupByIdAsync(groupId));
     }
   }, [invitationId]);
+
+  useEffect(() => {
+    if (groupSelect?.members) {
+      dispatch(getUsersAsync(groupSelect.members));
+    }
+  }, [groupSelect?.members]);
 
   useEffect(() => {
     if (userId) {
@@ -67,15 +111,26 @@ const AcceptInvitationPage = () => {
     return <div>Loading...</div>;
   }
 
+  if (!groupSelect) {
+    return null;
+  }
+
   return (
-    <div>
-      <h1>Accept invitation page</h1>
+    <div className="py-8 px-10 space-y-8 md:max-w-[calc(80%+1rem)] lg:max-w-[calc(50%+1rem)] mx-auto">
+      <DashboardTitle>Accept invitation page</DashboardTitle>
 
-      <p>InvitationId: {invitationId}</p>
+      <Card>
+        <CardTitle>
+          Join {'"'}
+          {groupSelect.name}
+          {'" '}?
+        </CardTitle>
 
-      <button onClick={() => dispatch(joinGroupAsync(invitation))}>
-        Accept invitation
-      </button>
+        {renderMembers(groupSelect.members)}
+        <OutlinedButton onClick={() => dispatch(joinGroupAsync(invitation))}>
+          Accept invitation
+        </OutlinedButton>
+      </Card>
     </div>
   );
 };

@@ -43,7 +43,12 @@ const DashboardPage = () => {
         <OutlinedButton onClick={() => router.push(`/users/${user.userId}`)}>
           Profile
         </OutlinedButton>
-        <OutlinedButton onClick={() => dispatch(signOutAsync())}>
+        <OutlinedButton
+          onClick={() => {
+            dispatch(signOutAsync());
+            router.push("/");
+          }}
+        >
           Sign out
         </OutlinedButton>
         <PrimaryButton onClick={() => router.push("/group/create")}>

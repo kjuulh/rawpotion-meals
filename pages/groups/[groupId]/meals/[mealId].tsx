@@ -8,7 +8,7 @@ import { Comments } from "@features/comments/comments";
 import { toggleAttendingAsync } from "@features/meals/toggleAttendingAsync";
 import { getMealEventById } from "@features/meals/getMealEventById";
 import { MealRatingComponent } from "@features/mealRatings/mealRatingComponent";
-import { Meal } from "@features/meals/meal";
+import { getDateFromTimestamp, Meal } from "@features/meals/meal";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import DashboardLayout from "@components/layouts/dashboardLayout";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
@@ -76,7 +76,9 @@ const MealPage = () => {
         </CardTitle>
         <p>
           <span className="font-medium uppercase">Date:</span>{" "}
-          <span className="text-md">{mealEvent.date}</span>
+          <span className="text-md">
+            {getDateFromTimestamp(mealEvent.date).toDate().toDateString()}
+          </span>
         </p>
 
         <MealRatingComponent mealId={mealId as string} />

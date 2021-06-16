@@ -56,7 +56,6 @@ const EditorContainer = (props: { recipe?: Recipe }) => {
   useEffect(() => {
     if (data && editor?.save) {
       editor.save().then((d) => {
-        console.log(d);
         setOutput(JSON.stringify(d));
       });
     }

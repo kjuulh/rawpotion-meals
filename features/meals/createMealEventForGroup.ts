@@ -19,7 +19,7 @@ export const createMealEventForGroup = createAsyncThunk(
 
     await mealsRef.set({
       id: mealsRef.id,
-      date: params.date,
+      date: firebase.firestore.Timestamp.fromDate(new Date(params.date)),
       recipe: params.recipe,
       groupId: params.groupId,
       participating: [state.user.userId],

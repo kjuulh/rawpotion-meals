@@ -43,12 +43,12 @@ const GroupPage = () => {
     if (groupId && typeof groupId === "string") {
       dispatch(getGroupByIdAsync(groupId));
       dispatch(getCurrentGroupByIdAsync(groupId));
-      dispatch(getMealsByGroupIdAsync(groupId));
+      dispatch(getMealsByGroupIdAsync({ groupId, upcoming: true }));
     }
   }, [groupId]);
 
   if (loading) {
-    return <div></div>;
+    return <div>Loading...</div>;
   }
 
   if (!group) {
@@ -59,8 +59,10 @@ const GroupPage = () => {
     <div className="space-y-8">
       <DashboardTitle>{group.name}</DashboardTitle>
       <BreadCrumbs />
-      <Meals groupId={group.id} limit={5} order={"newest"} hide={"old"} />
-      <Members text="Members" members={group.members} />
+      <div className="md:grid md:grid-cols-2 md:gap-10">
+        <Meals groupId={group.id} limit={5} order={"newest"} hide={"old"} />
+        <Members text="Members" members={group.members} />
+      </div>
       <GoToAdmin
         userId={user.userId}
         group={group}

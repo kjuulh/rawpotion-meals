@@ -49,7 +49,6 @@ export const currentGroupSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getCurrentGroupByIdAsync.pending, (state, action) => {
       state.status = "loading";
-      state.state = "called";
     });
 
     builder.addCase(getCurrentGroupByIdAsync.fulfilled, (state, action) => {
@@ -73,7 +72,7 @@ export const selectGroup = (
   const { currentGroup } = state;
 
   return [
-    currentGroup.status === "loading" && currentGroup.state !== "not-called",
+    currentGroup.status === "loading" && currentGroup.state !== "called",
     currentGroup.group,
   ];
 };

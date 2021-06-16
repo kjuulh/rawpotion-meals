@@ -1,5 +1,6 @@
 import AdminArea from "../../../features/admin/adminArea";
 import { useRouter } from "next/router";
+import DashboardLayout from "@components/layouts/dashboardLayout";
 
 const AdminPage = () => {
   const router = useRouter();
@@ -11,5 +12,7 @@ const AdminPage = () => {
 
   return <AdminArea groupId={groupId} />;
 };
+
+AdminPage.Layout = DashboardLayout;
 
 export default AdminPage;

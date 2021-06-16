@@ -18,8 +18,12 @@ const initialState: UserState = {
 
 export const signOutAsync = createAsyncThunk(
   "user/sign-out",
-  async (): Promise<UserState> => {
+  async (_, thunkAPI): Promise<UserState> => {
     await firebase.auth().signOut();
+
+    thunkAPI.dispatch({
+      type: "reset",
+    });
 
     return {
       userId: undefined,

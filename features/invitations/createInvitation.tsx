@@ -1,14 +1,17 @@
 import { useAppDispatch } from "@lib/redux/hooks";
 import { createInvitationAsync } from "./createInvitationAsync";
+import { PrimaryButton } from "@components/common/buttons/primaryButton";
 
 const CreateInvitation = (props: { groupId: string }) => {
   const dispatch = useAppDispatch();
 
   return (
     <div>
-      <button onClick={() => dispatch(createInvitationAsync(props.groupId))}>
+      <PrimaryButton
+        onClick={() => dispatch(createInvitationAsync(props.groupId))}
+      >
         Create invitation
-      </button>
+      </PrimaryButton>
     </div>
   );
 };
