@@ -1,11 +1,9 @@
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
+const withPWA = require("next-pwa");
+const runtimeCaching = require("next-pwa/cache");
 
-const path = require("path");
-
-module.exports = withBundleAnalyzer({
-  sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+    runtimeCaching,
   },
 });
