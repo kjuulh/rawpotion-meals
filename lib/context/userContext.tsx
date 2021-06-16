@@ -1,9 +1,9 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useEffect, createContext, useContext } from "react";
 import firebase from "../firebase/clientApp";
 import { useAppDispatch } from "../redux/hooks";
 import { userIsAlreadySignedIn } from "@features/user/userSlice";
 
-export const UserContext = createContext<{}>({});
+export const UserContext = createContext<any>({});
 
 export default function UserContextComp({ children }) {
   const dispatch = useAppDispatch();
@@ -19,7 +19,6 @@ export default function UserContextComp({ children }) {
         }
       } catch (error) {
         // Most probably a connection error. Handle appropriately.
-      } finally {
       }
     });
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AnyObject, Form } from "react-final-form";
+import { Form } from "react-final-form";
 import { selectUser } from "@features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
@@ -13,16 +13,6 @@ import AuthFormInput from "@features/auth/authFormInput";
 import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
 import { AuthFormButton } from "@features/auth/authFormButton";
 import { AuthFormLink } from "@features/auth/authFormLink";
-
-const composeValidators =
-  (...validators) =>
-  (value) =>
-    validators.reduce(
-      (error, validator) => error || validator(value),
-      undefined
-    );
-
-const required = (value) => (value ? undefined : "Required");
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -47,10 +37,6 @@ const RegisterPage = () => {
     );
 
     setSubmitTriggered(true);
-  };
-
-  const validateForm = (values: Record<string, any>): AnyObject => {
-    return;
   };
 
   return (
