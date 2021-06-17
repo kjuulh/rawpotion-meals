@@ -1,4 +1,9 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  Middleware,
+} from "@reduxjs/toolkit";
 
 import user from "@features/user/userSlice";
 import groups from "@features/groups/groupsSlice";
@@ -10,6 +15,7 @@ import invitations from "@features/invitations/invitationsSlice";
 import requests from "@features/requests/requestsSlice";
 import mealRatings from "@features/mealRatings/mealRatingsSlice";
 import recipes from "@features/recipes/recipesSlice";
+import LogRocket from "logrocket";
 
 export function makeStore() {
   return configureStore({
@@ -25,6 +31,12 @@ export function makeStore() {
       mealRatings,
       recipes,
     },
+    middleware: (getDefaultMiddleware) =>
+      process.env.NODE_ENV === "production"
+        ? getDefaultMiddleware().concat(
+            LogRocket.reduxMiddleware() as Middleware
+          )
+        : getDefaultMiddleware(),
   });
 }
 
