@@ -18,6 +18,7 @@ const SentryWebpackPluginOptions = {
   //   urlPrefix, include, ignore
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
+  silent: false,
 };
 
 // Make sure adding Sentry options is the last code to run before exporting, to

@@ -8,7 +8,7 @@ import "styles/globals.css";
 
 const Noop: FC = ({ children }) => <>{children}</>;
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps, err }) {
   const Layout = (Component as any).Layout || Noop;
 
   return (
@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }) {
       <Provider store={store}>
         <UserProvider>
           <Layout>
-            <Component {...pageProps} />
+            <Component {...pageProps} err={err} />
           </Layout>
         </UserProvider>
       </Provider>
