@@ -11,7 +11,7 @@ export const AuthFormButton: FC<AuthFormButtonProps> = (props) => {
       tabIndex={1}
       type="submit"
       className={classNames(
-        "max-w-max px-24 py-3 bg-yellow-500 text-white rounded-full uppercase text-lg font-bold outline-none focus:outline-none active:outline-none highlight-none hover:bg-yellow-700 focus:bg-yellow-700",
+        "authFormButton max-w-max px-24 py-3 bg-yellow-500 text-white rounded-full uppercase text-lg font-bold outline-none focus:outline-none active:outline-none highlight-none hover:bg-yellow-700 focus:bg-yellow-700",
         { "animate-pulse": pressed }
       )}
       disabled={props.disabled}
