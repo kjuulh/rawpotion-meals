@@ -78,7 +78,10 @@ export const userSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(signOutAsync.fulfilled, (state, action) => {
-      state = action.payload;
+      state.status = "idle";
+      state.state = "unknown";
+      state.email = "";
+      state.userId = "";
     });
   },
 });

@@ -1,7 +1,18 @@
 import { useRouter } from "next/router";
+import { useAppSelector } from "@lib/redux/hooks";
+import { selectUser } from "@features/user/userSlice";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const router = useRouter();
+
+  const user = useAppSelector(selectUser);
+
+  useEffect(() => {
+    if (user.state === "logged-in") {
+      router.push("/dashboard");
+    }
+  }, [user]);
 
   return (
     <div className="text- min-h-screen flex flex-col text-center py-20 space-y-10 justify-center items-center">

@@ -46,7 +46,7 @@ const DashboardPage = () => {
         <OutlinedButton
           onClick={() => {
             dispatch(signOutAsync());
-            router.push("/");
+            window.location.href = "/";
           }}
         >
           Sign out
