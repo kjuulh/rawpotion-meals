@@ -15,10 +15,9 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
 };
 
 MyError.getInitialProps = async ({ res, err, asPath }) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const errorInitialProps = await NextErrorComponent.getInitialProps({
-    AppTree: undefined,
-    pathname: "",
-    query: undefined,
     res,
     err,
   });
