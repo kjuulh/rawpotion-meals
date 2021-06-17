@@ -72,7 +72,7 @@ const EditorContainer = (props: { recipe?: Recipe }) => {
 
       <button
         disabled={!output}
-        onClick={() =>
+        onClick={() => {
           dispatch(
             setRecipeForUserAsync({
               id: props.recipe?.id,
@@ -80,8 +80,8 @@ const EditorContainer = (props: { recipe?: Recipe }) => {
               name: "some-recipe",
               description: "some-description",
             })
-          )
-        }
+          );
+        }}
       >
         Save
       </button>

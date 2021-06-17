@@ -6,6 +6,7 @@ import { FC } from "react";
 
 import "styles/globals.css";
 import Head from "next/head";
+import Monitoring from "@lib/monitoring";
 
 const Noop: FC = ({ children }) => <>{children}</>;
 
@@ -48,7 +49,6 @@ export default function App({ Component, pageProps, err }) {
             height: -webkit-fill-available;
             box-sizing: border-box;
           }
-          }
 
           body {
             min-height: 100vh;
@@ -71,13 +71,15 @@ export default function App({ Component, pageProps, err }) {
         `}
       </style>
 
-      <Provider store={store}>
-        <UserProvider>
-          <Layout>
-            <Component {...pageProps} err={err} />
-          </Layout>
-        </UserProvider>
-      </Provider>
+      <Monitoring>
+        <Provider store={store}>
+          <UserProvider>
+            <Layout>
+              <Component {...pageProps} err={err} />
+            </Layout>
+          </UserProvider>
+        </Provider>
+      </Monitoring>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 
 const EditorContainer = dynamic(
-  () => import("../../../../components/editor/editorContainer"),
+  () => import("@components/editor/editorContainer"),
   { ssr: false, loading: () => <div>Loading...</div> }
 );
 
