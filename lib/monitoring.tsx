@@ -1,6 +1,7 @@
 import { FC, useEffect } from "react";
 import LogRocket from "logrocket";
 import setupLogRocketReact from "logrocket-react";
+import * as Sentry from "@sentry/nextjs";
 
 const Monitoring: FC = (props) => {
   useEffect(() => {
@@ -11,6 +12,12 @@ const Monitoring: FC = (props) => {
       LogRocket.init("pqcelz/mealplanner");
       // plugins should also only be initialized when in the browser
       setupLogRocketReact(LogRocket);
+
+      LogRocket.getSessionURL((sessionURL) => {
+        Sentry.configureScope((scope) => {
+          scope.setExtra("sessionURL", sessionURL);
+        });
+      });
     }
   }, []);
   return <>{props.children}</>;
