@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import * as Sentry from "@sentry/nextjs";
 
 const HomePage = () => {
   const router = useRouter();
