@@ -3,6 +3,7 @@ import { AppState } from "@lib/redux/store";
 import firebase from "firebase";
 import { mealRatingConverter } from "./mealRatingConverter";
 import { MealRating } from "./mealRating";
+import { getRatingsForMeal } from "@features/mealRatings/getRatingsForMeal";
 
 export const setRatingForMealAsync = createAsyncThunk(
   "mealRatings/setForMeal",
@@ -28,6 +29,10 @@ export const setRatingForMealAsync = createAsyncThunk(
     };
 
     await ratingDoc.set(rating);
+
+    setTimeout(() => {
+      thunkAPI.dispatch(getRatingsForMeal(params.mealId));
+    }, 3000);
 
     return rating;
   }
