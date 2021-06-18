@@ -4,6 +4,8 @@ import { getCommentsForMealAsync } from "./getCommentsForMealAsync";
 import { selectCommentsForMeal } from "./commentsSlice";
 import { AddComment } from "./addComment";
 import { CommentItem } from "./commentItem";
+import { Card } from "@components/common/card/card";
+import { CardTitle } from "@components/common/card/cardTitle";
 
 export const Comments = (props: { mealId: string }) => {
   const dispatch = useAppDispatch();
@@ -14,30 +16,33 @@ export const Comments = (props: { mealId: string }) => {
     dispatch(getCommentsForMealAsync(props.mealId));
   }, [props.mealId]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <ul>
-          {comments.length === 0 ? (
-            <li>
-              <p>No comments yet...</p>
-            </li>
-          ) : (
-            comments.map((c) => (
-              <li key={c.id}>
+    <Card>
+      <CardTitle>Comments</CardTitle>
+      <ul className="space-y-6">
+        {comments.length === 0 ? (
+          <li>
+            <p>No comments yet...</p>
+          </li>
+        ) : (
+          comments.map((c) => (
+            <React.Fragment key={c.id}>
+              <li>
                 <CommentItem comment={c} />
               </li>
-            ))
-          )}
-        </ul>
-      )}
+            </React.Fragment>
+          ))
+        )}
+      </ul>
 
       <div>
         <AddComment mealId={props.mealId} />
       </div>
-    </div>
+    </Card>
   );
 };
 
