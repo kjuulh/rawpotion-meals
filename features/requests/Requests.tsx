@@ -1,15 +1,20 @@
-import { useAppSelector } from "@lib/redux/hooks";
-import { selectRequestsForGroup } from "./requestsSlice";
-import React from "react";
+import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
+import { getRequestsForGroup, selectRequestsForGroup } from "./requestsSlice";
+import React, { useEffect } from "react";
 import { AddRequest } from "./AddRequest";
 import { RequestItem } from "./RequestItem";
 import { CardTitle } from "@components/common/card/cardTitle";
 import { Card } from "@components/common/card/card";
 
 const Requests = (props: { groupId: string }) => {
+  const dispatch = useAppDispatch();
   const [loading, requests] = useAppSelector(
     selectRequestsForGroup(props.groupId)
   );
+
+  useEffect(() => {
+    dispatch(getRequestsForGroup(props.groupId));
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
