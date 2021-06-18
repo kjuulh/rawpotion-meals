@@ -22,7 +22,7 @@ const Member = (props: { member: string }) => {
         })
       }
     >
-      {user.email}
+      {user.name}
     </button>
   );
 };
