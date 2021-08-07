@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: backend/Rawpotion.Meals
+      dockerfile: Rawpotion.Meals.Api/Dockerfile
+    ports:
+      - 8080:80
+      - 8443:443
+  frontend:
+    build:
+      context: frontend/
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000

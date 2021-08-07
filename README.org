@@ -1,0 +1,15 @@
+#+TITLE: Readme
+
+* Primary
+** DONE Create backend project
+** DONE Startup frontend project
+** DONE Setup dockerfile
+** DONE Setup api generation
+** DONE Get frontend to run locally
+** TODO Append login
+*** TODO Setup error handling for user registration
+*** TODO Create a simple JWT scheme
+*** TODO Setup database
+
+* Icebox
+** TODO Cleanup old
