@@ -12,7 +12,7 @@ export const loginAsync = createAsyncThunk<
   UserState,
   LoginInput,
   { dispatch: AppDispatch }
->("user/login", async (input, thunkAPI) => {
+>("user/login", async (input) => {
   await firebase.auth().setPersistence("local");
 
   const userCredential = await firebase

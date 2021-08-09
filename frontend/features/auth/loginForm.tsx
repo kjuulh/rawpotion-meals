@@ -13,6 +13,8 @@ import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
 import { AuthFormButton } from "@features/auth/authFormButton";
 import { AuthFormLink } from "@features/auth/authFormLink";
 import AuthFormInput from "@features/auth/authFormInput";
+import { useIfFirebase } from "@lib/firebase";
+import { useAuthenticateUserMutation } from "@lib/api";
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +24,11 @@ export const LoginForm = () => {
   const user = useAppSelector(selectUser);
 
   const [submitTriggered, setSubmitTriggered] = useState(false);
+
+  const [
+    authenticateUser,
+    { isLoading: isUpdating, data, isError, error, isSuccess },
+  ] = useAuthenticateUserMutation();
 
   useEffect(() => {
     if (user?.userId && submitTriggered) {
@@ -35,15 +42,31 @@ export const LoginForm = () => {
 
   const onSubmit = (values: Record<string, any>) => {
     dispatch(resetUser);
-    dispatch(
-      loginAsync({
-        email: values["email"],
-        password: values["password"],
-      })
-    );
 
+    useIfFirebase(
+      () => {
+        dispatch(
+          loginAsync({
+            email: values["email"],
+            password: values["password"],
+          })
+        );
+      },
+      () => {
+        authenticateUser({
+          authenticateUserRequest: {
+            email: values["email"],
+            password: values["password"],
+          },
+        });
+      }
+    );
     setSubmitTriggered(true);
   };
+
+  if (isSuccess) {
+    router.push("/dashboard");
+  }
 
   return (
     <Form
@@ -54,6 +77,10 @@ export const LoginForm = () => {
             <AuthFormTitle>Login</AuthFormTitle>
             <AuthFormCancelButton onClick={() => router.push("/")} />
           </AuthHeading>
+
+          <div>
+            {isError && <>Your credentials were incorrect please try again</>}
+          </div>
 
           <AuthInputGroup>
             <AuthFormInput
@@ -71,7 +98,9 @@ export const LoginForm = () => {
           </AuthInputGroup>
 
           <AuthFormButtonGroup>
-            <AuthFormButton disabled={!valid}>Login</AuthFormButton>
+            <AuthFormButton loading={isUpdating} disabled={!valid}>
+              Login
+            </AuthFormButton>
             <AuthFormLink href="/register">Register</AuthFormLink>
           </AuthFormButtonGroup>
         </AuthForm>

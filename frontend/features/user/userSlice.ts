@@ -3,12 +3,15 @@ import firebase from "firebase/app";
 import { AppState } from "@lib/redux/store";
 import { loginAsync } from "./loginAsync";
 import { registerAsync } from "./registerAsync";
+import { authenticateUser } from "@lib/api";
+import { AuthenticationResponse } from "@lib/api/rawpotion-mealplanner-api.generated";
 
 export interface UserState {
   state: "not-logged-in" | "logged-in" | "unknown";
   status: "idle" | "loading" | "failed";
-  userId?: string;
+  userId?: string | number;
   email?: string;
+  accessToken?: string;
 }
 
 const initialState: UserState = {
@@ -53,6 +56,13 @@ export const userSlice = createSlice({
       state.userId = undefined;
       state.email = undefined;
     },
+    userIsSignedIn: (state, action: PayloadAction<AuthenticationResponse>) => {
+      state.status = "idle";
+      state.state = "logged-in";
+      state.userId = action.payload.id;
+      state.email = action.payload.email;
+      state.accessToken = action.payload.accessToken;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(registerAsync.pending, (state) => {
@@ -67,7 +77,6 @@ export const userSlice = createSlice({
     builder.addCase(loginAsync.pending, (state) => {
       state.status = "loading";
     });
-    builder.addCase(loginAsync.rejected, (state, action) => {});
     builder.addCase(loginAsync.fulfilled, (state, action) => {
       state.userId = action.payload.userId;
       state.email = action.payload.email;
@@ -78,16 +87,27 @@ export const userSlice = createSlice({
     builder.addCase(signOutAsync.pending, (state) => {
       state.status = "loading";
     });
-    builder.addCase(signOutAsync.fulfilled, (state, action) => {
+    builder.addCase(signOutAsync.fulfilled, (state) => {
       state.status = "idle";
       state.state = "unknown";
       state.email = "";
       state.userId = "";
     });
+
+    builder.addMatcher(authenticateUser.matchFulfilled, (state, action) => {
+      if (action.payload.accessToken) {
+        state.status = "idle";
+        state.state = "logged-in";
+        state.userId = action.payload.userId;
+        state.email = action.payload.email;
+        state.accessToken = action.payload.accessToken;
+      }
+    });
   },
 });
 
-export const { userIsAlreadySignedIn, resetUser } = userSlice.actions;
+export const { userIsAlreadySignedIn, resetUser, userIsSignedIn } =
+  userSlice.actions;
 
 export const selectUser = (state: AppState) => state.user;
 

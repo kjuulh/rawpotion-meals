@@ -9,11 +9,14 @@ import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import { OutlinedButton } from "@components/common/buttons/outlinedButton";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
+import { useIfFirebase } from "@lib/firebase";
+import { useGetWeatherForecastQuery } from "@lib/api";
 
 const DashboardPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const { refetch } = useGetWeatherForecastQuery(false, {});
 
   useEffect(() => {
     if (user?.state === "not-logged-in") {
@@ -21,7 +24,15 @@ const DashboardPage = () => {
       return;
     }
 
-    dispatch(getGroupsForMemberAsync(user.userId));
+    useIfFirebase(
+      () => {
+        dispatch(getGroupsForMemberAsync(user.userId as string));
+      },
+      () => {
+        refetch();
+        //useGetGroupsForUser(user.userId);
+      }
+    );
   }, [user]);
 
   if (!user?.userId) {

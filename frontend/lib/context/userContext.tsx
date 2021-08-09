@@ -1,4 +1,4 @@
-import { useEffect, createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import firebase from "../firebase/clientApp";
 import { useAppDispatch } from "../redux/hooks";
 import { userIsAlreadySignedIn } from "@features/user/userSlice";
@@ -11,6 +11,9 @@ export default function UserContextComp({ children }) {
 
   useEffect(() => {
     // Listen authenticated user
+    if (process.env.NEXT_PUBLIC_USE_FIREBASE !== "true") {
+      return;
+    }
     const unsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
       try {
         if (user) {

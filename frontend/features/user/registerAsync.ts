@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import firebase from "firebase";
 import { UserState } from "./userSlice";
 import { userConverter } from "../users/userConverter";
+import { AppDispatch } from "@lib/redux/store";
 
 export interface RegisterInput {
   name: string;
@@ -9,22 +10,23 @@ export interface RegisterInput {
   password: string;
 }
 
-export const registerAsync = createAsyncThunk(
-  "user/register",
-  async (input: RegisterInput): Promise<UserState> => {
-    const userCreationResponse = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(input.email, input.password);
+export const registerAsync = createAsyncThunk<
+  UserState,
+  RegisterInput,
+  { dispatch: AppDispatch }
+>("user/register", async (input: RegisterInput): Promise<UserState> => {
+  const userCreationResponse = await firebase
+    .auth()
+    .createUserWithEmailAndPassword(input.email, input.password);
 
-    const { uid, email } = userCreationResponse.user;
+  const { uid, email } = userCreationResponse.user;
 
-    await firebase
-      .firestore()
-      .collection("users")
-      .doc(uid)
-      .withConverter(userConverter)
-      .set({ name: input.name, id: uid, email: email });
+  await firebase
+    .firestore()
+    .collection("users")
+    .doc(uid)
+    .withConverter(userConverter)
+    .set({ name: input.name, id: uid, email: email });
 
-    return { userId: uid, email, status: "idle", state: "logged-in" };
-  }
-);
+  return { userId: uid, email, status: "idle", state: "logged-in" };
+});

@@ -3,11 +3,24 @@ version: "3"
 services:
   backend:
     build:
-      context: backend/Rawpotion.Meals
-      dockerfile: Rawpotion.Meals.Api/Dockerfile
+      context: backend/RawPotion.Meals
+      dockerfile: RawPotion.Meals.Api/Dockerfile
     ports:
       - 8080:80
       - 8443:443
+    depends_on:
+      - database
+
+  database:
+    build:
+      context: database/postgres
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_PASSWORD: somethingsecret_123
+      RAWPOTION_MEALS_POSTGRES_USER_PASSWORD: somethingverysecret_123
+    ports:
+      - 5432:5432
+
   frontend:
     build:
       context: frontend/

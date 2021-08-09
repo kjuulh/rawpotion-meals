@@ -15,7 +15,7 @@ const clientCredentials = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-if (!firebase.apps.length) {
+if (!firebase.apps.length && process.env.NEXT_PUBLIC_USE_FIREBASE === "true") {
   firebase.initializeApp(clientCredentials);
   // Check that `window` is in scope for the analytics module!
   if (typeof window !== "undefined") {

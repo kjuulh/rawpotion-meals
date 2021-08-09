@@ -13,11 +13,15 @@ import AuthFormInput from "@features/auth/authFormInput";
 import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
 import { AuthFormButton } from "@features/auth/authFormButton";
 import { AuthFormLink } from "@features/auth/authFormLink";
+import { useIfFirebase } from "@lib/firebase";
+import { useRegisterUserAccountMutation } from "@lib/api";
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const user = useAppSelector(selectUser);
+  const [registerUserAccount, { isLoading: isUpdating, error, isError }] =
+    useRegisterUserAccountMutation();
 
   const [submitTriggered, setSubmitTriggered] = useState(false);
 
@@ -28,16 +32,33 @@ const RegisterPage = () => {
   }, [user]);
 
   const onSubmit = (values: Record<string, any>) => {
-    dispatch(
-      registerAsync({
-        name: values["name"],
-        email: values["email"],
-        password: values["password"],
-      })
+    useIfFirebase(
+      () => {
+        dispatch(
+          registerAsync({
+            name: values["name"],
+            email: values["email"],
+            password: values["password"],
+          })
+        );
+      },
+      () => {
+        registerUserAccount({
+          registerUserRequest: {
+            username: values["name"],
+            email: values["email"],
+            password: values["password"],
+          },
+        });
+      }
     );
 
     setSubmitTriggered(true);
   };
+
+  if (isError) {
+    return <p>{JSON.stringify(error)}</p>;
+  }
 
   return (
     <Form
@@ -71,7 +92,7 @@ const RegisterPage = () => {
           </AuthInputGroup>
 
           <AuthFormButtonGroup>
-            <AuthFormButton>Register</AuthFormButton>
+            <AuthFormButton loading={isUpdating}>Register</AuthFormButton>
             <AuthFormLink href="/login">Login</AuthFormLink>
           </AuthFormButtonGroup>
         </AuthForm>

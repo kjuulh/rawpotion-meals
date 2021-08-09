@@ -6,10 +6,15 @@
 ** DONE Setup dockerfile
 ** DONE Setup api generation
 ** DONE Get frontend to run locally
+** DONE Setup database
+*** DONE Add postgres to docker
+*** DONE Add postgres to backend
+*** DONE Create configurations for dbcontext
+*** DONE Run migrations on startup
 ** TODO Append login
 *** TODO Setup error handling for user registration
-*** TODO Create a simple JWT scheme
-*** TODO Setup database
+*** DONE Create a simple JWT scheme
+*** DONE Setup database
 
 * Icebox
 ** TODO Cleanup old
