@@ -1,13 +1,20 @@
-﻿using System;
-
-namespace RawPotion.Meals.Common
+﻿namespace RawPotion.Meals.Common
 {
     public static class PasswordHashing
     {
-        public static string Hash(string clearText) =>
-            BCrypt.Net.BCrypt.EnhancedHashPassword(clearText);
+        public static string Hash(
+            string clearText)
+        {
+            return BCrypt.Net.BCrypt.EnhancedHashPassword(clearText);
+        }
 
-        public static bool Verify(string passwordHash, string clearText) =>
-            BCrypt.Net.BCrypt.EnhancedVerify(clearText, passwordHash);
+        public static bool Verify(
+            string passwordHash,
+            string clearText)
+        {
+            return BCrypt.Net.BCrypt.EnhancedVerify(
+                clearText,
+                passwordHash);
+        }
     }
 }

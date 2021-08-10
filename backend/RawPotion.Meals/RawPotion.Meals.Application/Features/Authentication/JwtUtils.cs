@@ -13,36 +13,51 @@ namespace RawPotion.Meals.Application.Features.Authentication
 {
     public interface IJwtUtils
     {
-        Task<string> GenerateTokenFor(User user);
-        Task<int?> Validate(string? token);
-        Task<RefreshToken> GenerateRefreshTokenFor(string ipAddress);
+        Task<string> GenerateTokenFor(
+            User user);
+
+        Task<int?> Validate(
+            string? token);
+
+        Task<RefreshToken> GenerateRefreshTokenFor(
+            string ipAddress);
     }
 
     public class JwtUtils : IJwtUtils
     {
         private readonly IOptions<JwtOptions> _options;
 
-        public JwtUtils(IOptions<JwtOptions> options)
+        public JwtUtils(
+            IOptions<JwtOptions> options)
         {
             _options = options;
         }
 
-        public Task<string> GenerateTokenFor(User user)
+        public Task<string> GenerateTokenFor(
+            User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_options.Value.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] {new Claim("sub", user.Id.ToString())}),
+                Subject = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(
+                            "sub",
+                            user.Id.ToString())
+                    }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha384Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return Task.FromResult(tokenHandler.WriteToken(token));
         }
 
-        public Task<int?> Validate(string? token)
+        public Task<int?> Validate(
+            string? token)
         {
             if (token is null)
                 return Task.FromResult<int?>(null);
@@ -51,19 +66,25 @@ namespace RawPotion.Meals.Application.Features.Authentication
             var key = Encoding.ASCII.GetBytes(_options.Value.Secret);
             try
             {
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
+                tokenHandler.ValidateToken(
+                    token,
+                    new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero
+                    },
+                    out SecurityToken validatedToken);
 
                 var jwtToken = validatedToken as JwtSecurityToken;
                 if (jwtToken is null)
                     return Task.FromResult<int?>(null);
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                var userId = int.Parse(
+                    jwtToken.Claims.First(x => x.Type == "id")
+                        .Value);
 
                 return Task.FromResult<int?>(userId);
             }
@@ -73,9 +94,11 @@ namespace RawPotion.Meals.Application.Features.Authentication
             }
         }
 
-        public Task<RefreshToken> GenerateRefreshTokenFor(string ipAddress)
+        public Task<RefreshToken> GenerateRefreshTokenFor(
+            string ipAddress)
         {
-            using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            using var rngCryptoServiceProvider =
+                new RNGCryptoServiceProvider();
             var randomBytes = new byte[64];
             rngCryptoServiceProvider.GetBytes(randomBytes);
             var refreshToken = new RefreshToken
@@ -83,7 +106,7 @@ namespace RawPotion.Meals.Application.Features.Authentication
                 Token = Convert.ToBase64String(randomBytes),
                 Expires = DateTime.UtcNow.AddMonths(3),
                 Created = DateTime.UtcNow,
-                CreatedByIp = ipAddress,
+                CreatedByIp = ipAddress
             };
 
             return Task.FromResult(refreshToken);

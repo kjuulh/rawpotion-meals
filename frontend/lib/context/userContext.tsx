@@ -3,11 +3,13 @@ import firebase from "../firebase/clientApp";
 import { useAppDispatch } from "../redux/hooks";
 import { userIsAlreadySignedIn } from "@features/user/userSlice";
 import LogRocket from "logrocket";
+import { useGetWeatherForecastQuery } from "@lib/api";
 
 export const UserContext = createContext<any>({});
 
 export default function UserContextComp({ children }) {
   const dispatch = useAppDispatch();
+  useGetWeatherForecastQuery({});
 
   useEffect(() => {
     // Listen authenticated user

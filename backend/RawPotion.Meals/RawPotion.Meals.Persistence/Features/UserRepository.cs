@@ -14,32 +14,41 @@ namespace RawPotion.Meals.Persistence.Features
         private readonly IApplicationDbContext _context;
         private readonly ILogger<UserRepository> _logger;
 
-        public UserRepository(IApplicationDbContext context, ILogger<UserRepository> logger)
+        public UserRepository(
+            IApplicationDbContext context,
+            ILogger<UserRepository> logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        public async Task<User> RegisterAsync(string username, string userEmail, string password)
+        public async Task<User> RegisterAsync(
+            string username,
+            string userEmail,
+            string password)
         {
-            var user = _context.User.Add(new User()
-            {
-                Email = userEmail,
-                Password = PasswordHashing.Hash(password),
-                Username = username
-            });
+            var user = _context.User.Add(
+                new User
+                {
+                    Email = userEmail,
+                    Password = PasswordHashing.Hash(password),
+                    Username = username
+                });
 
             await _context.SaveChangesAsync();
 
             return user.Entity;
         }
 
-        public async Task<bool> UpdateAsync(User user)
+        public async Task<bool> UpdateAsync(
+            User user)
         {
-            var userToBeUpdated = await _context.User.FindAsync(user.Id);
+            var userToBeUpdated =
+                await _context.User.FindAsync(user.Id);
 
             if (userToBeUpdated is null)
-                throw new InvalidOperationException("User was not found");
+                throw new InvalidOperationException(
+                    "User was not found");
 
             userToBeUpdated.Email = user.Email;
             userToBeUpdated.Password = user.Password;
@@ -58,12 +67,14 @@ namespace RawPotion.Meals.Persistence.Features
             return true;
         }
 
-        public async Task<bool> DeleteById(int id)
+        public async Task<bool> DeleteById(
+            int id)
         {
             var user = await _context.User.FindAsync(id);
 
             if (user is null)
-                throw new InvalidOperationException("User was not found");
+                throw new InvalidOperationException(
+                    "User was not found");
 
             _context.User.Remove(user);
 
@@ -80,13 +91,22 @@ namespace RawPotion.Meals.Persistence.Features
             return true;
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email) =>
-            await _context.User.SingleOrDefaultAsync(u => u.Email == email);
+        public async Task<User?> GetUserByEmailAsync(
+            string email)
+        {
+            return await _context.User.SingleOrDefaultAsync(
+                u => u.Email == email);
+        }
 
-        public async Task<User?> GetUserByRefreshToken(string token) =>
-            await _context.User.SingleOrDefaultAsync(u => u.RefreshTokens.Any(t => t.Token == token));
+        public async Task<User?> GetUserByRefreshToken(
+            string token)
+        {
+            return await _context.User.SingleOrDefaultAsync(
+                u => u.RefreshTokens.Any(t => t.Token == token));
+        }
 
-        public Task RemoveInactiveRefreshTokens(User user)
+        public Task RemoveInactiveRefreshTokens(
+            User user)
         {
             return Task.CompletedTask;
         }

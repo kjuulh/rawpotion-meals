@@ -7,6 +7,7 @@ namespace RawPotion.Meals.Domain.Entities
     {
         [JsonIgnore]
         public int Id { get; set; }
+
         public string Token { get; set; }
         public DateTime Expires { get; set; }
         public DateTime Created { get; set; }

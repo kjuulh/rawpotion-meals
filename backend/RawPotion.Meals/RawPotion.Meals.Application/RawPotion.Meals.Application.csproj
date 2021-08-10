@@ -5,29 +5,28 @@
         <RootNamespace>RawPotion.Meals.Application</RootNamespace>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\RawPotion.Meals.Common\RawPotion.Meals.Common.csproj" />
-      <ProjectReference Include="..\RawPotion.Meals.Domain\RawPotion.Meals.Domain.csproj" />
+        <ProjectReference Include="..\RawPotion.Meals.Common\RawPotion.Meals.Common.csproj" />
+        <ProjectReference Include="..\RawPotion.Meals.Domain\RawPotion.Meals.Domain.csproj" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <Reference Include="Microsoft.EntityFrameworkCore, Version=5.0.8.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-        <HintPath>..\..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\5.0.8\lib\netstandard2.1\Microsoft.EntityFrameworkCore.dll</HintPath>
-      </Reference>
+        <Reference Include="Microsoft.EntityFrameworkCore, Version=5.0.8.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+            <HintPath>..\..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\5.0.8\lib\netstandard2.1\Microsoft.EntityFrameworkCore.dll</HintPath>
+        </Reference>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <Folder Include="Features\Authentication\Models" />
-      <Folder Include="Interfaces\Authentication" />
+        <Folder Include="Features\Authentication\Models" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.0" />
     </ItemGroup>
 
 </Project>

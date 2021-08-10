@@ -20,6 +20,13 @@ export const api = createApi({
     >({
       query: () => ({ url: `/api/authentication/refresh-token` }),
     }),
+    createGroup: build.mutation<CreateGroupApiResponse, CreateGroupApiArg>({
+      query: (queryArg) => ({
+        url: `/api/groups`,
+        method: "POST",
+        body: queryArg.createGroupRequest,
+      }),
+    }),
     registerUserAccount: build.mutation<
       RegisterUserAccountApiResponse,
       RegisterUserAccountApiArg
@@ -29,6 +36,12 @@ export const api = createApi({
         method: "POST",
         body: queryArg.registerUserRequest,
       }),
+    }),
+    getGroupsForUser: build.query<
+      GetGroupsForUserApiResponse,
+      GetGroupsForUserApiArg
+    >({
+      query: (queryArg) => ({ url: `/api/user/${queryArg.userId}/groups` }),
     }),
     getWeatherForecast: build.query<
       GetWeatherForecastApiResponse,
@@ -46,10 +59,18 @@ export type AuthenticateUserApiArg = {
 export type RefreshUserTokenApiResponse =
   /** status 200 Success */ AuthenticationResponse;
 export type RefreshUserTokenApiArg = {};
+export type CreateGroupApiResponse = /** status 200 Success */ GroupDto;
+export type CreateGroupApiArg = {
+  createGroupRequest: CreateGroupRequest;
+};
 export type RegisterUserAccountApiResponse =
   /** status 200 Success */ RegisterUserResponse;
 export type RegisterUserAccountApiArg = {
   registerUserRequest: RegisterUserRequest;
+};
+export type GetGroupsForUserApiResponse = /** status 200 Success */ GroupDto[];
+export type GetGroupsForUserApiArg = {
+  userId: number;
 };
 export type GetWeatherForecastApiResponse =
   /** status 200 Success */ WeatherForecast[];
@@ -69,6 +90,20 @@ export type AuthenticationResponse = {
   email: string;
   accessToken: string;
 };
+export type UserDto = {
+  id: number;
+  username: string;
+  email: string;
+};
+export type GroupDto = {
+  id: number;
+  name: string;
+  admin: UserDto;
+  members: UserDto[];
+};
+export type CreateGroupRequest = {
+  name: string;
+};
 export type RegisterUserResponse = {
   id: number;
   username: string;
@@ -87,7 +122,9 @@ export type WeatherForecast = {
 export const {
   useAuthenticateUserMutation,
   useRefreshUserTokenQuery,
+  useCreateGroupMutation,
   useRegisterUserAccountMutation,
+  useGetGroupsForUserQuery,
   useGetWeatherForecastQuery,
 } = api;
 

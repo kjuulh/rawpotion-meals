@@ -8,7 +8,9 @@ namespace RawPotion.Meals.Application.Interfaces
     public interface IApplicationDbContext
     {
         public DbSet<User> User { get; set; }
+        public DbSet<Group> Groups { get; set; }
 
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken = new ());
+        public Task<int> SaveChangesAsync(
+            CancellationToken cancellationToken = new());
     }
 }

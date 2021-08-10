@@ -1,4 +1,6 @@
 namespace RawPotion.Meals.Domain.ValueObjects
 {
-    public class AuditableEntity {}
+    public class AuditableEntity
+    {
+    }
 }

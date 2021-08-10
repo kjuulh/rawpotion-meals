@@ -9,18 +9,23 @@ namespace RawPotion.Meals.Application
     {
         public static IServiceCollection AddApplication(
             this IServiceCollection services,
-            IConfiguration configuration) =>
-            services
-                .AddScoped<IAuthenticationService, AuthenticationService>()
+            IConfiguration configuration)
+        {
+            return services
+                .AddScoped<IAuthenticationService,
+                    AuthenticationService>()
                 .AddSingleton<IJwtUtils, JwtUtils>()
                 .AddApplicationOptions(configuration);
+        }
 
         private static IServiceCollection AddApplicationOptions(
             this IServiceCollection services,
-            IConfiguration configuration) =>
-            services.AddOptions<JwtOptions>()
+            IConfiguration configuration)
+        {
+            return services.AddOptions<JwtOptions>()
                 .Bind(configuration.GetSection(JwtOptions.Jwt))
                 .ValidateDataAnnotations()
                 .Services;
+        }
     }
 }

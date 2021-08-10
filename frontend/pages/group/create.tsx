@@ -7,6 +7,8 @@ import {
 } from "@features/groups/groupsSlice";
 import { useRouter } from "next/router";
 import { createGroupAsync } from "@features/groups/createGroupAsync";
+import { useIfFirebase } from "@lib/firebase";
+import { useCreateGroupMutation } from "@lib/api";
 
 const required = (value) => (value ? undefined : "Required");
 
@@ -15,9 +17,22 @@ const CreateGroupPage = () => {
   const dispatch = useDispatch();
 
   const [hasBeenCreated, group] = useSelector(selectHasBeenCreated);
+  const [createGroup, { isLoading, isError, isSuccess, data }] =
+    useCreateGroupMutation();
 
   const onSubmit = (values: Record<string, any>) => {
-    dispatch(createGroupAsync(values["groupName"]));
+    useIfFirebase(
+      () => {
+        dispatch(createGroupAsync(values["groupName"]));
+      },
+      () => {
+        createGroup({
+          createGroupRequest: {
+            name: values["groupName"],
+          },
+        });
+      }
+    );
   };
 
   useEffect(() => {
@@ -26,6 +41,19 @@ const CreateGroupPage = () => {
       router.push(`/groups/${group.id}`);
     }
   }, [hasBeenCreated]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error...</div>;
+  }
+
+  if (isSuccess) {
+    router.push(`/groups/${data.id}`);
+    return <div>Redirecting</div>;
+  }
 
   return (
     <div>

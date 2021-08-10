@@ -10,13 +10,17 @@ import { OutlinedButton } from "@components/common/buttons/outlinedButton";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
 import { useIfFirebase } from "@lib/firebase";
-import { useGetWeatherForecastQuery } from "@lib/api";
+import { useGetGroupsForUserQuery } from "@lib/api/rawpotion-mealplanner-api.generated";
 
 const DashboardPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
-  const { refetch } = useGetWeatherForecastQuery(false, {});
+  const { data, isLoading, isError, isUninitialized } =
+    useGetGroupsForUserQuery(
+      { userId: user?.userId as number },
+      { skip: !user?.userId }
+    );
 
   useEffect(() => {
     if (user?.state === "not-logged-in") {
@@ -24,19 +28,17 @@ const DashboardPage = () => {
       return;
     }
 
-    useIfFirebase(
-      () => {
-        dispatch(getGroupsForMemberAsync(user.userId as string));
-      },
-      () => {
-        refetch();
-        //useGetGroupsForUser(user.userId);
-      }
-    );
+    useIfFirebase(() => {
+      dispatch(getGroupsForMemberAsync(user.userId as string));
+    });
   }, [user]);
 
-  if (!user?.userId) {
-    return null;
+  if (isLoading || isUninitialized) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Some error occurred</div>;
   }
 
   return (

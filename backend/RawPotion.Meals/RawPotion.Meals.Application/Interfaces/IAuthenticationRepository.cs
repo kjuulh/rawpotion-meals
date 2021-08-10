@@ -4,6 +4,8 @@ namespace RawPotion.Meals.Application.Interfaces
 {
     public interface IAuthenticationRepository
     {
-        Task Authenticate(string userUsername, string userPassword);
+        Task Authenticate(
+            string userUsername,
+            string userPassword);
     }
 }

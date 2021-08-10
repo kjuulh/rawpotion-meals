@@ -8,6 +8,7 @@ export const {
   useAuthenticateUserMutation,
   useGetWeatherForecastQuery,
   useRegisterUserAccountMutation,
+  useCreateGroupMutation,
 } = api;
 
 export const { authenticateUser } = api.endpoints;
