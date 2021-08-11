@@ -49,5 +49,10 @@ namespace RawPotion.Meals.Persistence.Features
 
             return group.Entity;
         }
+
+        public async Task<Group?> GetGroupByIdAsync(int groupId)
+            => await _context.Groups.Include(g => g.Admin)
+                .Include(g => g.Members)
+                .SingleOrDefaultAsync(g => g.Id == groupId);
     }
 }

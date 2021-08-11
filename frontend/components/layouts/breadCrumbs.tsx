@@ -2,12 +2,18 @@ import React, { FC } from "react";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { useAppSelector } from "@lib/redux/hooks";
-import { selectGroupById } from "@features/groups/groupsSlice";
 import { selectGetMealById } from "@features/meals/mealsSlice";
+import { useGetGroupByIdQuery } from "@lib/api";
 
 function BreadCrumbWithId(props: { id: string; searchTerm: string }) {
-  const GroupId = (props: { searchTerm: string }) => {
-    const group = useAppSelector(selectGroupById(props.searchTerm));
+  const GroupId = (props: { searchTerm: number }) => {
+    const { data: group, isLoading } = useGetGroupByIdQuery({
+      groupId: props.searchTerm,
+    });
+
+    if (isLoading) {
+      return null;
+    }
 
     if (!group) {
       return null;
@@ -26,7 +32,7 @@ function BreadCrumbWithId(props: { id: string; searchTerm: string }) {
 
   if (props.id && props.searchTerm) {
     if (props.id === "groupId") {
-      return <GroupId searchTerm={props.searchTerm} />;
+      return <GroupId searchTerm={parseInt(props.searchTerm)} />;
     } else if (props.id === "mealId") {
       return <MealId searchTerm={props.searchTerm} />;
     }
@@ -46,27 +52,27 @@ function BreadCrumbItem(props: {
   const searchTerm = props.query[id];
   if (searchTerm) {
     return (
-      <div
-        onClick={() => {
-          const url = router.pathname.substring(
-            0,
-            router.route.indexOf(props.item) + props.item.length
-          );
+        <div
+            onClick={() => {
+              const url = router.pathname.substring(
+                  0,
+                  router.route.indexOf(props.item) + props.item.length
+              );
 
-          router.push({
-            query: props.query,
-            pathname: url,
-          });
-        }}
-        style={{
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          maxWidth: "20ch",
-        }}
-      >
-        <BreadCrumbWithId searchTerm={searchTerm as string} id={id} />
-      </div>
+              router.push({
+                query: props.query,
+                pathname: url,
+              });
+            }}
+            style={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              maxWidth: "20ch",
+            }}
+        >
+          <BreadCrumbWithId searchTerm={searchTerm as string} id={id}/>
+        </div>
     );
   }
 
@@ -77,29 +83,29 @@ const BreadCrumbs: FC = () => {
   const router = useRouter();
 
   const path = router.route
-    .split("/")
-    .filter((p) => p.length !== 0 && p != "dashboard");
+      .split("/")
+      .filter((p) => p.length !== 0 && p != "dashboard");
   const query = router.query;
   const keys = Object.keys(query);
 
   return (
-    <ul className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4  font-semibold tracking-wide text-gray-700 subpixel-antialiased">
-      <li
-        className="hover:underline cursor-pointer"
-        onClick={() => router.push("/dashboard")}
-      >
-        Home
-      </li>
-      {path &&
+      <ul className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4  font-semibold tracking-wide text-gray-700 subpixel-antialiased">
+        <li
+            className="hover:underline cursor-pointer"
+            onClick={() => router.push("/dashboard")}
+        >
+          Home
+        </li>
+        {path &&
         path.map((p) => (
-          <React.Fragment key={p}>
-            <li className="hidden md:block">/</li>
-            <li className="hover:underline cursor-pointer">
-              <BreadCrumbItem item={p} keys={keys} query={query} />
-            </li>
-          </React.Fragment>
+            <React.Fragment key={p}>
+              <li className="hidden md:block">/</li>
+              <li className="hover:underline cursor-pointer">
+                <BreadCrumbItem item={p} keys={keys} query={query}/>
+              </li>
+            </React.Fragment>
         ))}
-    </ul>
+      </ul>
   );
 };
 

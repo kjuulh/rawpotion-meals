@@ -1,14 +1,8 @@
-import { useAppSelector } from "@lib/redux/hooks";
-import { selectUserById } from "./usersSlice";
 import { useRouter } from "next/router";
+import { UserDto } from "@lib/api";
 
-const Member = (props: { member: string }) => {
-  const user = useAppSelector(selectUserById(props.member));
+const Member = (props: { member: UserDto }) => {
   const router = useRouter();
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <button
@@ -17,12 +11,12 @@ const Member = (props: { member: string }) => {
         router.push({
           pathname: "/users/[userId]",
           query: {
-            userId: props.member,
+            userId: props.member.id,
           },
         })
       }
     >
-      {user.name}
+      {props.member.username}
     </button>
   );
 };

@@ -2,12 +2,14 @@ import Member from "./member";
 import { Card } from "@components/common/card/card";
 import { CardTitle } from "@components/common/card/cardTitle";
 import { FC } from "react";
+import { UserDto } from "@lib/api";
 
 interface MembersProps {
-  members: string[];
+  members: UserDto[];
   text: string;
   actions?: () => JSX.Element;
 }
+
 export const Members: FC<MembersProps> = (props) => {
   return (
     <Card>
@@ -18,7 +20,7 @@ export const Members: FC<MembersProps> = (props) => {
       ) : (
         <ul className="space-y-4">
           {props.members.map((m) => (
-            <li key={m}>
+            <li key={m.id}>
               <Member member={m} />
             </li>
           ))}

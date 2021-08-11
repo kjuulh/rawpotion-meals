@@ -27,6 +27,9 @@ export const api = createApi({
         body: queryArg.createGroupRequest,
       }),
     }),
+    getGroupById: build.query<GetGroupByIdApiResponse, GetGroupByIdApiArg>({
+      query: (queryArg) => ({ url: `/api/groups/${queryArg.groupId}` }),
+    }),
     registerUserAccount: build.mutation<
       RegisterUserAccountApiResponse,
       RegisterUserAccountApiArg
@@ -62,6 +65,10 @@ export type RefreshUserTokenApiArg = {};
 export type CreateGroupApiResponse = /** status 200 Success */ GroupDto;
 export type CreateGroupApiArg = {
   createGroupRequest: CreateGroupRequest;
+};
+export type GetGroupByIdApiResponse = /** status 200 Success */ GroupDto;
+export type GetGroupByIdApiArg = {
+  groupId: number;
 };
 export type RegisterUserAccountApiResponse =
   /** status 200 Success */ RegisterUserResponse;
@@ -123,6 +130,7 @@ export const {
   useAuthenticateUserMutation,
   useRefreshUserTokenQuery,
   useCreateGroupMutation,
+  useGetGroupByIdQuery,
   useRegisterUserAccountMutation,
   useGetGroupsForUserQuery,
   useGetWeatherForecastQuery,
