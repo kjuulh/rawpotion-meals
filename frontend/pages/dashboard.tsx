@@ -1,16 +1,15 @@
 import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { selectUser, signOutAsync } from "@features/user/userSlice";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import GroupsList from "../features/groups/groupsList";
-import { getGroupsForMemberAsync } from "@features/groups/getGroupsForMemberAsync";
-import DashboardLayout from "@components/layouts/dashboardLayout";
-import { PrimaryButton } from "@components/common/buttons/primaryButton";
-import { OutlinedButton } from "@components/common/buttons/outlinedButton";
-import { DashboardTitle } from "@components/common/typography/dashboardTitle";
-import BreadCrumbs from "@components/layouts/breadCrumbs";
-import { useIfFirebase } from "@lib/firebase";
 import { useGetGroupsForUserQuery } from "@lib/api/rawpotion-mealplanner-api.generated";
+import {
+  DashboardTitle,
+  OutlinedButton,
+  PrimaryButton,
+} from "@components/common";
+import GroupsList from "@features/groups/groupsList";
+import DashboardLayout from "@components/layouts/dashboardLayout";
+import BreadCrumbs from "@components/layouts/breadCrumbs";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -21,17 +20,6 @@ const DashboardPage = () => {
       { userId: user?.userId as number },
       { skip: !user?.userId }
     );
-
-  useEffect(() => {
-    if (user?.state === "not-logged-in") {
-      router.push("/login");
-      return;
-    }
-
-    useIfFirebase(() => {
-      dispatch(getGroupsForMemberAsync(user.userId as string));
-    });
-  }, [user]);
 
   if (isLoading || isUninitialized) {
     return <div>Loading...</div>;
@@ -48,6 +36,7 @@ const DashboardPage = () => {
 
       <div>
         <GroupsList
+          groups={data}
           onGroupClick={(groupId) => router.push(`/groups/${groupId}`)}
         />
       </div>

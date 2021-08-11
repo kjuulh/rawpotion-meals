@@ -64,7 +64,7 @@ const GroupPage = () => {
         <Members text="Members" members={group.members} />
       </div>
       <GoToAdmin
-        userId={user.userId}
+        userId={user.userId as string}
         group={group}
         onClick={() => router.push(`/groups/${group.id}/admin`)}
       />
