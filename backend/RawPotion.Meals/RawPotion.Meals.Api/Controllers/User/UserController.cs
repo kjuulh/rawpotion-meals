@@ -67,8 +67,10 @@ namespace Rawpotion.Meals.Api.Controllers.User
         {
             [Required]
             public int Id { get; set; }
+
             [Required]
             public string Username { get; set; }
+
             [Required]
             public string Email { get; set; }
         }
@@ -77,10 +79,13 @@ namespace Rawpotion.Meals.Api.Controllers.User
         {
             [Required]
             public int Id { get; set; }
+
             [Required]
             public string Name { get; set; }
+
             [Required]
             public UserDto Admin { get; set; }
+
             [Required]
             public IEnumerable<UserDto> Members { get; set; }
         }
@@ -111,6 +116,25 @@ namespace Rawpotion.Meals.Api.Controllers.User
                                 Email = m.Email
                             })
                     }));
+        }
+
+        [HttpGet("{userId}", Name = "Get user by id")]
+        public async Task<ActionResult<UserDto>> GetUserByIdAsync(
+            [FromRoute] int userId)
+        {
+            var user = await
+                _userRepository.GetUserByIdAsync(userId);
+            
+            if (user is null)
+                return NotFound();
+
+            return Ok(
+                new UserDto()
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Username = user.Username
+                });
         }
     }
 }

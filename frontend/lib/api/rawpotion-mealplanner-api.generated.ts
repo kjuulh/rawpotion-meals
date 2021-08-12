@@ -30,6 +30,13 @@ export const api = createApi({
     getGroupById: build.query<GetGroupByIdApiResponse, GetGroupByIdApiArg>({
       query: (queryArg) => ({ url: `/api/groups/${queryArg.groupId}` }),
     }),
+    createMeal: build.mutation<CreateMealApiResponse, CreateMealApiArg>({
+      query: (queryArg) => ({
+        url: `/api/meals`,
+        method: "POST",
+        body: queryArg.createMealRequest,
+      }),
+    }),
     registerUserAccount: build.mutation<
       RegisterUserAccountApiResponse,
       RegisterUserAccountApiArg
@@ -45,6 +52,9 @@ export const api = createApi({
       GetGroupsForUserApiArg
     >({
       query: (queryArg) => ({ url: `/api/user/${queryArg.userId}/groups` }),
+    }),
+    getUserById: build.query<GetUserByIdApiResponse, GetUserByIdApiArg>({
+      query: (queryArg) => ({ url: `/api/user/${queryArg.userId}` }),
     }),
     getWeatherForecast: build.query<
       GetWeatherForecastApiResponse,
@@ -70,6 +80,10 @@ export type GetGroupByIdApiResponse = /** status 200 Success */ GroupDto;
 export type GetGroupByIdApiArg = {
   groupId: number;
 };
+export type CreateMealApiResponse = /** status 200 Success */ MealDto;
+export type CreateMealApiArg = {
+  createMealRequest: CreateMealRequest;
+};
 export type RegisterUserAccountApiResponse =
   /** status 200 Success */ RegisterUserResponse;
 export type RegisterUserAccountApiArg = {
@@ -77,6 +91,10 @@ export type RegisterUserAccountApiArg = {
 };
 export type GetGroupsForUserApiResponse = /** status 200 Success */ GroupDto[];
 export type GetGroupsForUserApiArg = {
+  userId: number;
+};
+export type GetUserByIdApiResponse = /** status 200 Success */ UserDto;
+export type GetUserByIdApiArg = {
   userId: number;
 };
 export type GetWeatherForecastApiResponse =
@@ -111,6 +129,18 @@ export type GroupDto = {
 export type CreateGroupRequest = {
   name: string;
 };
+export type MealDto = {
+  id?: number;
+  host?: UserDto;
+  group?: GroupDto;
+  recipe?: string | null;
+  date?: string | null;
+};
+export type CreateMealRequest = {
+  recipe: string;
+  groupId: number;
+  date: string;
+};
 export type RegisterUserResponse = {
   id: number;
   username: string;
@@ -131,8 +161,10 @@ export const {
   useRefreshUserTokenQuery,
   useCreateGroupMutation,
   useGetGroupByIdQuery,
+  useCreateMealMutation,
   useRegisterUserAccountMutation,
   useGetGroupsForUserQuery,
+  useGetUserByIdQuery,
   useGetWeatherForecastQuery,
 } = api;
 

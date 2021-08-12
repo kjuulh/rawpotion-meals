@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { Members } from "@features/users/members";
 import { Meals } from "@features/meals/meals";
 import { useAppSelector } from "@lib/redux/hooks";
@@ -9,7 +8,6 @@ import DashboardLayout from "@components/layouts/dashboardLayout";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
-import { getGroupByIdAsync } from "@features/groups/getGroupByIdAsync";
 import { GroupDto, useGetGroupByIdQuery } from "@lib/api";
 
 function GoToAdmin(props: {
@@ -32,24 +30,19 @@ const GroupPage = () => {
   const { groupId } = router.query;
   //const [loading, group] = useSelector(selectGroup);
   const user = useAppSelector(selectUser);
-  const { data, isLoading, isSuccess, isError } = useGetGroupByIdQuery({
-    groupId: parseInt(groupId as string),
-  });
+  const { data, isLoading, isError, isUninitialized } = useGetGroupByIdQuery(
+    {
+      groupId: parseInt(groupId as string),
+    },
+    { skip: !groupId }
+  );
 
-  useEffect(() => {
-    if (groupId && typeof groupId === "string") {
-      dispatch(getGroupByIdAsync(groupId));
-      //  dispatch(getCurrentGroupByIdAsync(groupId));
-      //  dispatch(getMealsByGroupIdAsync({ groupId, upcoming: true }));
-    }
-  }, [groupId]);
-
-  if (isLoading) {
+  if (isLoading || isUninitialized) {
     return <div>Loading...</div>;
   }
 
-  if (!data) {
-    return <div>Not found group...</div>;
+  if (isError) {
+    return <div>Error...</div>;
   }
 
   return (

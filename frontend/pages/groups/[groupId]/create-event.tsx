@@ -1,85 +1,49 @@
 import { useRouter } from "next/router";
-import { Field, Form } from "react-final-form";
-import React, { FC, InputHTMLAttributes, useEffect } from "react";
+import { Form } from "react-final-form";
+import React from "react";
 import {
-  useAppDispatch,
-  useAppSelector,
-  useDispatchOnMount,
-} from "@lib/redux/hooks";
-import {
-  resetCreateMeal,
-  selectCreateMealStatus,
-} from "@features/meals/mealsSlice";
-import { createMealEventForGroup } from "@features/meals/createMealEventForGroup";
-import { DashboardTitle } from "@components/common/typography/dashboardTitle";
+  Card,
+  CardFormInput,
+  DashboardTitle,
+  OutlinedButton,
+} from "@components/common";
 import DashboardLayout from "@components/layouts/dashboardLayout";
-import { Card } from "@components/common/card/card";
-import { OutlinedButton } from "@components/common/buttons/outlinedButton";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
-import { getGroupByIdAsync } from "@features/groups/getGroupByIdAsync";
-
-const required = (value) => (value ? undefined : "Required");
-
-interface CardFormInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  fullWidth?: boolean;
-}
-const CardFormInput: FC<CardFormInputProps> = ({ fullWidth, ...props }) => (
-  <Field
-    name={props.name}
-    validate={required}
-    render={({ input, meta }) => (
-      <div className="space-y-4">
-        <label className="text-lg">{props.label}</label>
-        <br />
-        <input
-          className={`py-2 px-4 border-2 focus:border-yellow-300 rounded-md ${
-            meta.touched && meta.error ? "border-red-500" : "border-gray-200"
-          } ${fullWidth ? "min-w-full" : ""}`}
-          {...props}
-          {...input}
-        />
-        <br />
-      </div>
-    )}
-  />
-);
+import { useCreateMealMutation } from "@lib/api";
 
 const CreateEventPage = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const { groupId } = router.query;
 
-  useDispatchOnMount(resetCreateMeal);
-
-  const [hasBeenCreated, meal] = useAppSelector(selectCreateMealStatus);
-
-  useEffect(() => {
-    dispatch(getGroupByIdAsync(groupId as string));
-  }, [groupId]);
-
-  useEffect(() => {
-    if (hasBeenCreated && meal) {
-      router.push(`/groups/${groupId}/meals/${meal.id}`);
-    }
-    return () => {
-      dispatch(resetCreateMeal());
-    };
-  }, [hasBeenCreated, meal]);
+  const [createMeal, { data, isLoading, isSuccess, isError }] =
+    useCreateMealMutation();
 
   const onSubmit = (values: Record<string, any>) => {
     if (typeof groupId !== "string") {
       return;
     }
 
-    dispatch(
-      createMealEventForGroup({
-        groupId,
+    createMeal({
+      createMealRequest: {
+        groupId: parseInt(groupId as string),
         date: values["date"],
         recipe: values["recipe"],
-      })
-    );
+      },
+    });
   };
+
+  if (isLoading) {
+    return <div>Creating...</div>;
+  }
+
+  if (isError) {
+    return <div>Error...</div>;
+  }
+
+  if (isSuccess) {
+    router.push(`/groups/${groupId}/meals/${data.id}`);
+    return <div>Redirecting...</div>;
+  }
 
   return (
     <div className="space-y-8">

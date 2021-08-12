@@ -174,6 +174,55 @@
         }
       }
     },
+    "/api/meals": {
+      "post": {
+        "tags": [
+          "Meals"
+        ],
+        "operationId": "Create meal",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMealRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMealRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMealRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MealDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MealDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MealDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/user": {
       "post": {
         "tags": [
@@ -266,6 +315,47 @@
                   "items": {
                     "$ref": "#/components/schemas/GroupDto"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/{userId}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "Get user by id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
@@ -430,6 +520,51 @@
             "items": {
               "$ref": "#/components/schemas/UserDto"
             }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateMealRequest": {
+        "required": [
+          "date",
+          "groupId",
+          "recipe"
+        ],
+        "type": "object",
+        "properties": {
+          "recipe": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MealDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "host": {
+            "$ref": "#/components/schemas/UserDto"
+          },
+          "group": {
+            "$ref": "#/components/schemas/GroupDto"
+          },
+          "recipe": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

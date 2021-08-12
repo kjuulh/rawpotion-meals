@@ -93,22 +93,19 @@ namespace RawPotion.Meals.Persistence.Features
 
         public async Task<User?> GetUserByEmailAsync(
             string email)
-        {
-            return await _context.User.SingleOrDefaultAsync(
+            => await _context.User.SingleOrDefaultAsync(
                 u => u.Email == email);
-        }
 
         public async Task<User?> GetUserByRefreshToken(
             string token)
-        {
-            return await _context.User.SingleOrDefaultAsync(
+            => await _context.User.SingleOrDefaultAsync(
                 u => u.RefreshTokens.Any(t => t.Token == token));
-        }
 
         public Task RemoveInactiveRefreshTokens(
             User user)
-        {
-            return Task.CompletedTask;
-        }
+            => Task.CompletedTask;
+
+        public async Task<User?> GetUserByIdAsync(int userId)
+            => await _context.User.SingleOrDefaultAsync(u => u.Id == userId);
     }
 }

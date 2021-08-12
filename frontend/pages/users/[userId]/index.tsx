@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { getUsersAsync } from "@features/users/getUsersAsync";
-import { selectUserById } from "@features/users/usersSlice";
 import { getRecipesForUser } from "@features/recipes/getRecipesForUser";
 import { Recipe, selectRecipesForUser } from "@features/recipes/recipesSlice";
+import { useGetUserByIdQuery } from "@lib/api";
 
 const RecipeItem = (props: { recipe: Recipe; userId: string }) => {
   const router = useRouter();
@@ -82,7 +82,15 @@ const UsersPage = () => {
   const { userId } = router.query;
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector(selectUserById(userId as string));
+  const {
+    data: user,
+    isLoading,
+    isError,
+    isUninitialized,
+  } = useGetUserByIdQuery(
+    { userId: parseInt(userId as string) },
+    { skip: !userId }
+  );
 
   useEffect(() => {
     if (userId && typeof userId === "string") {
@@ -90,18 +98,22 @@ const UsersPage = () => {
     }
   }, [userId]);
 
-  if (!user) {
+  if (isLoading || isUninitialized) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
     return <div>Not found...</div>;
   }
 
   return (
     <div>
-      <h1>User: {user.name}</h1>
+      <h1>User: {user.username}</h1>
 
       <p>Email: {user.email}</p>
 
+      {/*
       <RecipesForUser userId={userId as string} />
-
       <button
         onClick={() =>
           router.push({
@@ -112,6 +124,7 @@ const UsersPage = () => {
       >
         Create recipe
       </button>
+      */}
     </div>
   );
 };

@@ -6,25 +6,25 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.8"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\RawPotion.Meals.Application\RawPotion.Meals.Application.csproj"/>
-        <ProjectReference Include="..\RawPotion.Meals.Domain\RawPotion.Meals.Domain.csproj"/>
+        <ProjectReference Include="..\RawPotion.Meals.Application\RawPotion.Meals.Application.csproj" />
+        <ProjectReference Include="..\RawPotion.Meals.Domain\RawPotion.Meals.Domain.csproj" />
     </ItemGroup>
 </Project>

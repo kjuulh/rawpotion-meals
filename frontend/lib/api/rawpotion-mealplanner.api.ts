@@ -10,6 +10,8 @@ export const {
   useRegisterUserAccountMutation,
   useCreateGroupMutation,
   useGetGroupByIdQuery,
+  useGetUserByIdQuery,
+  useCreateMealMutation,
 } = api;
 
 export const { authenticateUser } = api.endpoints;

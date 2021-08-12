@@ -9,6 +9,7 @@ namespace RawPotion.Meals.Application.Interfaces
     {
         public DbSet<User> User { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Meal> Meals { get; set; }
 
         public Task<int> SaveChangesAsync(
             CancellationToken cancellationToken = new());

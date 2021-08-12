@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RawPotion.Meals.Application.Interfaces;
 using RawPotion.Meals.Application.Interfaces.Groups;
+using RawPotion.Meals.Application.Interfaces.Meals;
 using RawPotion.Meals.Persistence.Database;
 using RawPotion.Meals.Persistence.Features;
 
@@ -30,7 +31,8 @@ namespace RawPotion.Meals.Persistence
                     provider
                         => provider.GetService<ApplicationDbContext>())
                 .AddScoped<IUserRepository, UserRepository>()
-                .AddScoped<IGroupRepository, GroupRepository>();
+                .AddScoped<IGroupRepository, GroupRepository>()
+                .AddScoped<IMealsRepository, MealsRepository>();
         }
 
         public static IApplicationBuilder UsePersistence(

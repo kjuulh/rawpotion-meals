@@ -32,6 +32,10 @@ namespace RawPotion.Meals.Persistence.Configurations
                             .HasDefaultValue(true);
                         navigationBuilder.WithOwner(r => r.User);
                     });
+
+            builder
+                .HasMany(m => m.Meals)
+                .WithOne(m => m.Host);
         }
     }
 }

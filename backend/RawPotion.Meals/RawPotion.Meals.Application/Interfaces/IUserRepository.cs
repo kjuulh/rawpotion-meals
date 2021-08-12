@@ -24,5 +24,7 @@ namespace RawPotion.Meals.Application.Interfaces
 
         Task RemoveInactiveRefreshTokens(
             User user);
+
+        Task<User?> GetUserByIdAsync(int userId);
     }
 }

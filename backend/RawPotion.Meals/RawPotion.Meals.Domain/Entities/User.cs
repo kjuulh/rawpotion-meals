@@ -17,5 +17,7 @@ namespace RawPotion.Meals.Domain.Entities
 
         public ICollection<Group> Groups { get; set; } =
             new List<Group>();
+
+        public ICollection<Meal> Meals { get; set; } = new List<Meal>();
     }
 }
