@@ -11,10 +11,10 @@
 *** DONE Add postgres to backend
 *** DONE Create configurations for dbcontext
 *** DONE Run migrations on startup
-** TODO Append login
-*** TODO Setup error handling for user registration
+** DONE Append login
+*** DONE Setup error handling for user registration
 *** DONE Create a simple JWT scheme
 *** DONE Setup database
-
-* Icebox
-** TODO Cleanup old
+** TODO Setup Mediator on backend
+** TODO Setup AutoMapper
+** TODO Setup poll intervals for apis
