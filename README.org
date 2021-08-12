@@ -18,3 +18,8 @@
 ** TODO Setup Mediator on backend
 ** TODO Setup AutoMapper
 ** TODO Setup poll intervals for apis
+
+
+* Fun stuff
+** Take a look at Redwood.js
+** Take a look at Blitz.js
