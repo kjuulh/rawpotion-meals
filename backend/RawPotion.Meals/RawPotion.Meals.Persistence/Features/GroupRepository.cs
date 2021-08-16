@@ -58,5 +58,20 @@ namespace RawPotion.Meals.Persistence.Features
                 .ThenInclude(m => m.Group)
                 .AsSplitQuery()
                 .SingleOrDefaultAsync(g => g.Id == groupId);
+
+        public async Task<Group> AddUserToGroupAsync(int groupId, int userId)
+        {
+            var group = await _context
+                .Groups
+                .Include(g => g.Members)
+                .SingleAsync(g => g.Id == groupId);
+
+            var user = await _context.User.SingleAsync(u => u.Id == userId);
+            group.Members.Add(user);
+
+            await _context.SaveChangesAsync();
+
+            return group;
+        }
     }
 }

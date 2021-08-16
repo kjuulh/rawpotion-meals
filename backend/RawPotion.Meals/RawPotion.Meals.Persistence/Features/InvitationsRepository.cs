@@ -29,6 +29,15 @@ namespace RawPotion.Meals.Persistence.Features
             return group?.Invitations;
         }
 
+        public async Task<Invitation?> GetInvitationForGroupAsync(
+            int invitationId,
+            int groupId)
+            => await _applicationDbContext
+                .Invitations
+                .Include(i => i.Group)
+                .SingleOrDefaultAsync(
+                    i => i.Id == invitationId && i.Group.Id == groupId);
+
         public async Task<Invitation> CreateInvitation(int groupId)
         {
             var group =

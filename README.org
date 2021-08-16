@@ -21,11 +21,12 @@
 ** DONE Move api implementation to mediator in applications
 *** DONE Move groups
 *** DONE Move Meals
-** TODO Fix invitations [0/2]
-- [-] Backend can get all invitations
+** TODO Fix invitations [0/5]
+- [x] Backend can get all invitations
 - [-] Fix performance issues
-- [ ] Fix backend so a can be part of a group
+- [x] Fix backend so a can be part of a group
 - [ ] Fix frontend so that the invitation is part of the state and not url.
+** TODO Fix register so that redirect is automatic on success
 
 * Fun stuff
 ** DONE Take a look at Redwood.js

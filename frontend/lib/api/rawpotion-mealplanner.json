@@ -254,6 +254,106 @@
         }
       }
     },
+    "/api/group/{groupId}/invitations/{invitationId}": {
+      "get": {
+        "tags": [
+          "Invitations"
+        ],
+        "operationId": "Get invitation for group",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationVm"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationVm"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/group/{groupId}/invitations/{invitationId}/join-group": {
+      "put": {
+        "tags": [
+          "Invitations"
+        ],
+        "operationId": "Join group using invitation",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "invitationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/meals": {
       "post": {
         "tags": [
@@ -772,6 +872,11 @@
         "additionalProperties": false
       },
       "InvitationVm": {
+        "required": [
+          "enabled",
+          "group",
+          "id"
+        ],
         "type": "object",
         "properties": {
           "id": {

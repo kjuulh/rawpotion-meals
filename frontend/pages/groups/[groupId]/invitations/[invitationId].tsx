@@ -1,20 +1,17 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
-import { selectUser } from "@features/user/userSlice";
-import { getInvitationAsync } from "@features/invitations/getInvitationAsync";
-import { selectInvitation } from "@features/invitations/invitationsSlice";
-import { joinGroupAsync } from "@features/groups/joinGroupAsync";
-import { selectGroupById } from "@features/groups/groupsSlice";
-import { getGroupByIdAsync } from "@features/groups/getGroupByIdAsync";
+import React from "react";
+import { useAppSelector } from "@lib/redux/hooks";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import { CardTitle } from "@components/common/card/cardTitle";
 import { Card } from "@components/common/card/card";
 import { OutlinedButton } from "@components/common/buttons/outlinedButton";
 import { selectUserById } from "@features/users/usersSlice";
-import { getUsersAsync } from "@features/users/getUsersAsync";
-import React from "react";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
+import {
+  useGetInvitationForGroupQuery,
+  useJoinGroupUsingInvitationMutation,
+} from "@lib/api";
+import { selectUser } from "@features/user/userSlice";
 
 function InvitationMember(props: { memberId: string }) {
   const member = useAppSelector(selectUserById(props.memberId));
@@ -25,65 +22,41 @@ function InvitationMember(props: { memberId: string }) {
   return <>{member.name}</>;
 }
 
-function renderMembers(members: string[]) {
-  if (members.length === 0) {
-    return null;
-  }
-
-  return (
-    <div className="space-y-4">
-      <h5 className="text-lg">Members:</h5>
-      <ul className="space-y-4">
-        {members.map((m) => (
-          <React.Fragment key={m}>
-            <li>
-              <InvitationMember memberId={m} />
-            </li>
-            <hr />
-          </React.Fragment>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 const AcceptInvitationPage = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const { groupId, invitationId } = router.query;
+  const user = useAppSelector(selectUser);
 
-  const { userId, state } = useAppSelector(selectUser);
-  const [loading, invitation] = useAppSelector(
-    selectInvitation(invitationId as string)
+  const {
+    data: invitation,
+    isUninitialized,
+    isError,
+    isLoading,
+  } = useGetInvitationForGroupQuery(
+    {
+      invitationId: parseInt(invitationId as string),
+      groupId: parseInt(groupId as string),
+    },
+    { skip: !groupId || !invitationId }
   );
-  const groupSelect = useAppSelector(selectGroupById(groupId as string));
 
-  useEffect(() => {
-    if (typeof groupId === "string" && typeof invitationId === "string") {
-      dispatch(getInvitationAsync(invitationId));
-      dispatch(getGroupByIdAsync(groupId));
-    }
-  }, [invitationId]);
+  const [joinGroup, joinGroupUtils] = useJoinGroupUsingInvitationMutation();
 
-  useEffect(() => {
-    if (groupSelect?.members) {
-      dispatch(getUsersAsync(groupSelect.members));
-    }
-  }, [groupSelect?.members]);
-
-  useEffect(() => {
-    if (userId) {
-      if (groupSelect.members.find((m) => m === userId)) {
-        router.push(`/groups/${groupId}`);
-      }
-    }
-  }, [groupId, groupSelect]);
-
-  if (typeof groupId !== "string" || typeof invitationId !== "string") {
-    return null;
+  if (joinGroupUtils.isSuccess && joinGroupUtils.data) {
+    router.push(`/groups/${groupId}`);
+  } else if (joinGroupUtils.isError && joinGroupUtils.error) {
+    router.push(`/groups/${groupId}`);
   }
 
-  if (state === "not-logged-in" || state === "unknown") {
+  if (isLoading || isUninitialized) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error...</div>;
+  }
+
+  if (user.state === "not-logged-in") {
     return (
       <div className="py-8 px-10 space-y-8 md:max-w-[calc(80%+1rem)] lg:max-w-[calc(50%+1rem)] mx-auto">
         <DashboardTitle>Accept invitation page</DashboardTitle>
@@ -122,14 +95,6 @@ const AcceptInvitationPage = () => {
     );
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!groupSelect) {
-    return null;
-  }
-
   return (
     <div className="py-8 px-10 space-y-8 md:max-w-[calc(80%+1rem)] lg:max-w-[calc(50%+1rem)] mx-auto">
       <DashboardTitle>Accept invitation page</DashboardTitle>
@@ -137,12 +102,18 @@ const AcceptInvitationPage = () => {
       <Card>
         <CardTitle>
           Join {'"'}
-          {groupSelect.name}
+          {invitation.group.name}
           {'" '}?
         </CardTitle>
 
-        {renderMembers(groupSelect.members)}
-        <OutlinedButton onClick={() => dispatch(joinGroupAsync(invitation))}>
+        <OutlinedButton
+          onClick={() =>
+            joinGroup({
+              groupId: parseInt(groupId as string),
+              invitationId: parseInt(invitationId as string),
+            })
+          }
+        >
           Accept invitation
         </OutlinedButton>
       </Card>

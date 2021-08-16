@@ -11,5 +11,6 @@ namespace RawPotion.Meals.Application.Interfaces.Groups
 
         Task<Group> CreateGroupForUserAsync(int userId, string name);
         Task<Group?> GetGroupByIdAsync(int groupId);
+        Task<Group> AddUserToGroupAsync(int groupId, int userId);
     }
 }

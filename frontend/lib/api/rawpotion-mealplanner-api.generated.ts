@@ -47,6 +47,23 @@ export const api = createApi({
         method: "POST",
       }),
     }),
+    getInvitationForGroup: build.query<
+      GetInvitationForGroupApiResponse,
+      GetInvitationForGroupApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/group/${queryArg.groupId}/invitations/${queryArg.invitationId}`,
+      }),
+    }),
+    joinGroupUsingInvitation: build.mutation<
+      JoinGroupUsingInvitationApiResponse,
+      JoinGroupUsingInvitationApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/group/${queryArg.groupId}/invitations/${queryArg.invitationId}/join-group`,
+        method: "PUT",
+      }),
+    }),
     createMeal: build.mutation<CreateMealApiResponse, CreateMealApiArg>({
       query: (queryArg) => ({
         url: `/api/meals`,
@@ -128,6 +145,18 @@ export type CreateInvitationForGroupApiResponse =
 export type CreateInvitationForGroupApiArg = {
   groupId: number;
 };
+export type GetInvitationForGroupApiResponse =
+  /** status 200 Success */ InvitationVm;
+export type GetInvitationForGroupApiArg = {
+  groupId: number;
+  invitationId: number;
+};
+export type JoinGroupUsingInvitationApiResponse =
+  /** status 200 Success */ boolean;
+export type JoinGroupUsingInvitationApiArg = {
+  groupId: number;
+  invitationId: number;
+};
 export type CreateMealApiResponse = /** status 200 Success */ MealBriefVm;
 export type CreateMealApiArg = {
   createMealForGroupCommand: CreateMealForGroupCommand;
@@ -199,9 +228,9 @@ export type CreateGroupCommand = {
   name: string;
 };
 export type InvitationVm = {
-  id?: number;
-  group?: GroupVm;
-  enabled?: boolean;
+  id: number;
+  group: GroupVm;
+  enabled: boolean;
 };
 export type InvitationsVm = {
   invitations?: InvitationVm[] | null;
@@ -240,6 +269,8 @@ export const {
   useGetGroupByIdQuery,
   useGetInvitationsForGroupQuery,
   useCreateInvitationForGroupMutation,
+  useGetInvitationForGroupQuery,
+  useJoinGroupUsingInvitationMutation,
   useCreateMealMutation,
   useGetMealByIdQuery,
   useParticipateInMealMutation,

@@ -36,6 +36,8 @@ export const {
   useRefreshUserTokenQuery,
   useGetInvitationsForGroupQuery,
   useCreateInvitationForGroupMutation,
+  useGetInvitationForGroupQuery,
+  useJoinGroupUsingInvitationMutation,
 } = api;
 
 export const { authenticateUser } = api.endpoints;

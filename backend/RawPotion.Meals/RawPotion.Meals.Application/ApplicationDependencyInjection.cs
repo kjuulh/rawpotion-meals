@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RawPotion.Meals.Application.Common.Behaviors;
 using RawPotion.Meals.Application.Features.Authentication;
 using RawPotion.Meals.Application.Features.Meals;
+using RawPotion.Meals.Application.Interfaces.Invitations;
 using RawPotion.Meals.Application.Interfaces.Meals;
 using RawPotion.Meals.Domain.Features.Authentication;
 
@@ -18,6 +19,7 @@ namespace RawPotion.Meals.Application
             IConfiguration configuration)
             => services
                 .AddScoped<IAuthenticationService, AuthenticationService>()
+                .AddScoped<IInvitationsService, InvitationsService>()
                 .AddScoped<IMealsService, MealsService>()
                 .AddSingleton<IJwtUtils, JwtUtils>()
                 .AddApplicationInfrastructure()
