@@ -6,22 +6,25 @@
 ** DONE Setup dockerfile
 ** DONE Setup api generation
 ** DONE Get frontend to run locally
-** DONE Setup database
-*** DONE Add postgres to docker
-*** DONE Add postgres to backend
-*** DONE Create configurations for dbcontext
-*** DONE Run migrations on startup
+** DONE Setup database [4/4]
+ - [X] Add postgres to docker
+ - [X] Add postgres to backend
+ - [X] Create configurations for dbcontext
+ - [X] Run migrations on startup
 ** DONE Append login
 *** DONE Setup error handling for user registration
 *** DONE Create a simple JWT scheme
 *** DONE Setup database
 ** DONE Setup Mediator on backend
 ** DONE Setup AutoMapper
-** TODO Setup poll intervals for apis
-** TODO Move api implementation to mediator in applications
-*** TODO Move groups
-*** TODO Move Meals
+** NO Setup poll intervals for apis
+** DONE Move api implementation to mediator in applications
+*** DONE Move groups
+*** DONE Move Meals
+** TODO Fix invitations [0/2]
+- TODO Fix backend so a can be part of a group
+- TODO Fix frontend so that the invitation is part of the state and not url.
 
 * Fun stuff
-** Take a look at Redwood.js
-** Take a look at Blitz.js
+** DONE Take a look at Redwood.js
+** DONE Take a look at Blitz.js
