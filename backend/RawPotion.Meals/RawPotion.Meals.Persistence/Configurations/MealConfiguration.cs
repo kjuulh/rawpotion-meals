@@ -17,6 +17,10 @@ namespace RawPotion.Meals.Persistence.Configurations
             builder
                 .Property(m => m.Recipe)
                 .IsRequired();
+
+            builder
+                .HasMany(m => m.ParticipatingMembers)
+                .WithMany(u => u.ParticipatingMeals);
         }
     }
 }

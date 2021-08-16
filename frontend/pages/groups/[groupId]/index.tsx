@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
 import { Members } from "@features/users/members";
 import { Meals } from "@features/meals/meals";
 import { useAppSelector } from "@lib/redux/hooks";
@@ -8,11 +7,11 @@ import DashboardLayout from "@components/layouts/dashboardLayout";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
-import { GroupDto, useGetGroupByIdQuery } from "@lib/api";
+import { GroupVm, MealVm, useGetGroupByIdQuery } from "@lib/api";
 
 function GoToAdmin(props: {
   userId: number;
-  group: GroupDto;
+  group: GroupVm;
   onClick: () => Promise<boolean>;
 }) {
   return (
@@ -26,9 +25,7 @@ function GoToAdmin(props: {
 
 const GroupPage = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const { groupId } = router.query;
-  //const [loading, group] = useSelector(selectGroup);
   const user = useAppSelector(selectUser);
   const { data, isLoading, isError, isUninitialized } = useGetGroupByIdQuery(
     {
@@ -50,7 +47,13 @@ const GroupPage = () => {
       <DashboardTitle>{data.name}</DashboardTitle>
       <BreadCrumbs />
       <div className="md:grid md:grid-cols-2 md:gap-10">
-        <Meals groupId={data.id} limit={5} order={"newest"} hide={"old"} />
+        <Meals
+          meals={data.meals.map((m) => ({ ...m } as unknown as MealVm))}
+          groupId={data.id}
+          limit={5}
+          order={"newest"}
+          hide={"old"}
+        />
         <Members text="Members" members={data.members} />
       </div>
       <GoToAdmin

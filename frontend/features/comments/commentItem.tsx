@@ -3,6 +3,7 @@ import React from "react";
 import Member from "../users/member";
 import { Card } from "@components/common/card/card";
 import { CardTitle } from "@components/common/card/cardTitle";
+import { UserDto } from "@lib/api";
 
 export const CommentItem = (props: { comment: Comment }) => {
   return (
@@ -11,7 +12,7 @@ export const CommentItem = (props: { comment: Comment }) => {
 
       <div className="flex flex-row justify-between">
         <CardTitle>
-          <Member member={props.comment.authorId} />
+          <Member member={props.comment.authorId as unknown as UserDto} />
         </CardTitle>
         <span className="text-gray-700 text-sm">{props.comment.date}</span>
       </div>

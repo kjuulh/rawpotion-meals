@@ -17,6 +17,7 @@ namespace RawPotion.Meals.Persistence.Database
         public DbSet<User> User { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
         protected override void OnModelCreating(
             ModelBuilder modelBuilder)

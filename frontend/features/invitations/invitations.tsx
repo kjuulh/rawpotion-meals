@@ -1,15 +1,14 @@
 import CreateInvitation from "./createInvitation";
-import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
-import { Invitation, selectInvitationForGroup } from "./invitationsSlice";
-import React, { useEffect } from "react";
-import { getInvitationsForGroupAsync } from "./getInvitationsForGroupAsync";
+import React from "react";
 import { Card } from "@components/common/card/card";
 import { OutlinedButton } from "@components/common/buttons/outlinedButton";
+import { useGetInvitationsForGroupQuery } from "@lib/api";
+import { InvitationVm } from "@lib/api/rawpotion-mealplanner-api.generated";
 
-const calculateInvitationUrl = (invitation: Invitation) =>
-  `${window.location.origin}/groups/${invitation.groupId}/invitations/${invitation.id}`;
+const calculateInvitationUrl = (invitation: InvitationVm) =>
+  `${window.location.origin}/groups/${invitation.group.id}/invitations/${invitation.id}`;
 
-function InvitationItem(props: { invitation: Invitation }) {
+function InvitationItem(props: { invitation: InvitationVm }) {
   return (
     <div className="flex flex-row justify-between items-center">
       <div>{props.invitation.id}</div>
@@ -26,20 +25,19 @@ function InvitationItem(props: { invitation: Invitation }) {
   );
 }
 
-const Invitations = (props: { groupId: string }) => {
-  const dispatch = useAppDispatch();
+const Invitations = (props: { groupId: number }) => {
+  const { data, isLoading, isUninitialized, isError } =
+    useGetInvitationsForGroupQuery({ groupId: props.groupId });
 
-  const [loading, invitations] = useAppSelector(
-    selectInvitationForGroup(props.groupId)
-  );
-
-  useEffect(() => {
-    dispatch(getInvitationsForGroupAsync(props.groupId));
-  }, []);
-
-  if (loading) {
+  if (isLoading || isUninitialized) {
     return <div>Loading...</div>;
   }
+
+  if (isError) {
+    return <div>Error...</div>;
+  }
+
+  const { invitations } = data;
 
   return (
     <Card>

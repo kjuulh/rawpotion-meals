@@ -22,6 +22,10 @@ namespace RawPotion.Meals.Persistence.Configurations
             builder
                 .HasMany(g => g.Meals)
                 .WithOne(m => m.Group);
+
+            builder
+                .HasMany(g => g.Invitations)
+                .WithOne(i => i.Group);
         }
     }
 }

@@ -24,17 +24,55 @@ export const api = createApi({
       query: (queryArg) => ({
         url: `/api/groups`,
         method: "POST",
-        body: queryArg.createGroupRequest,
+        body: queryArg.createGroupCommand,
       }),
     }),
     getGroupById: build.query<GetGroupByIdApiResponse, GetGroupByIdApiArg>({
       query: (queryArg) => ({ url: `/api/groups/${queryArg.groupId}` }),
     }),
+    getInvitationsForGroup: build.query<
+      GetInvitationsForGroupApiResponse,
+      GetInvitationsForGroupApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/group/${queryArg.groupId}/invitations`,
+      }),
+    }),
+    createInvitationForGroup: build.mutation<
+      CreateInvitationForGroupApiResponse,
+      CreateInvitationForGroupApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/group/${queryArg.groupId}/invitations`,
+        method: "POST",
+      }),
+    }),
     createMeal: build.mutation<CreateMealApiResponse, CreateMealApiArg>({
       query: (queryArg) => ({
         url: `/api/meals`,
         method: "POST",
-        body: queryArg.createMealRequest,
+        body: queryArg.createMealForGroupCommand,
+      }),
+    }),
+    getMealById: build.query<GetMealByIdApiResponse, GetMealByIdApiArg>({
+      query: (queryArg) => ({ url: `/api/meals/${queryArg.mealId}` }),
+    }),
+    participateInMeal: build.mutation<
+      ParticipateInMealApiResponse,
+      ParticipateInMealApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/meals/${queryArg.mealId}/participate/${queryArg.userId}`,
+        method: "POST",
+      }),
+    }),
+    dontParticipateInMeal: build.mutation<
+      DontParticipateInMealApiResponse,
+      DontParticipateInMealApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/meals/${queryArg.mealId}/participate/${queryArg.userId}`,
+        method: "DELETE",
       }),
     }),
     registerUserAccount: build.mutation<
@@ -44,7 +82,7 @@ export const api = createApi({
       query: (queryArg) => ({
         url: `/api/user`,
         method: "POST",
-        body: queryArg.registerUserRequest,
+        body: queryArg.registerUserCommand,
       }),
     }),
     getGroupsForUser: build.query<
@@ -72,28 +110,51 @@ export type AuthenticateUserApiArg = {
 export type RefreshUserTokenApiResponse =
   /** status 200 Success */ AuthenticationResponse;
 export type RefreshUserTokenApiArg = {};
-export type CreateGroupApiResponse = /** status 200 Success */ GroupDto;
+export type CreateGroupApiResponse = /** status 200 Success */ GroupVm;
 export type CreateGroupApiArg = {
-  createGroupRequest: CreateGroupRequest;
+  createGroupCommand: CreateGroupCommand;
 };
-export type GetGroupByIdApiResponse = /** status 200 Success */ GroupDto;
+export type GetGroupByIdApiResponse = /** status 200 Success */ GroupVm;
 export type GetGroupByIdApiArg = {
   groupId: number;
 };
-export type CreateMealApiResponse = /** status 200 Success */ MealDto;
+export type GetInvitationsForGroupApiResponse =
+  /** status 200 Success */ InvitationsVm;
+export type GetInvitationsForGroupApiArg = {
+  groupId: number;
+};
+export type CreateInvitationForGroupApiResponse =
+  /** status 200 Success */ InvitationVm;
+export type CreateInvitationForGroupApiArg = {
+  groupId: number;
+};
+export type CreateMealApiResponse = /** status 200 Success */ MealBriefVm;
 export type CreateMealApiArg = {
-  createMealRequest: CreateMealRequest;
+  createMealForGroupCommand: CreateMealForGroupCommand;
 };
-export type RegisterUserAccountApiResponse =
-  /** status 200 Success */ RegisterUserResponse;
+export type GetMealByIdApiResponse = /** status 200 Success */ MealVm;
+export type GetMealByIdApiArg = {
+  mealId: number;
+};
+export type ParticipateInMealApiResponse = /** status 200 Success */ MealVm;
+export type ParticipateInMealApiArg = {
+  mealId: number;
+  userId: number;
+};
+export type DontParticipateInMealApiResponse = /** status 200 Success */ MealVm;
+export type DontParticipateInMealApiArg = {
+  mealId: number;
+  userId: number;
+};
+export type RegisterUserAccountApiResponse = /** status 200 Success */ UserVm;
 export type RegisterUserAccountApiArg = {
-  registerUserRequest: RegisterUserRequest;
+  registerUserCommand: RegisterUserCommand;
 };
-export type GetGroupsForUserApiResponse = /** status 200 Success */ GroupDto[];
+export type GetGroupsForUserApiResponse = /** status 200 Success */ GroupsVm;
 export type GetGroupsForUserApiArg = {
   userId: number;
 };
-export type GetUserByIdApiResponse = /** status 200 Success */ UserDto;
+export type GetUserByIdApiResponse = /** status 200 Success */ UserVm;
 export type GetUserByIdApiArg = {
   userId: number;
 };
@@ -115,40 +176,56 @@ export type AuthenticationResponse = {
   email: string;
   accessToken: string;
 };
-export type UserDto = {
+export type UserVm = {
   id: number;
   username: string;
   email: string;
 };
-export type GroupDto = {
+export type MealBriefVm = {
+  id: number;
+  host: UserVm;
+  groupId: number;
+  recipe: string;
+  date: string;
+};
+export type GroupVm = {
   id: number;
   name: string;
-  admin: UserDto;
-  members: UserDto[];
+  admin: UserVm;
+  members: UserVm[];
+  meals: MealBriefVm[];
 };
-export type CreateGroupRequest = {
+export type CreateGroupCommand = {
   name: string;
 };
-export type MealDto = {
+export type InvitationVm = {
   id?: number;
-  host?: UserDto;
-  group?: GroupDto;
-  recipe?: string | null;
-  date?: string | null;
+  group?: GroupVm;
+  enabled?: boolean;
 };
-export type CreateMealRequest = {
+export type InvitationsVm = {
+  invitations?: InvitationVm[] | null;
+};
+export type CreateMealForGroupCommand = {
   recipe: string;
   groupId: number;
   date: string;
 };
-export type RegisterUserResponse = {
+export type MealVm = {
   id: number;
-  username: string;
+  host: UserVm;
+  group: GroupVm;
+  recipe: string;
+  date: string;
+  participatingMembers: UserVm[];
 };
-export type RegisterUserRequest = {
+export type RegisterUserCommand = {
   username: string;
   email: string;
   password: string;
+};
+export type GroupsVm = {
+  groups?: GroupVm[] | null;
 };
 export type WeatherForecast = {
   date?: string;
@@ -161,7 +238,12 @@ export const {
   useRefreshUserTokenQuery,
   useCreateGroupMutation,
   useGetGroupByIdQuery,
+  useGetInvitationsForGroupQuery,
+  useCreateInvitationForGroupMutation,
   useCreateMealMutation,
+  useGetMealByIdQuery,
+  useParticipateInMealMutation,
+  useDontParticipateInMealMutation,
   useRegisterUserAccountMutation,
   useGetGroupsForUserQuery,
   useGetUserByIdQuery,

@@ -53,7 +53,7 @@ export const createRequestForGroupAsync = createAsyncThunk(
 
     await requestDoc.set({
       id: requestDoc.id,
-      createdBy: state.user.userId,
+      createdBy: state.user.userId as string,
       groupId: params.groupId,
       recipe: params.recipe,
     });
@@ -70,7 +70,7 @@ export const createRequestForGroupAsync = createAsyncThunk(
 
 export const getRequestsForGroup = createAsyncThunk(
   "requests/getForGroup",
-  async (groupId: string, thunkAPI) => {
+  async (groupId: string) => {
     const requestsDoc = await firebase
       .firestore()
       .collection("requests")
@@ -116,8 +116,6 @@ export const requestsSlice = createSlice({
     });
   },
 });
-
-export const {} = requestsSlice.actions;
 
 export const selectRequestsForGroup =
   (groupId: string) =>

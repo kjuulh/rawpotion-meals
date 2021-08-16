@@ -24,7 +24,7 @@ const CreateEventPage = () => {
     }
 
     createMeal({
-      createMealRequest: {
+      createMealForGroupCommand: {
         groupId: parseInt(groupId as string),
         date: values["date"],
         recipe: values["recipe"],

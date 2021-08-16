@@ -20,12 +20,12 @@ export const setRatingForMealAsync = createAsyncThunk(
       .doc(params.mealId)
       .collection("ratings")
       .withConverter(mealRatingConverter)
-      .doc(state.user.userId);
+      .doc(state.user.userId as string);
 
     const rating: MealRating = {
-      id: state.user.userId,
+      id: state.user.userId as string,
       rating: params.rating,
-      userId: state.user.userId,
+      userId: state.user.userId as string,
     };
 
     await ratingDoc.set(rating);

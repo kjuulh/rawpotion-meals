@@ -67,15 +67,14 @@ const Recipes = (props: { userId: string }) => {
   );
 };
 
-function RecipesForUser(props: { userId: string }) {
-  return (
-    <div>
-      <h2>Recipes</h2>
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const RecipesForUser = (props: { userId: string }) => (
+  <div>
+    <h2>Recipes</h2>
 
-      <Recipes {...props} />
-    </div>
-  );
-}
+    <Recipes {...props} />
+  </div>
+);
 
 const UsersPage = () => {
   const router = useRouter();

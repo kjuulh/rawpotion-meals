@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RawPotion.Meals.Application.Interfaces;
@@ -47,7 +48,8 @@ namespace RawPotion.Meals.Application.Features.Meals
                     Host = user,
                     Date = date,
                     Group = group,
-                    Recipe = recipe
+                    Recipe = recipe,
+                    ParticipatingMembers = new List<User> {user}
                 });
 
             return meal;

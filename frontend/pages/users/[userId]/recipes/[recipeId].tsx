@@ -6,13 +6,6 @@ import { selectRecipeById } from "@features/recipes/recipesSlice";
 import dynamic from "next/dynamic";
 import { selectUser } from "@features/user/userSlice";
 
-const EditorContainer = dynamic(
-  () => import("@components/editor/editorContainer"),
-  {
-    ssr: false,
-  }
-);
-
 const RenderHtml = dynamic(
   () => import("../../../../features/recipes/renderHtml"),
   {
@@ -58,8 +51,6 @@ const RecipePage = () => {
   return (
     <div>
       <h1>Edit recipe page</h1>
-
-      <EditorContainer recipe={recipe} />
     </div>
   );
 };

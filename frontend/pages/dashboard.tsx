@@ -36,7 +36,7 @@ const DashboardPage = () => {
 
       <div>
         <GroupsList
-          groups={data}
+          groups={data.groups}
           onGroupClick={(groupId) => router.push(`/groups/${groupId}`)}
         />
       </div>

@@ -44,7 +44,7 @@ const RegisterPage = () => {
       },
       () => {
         registerUserAccount({
-          registerUserRequest: {
+          registerUserCommand: {
             username: values["name"],
             email: values["email"],
             password: values["password"],

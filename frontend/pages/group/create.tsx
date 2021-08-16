@@ -27,7 +27,7 @@ const CreateGroupPage = () => {
       },
       () => {
         createGroup({
-          createGroupRequest: {
+          createGroupCommand: {
             name: values["groupName"],
           },
         });

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Output from "editorjs-react-renderer";
 
 export const RenderHtml = (props: { recipeJSON: string }) => {
   const [recipeHtml, setRecipeHtml] = useState();
@@ -15,7 +14,7 @@ export const RenderHtml = (props: { recipeJSON: string }) => {
     return <div>Loading...</div>;
   }
 
-  return <Output data={recipeHtml} />;
+  return <div></div>;
 };
 
 export default RenderHtml;

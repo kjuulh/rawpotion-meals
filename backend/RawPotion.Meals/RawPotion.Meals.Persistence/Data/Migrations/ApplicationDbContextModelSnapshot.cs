@@ -34,6 +34,21 @@ namespace RawPotion.Meals.Persistence.Data.Migrations
                     b.ToTable("GroupUser");
                 });
 
+            modelBuilder.Entity("MealUser", b =>
+                {
+                    b.Property<int>("ParticipatingMealsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ParticipatingMembersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ParticipatingMealsId", "ParticipatingMembersId");
+
+                    b.HasIndex("ParticipatingMembersId");
+
+                    b.ToTable("MealUser");
+                });
+
             modelBuilder.Entity("RawPotion.Meals.Domain.Entities.Group", b =>
                 {
                     b.Property<int>("Id")
@@ -53,6 +68,28 @@ namespace RawPotion.Meals.Persistence.Data.Migrations
                     b.HasIndex("AdminId");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("RawPotion.Meals.Domain.Entities.Invitation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("Enabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("Invitations");
                 });
 
             modelBuilder.Entity("RawPotion.Meals.Domain.Entities.Meal", b =>
@@ -130,6 +167,21 @@ namespace RawPotion.Meals.Persistence.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MealUser", b =>
+                {
+                    b.HasOne("RawPotion.Meals.Domain.Entities.Meal", null)
+                        .WithMany()
+                        .HasForeignKey("ParticipatingMealsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RawPotion.Meals.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("ParticipatingMembersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("RawPotion.Meals.Domain.Entities.Group", b =>
                 {
                     b.HasOne("RawPotion.Meals.Domain.Entities.User", "Admin")
@@ -139,6 +191,17 @@ namespace RawPotion.Meals.Persistence.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Admin");
+                });
+
+            modelBuilder.Entity("RawPotion.Meals.Domain.Entities.Invitation", b =>
+                {
+                    b.HasOne("RawPotion.Meals.Domain.Entities.Group", "Group")
+                        .WithMany("Invitations")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("RawPotion.Meals.Domain.Entities.Meal", b =>
@@ -218,6 +281,8 @@ namespace RawPotion.Meals.Persistence.Data.Migrations
 
             modelBuilder.Entity("RawPotion.Meals.Domain.Entities.Group", b =>
                 {
+                    b.Navigation("Invitations");
+
                     b.Navigation("Meals");
                 });
 

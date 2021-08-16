@@ -1,14 +1,15 @@
-import { useAppDispatch } from "@lib/redux/hooks";
-import { createInvitationAsync } from "./createInvitationAsync";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
+import { useCreateInvitationForGroupMutation } from "@lib/api";
 
-const CreateInvitation = (props: { groupId: string }) => {
-  const dispatch = useAppDispatch();
+const CreateInvitation = (props: { groupId: number }) => {
+  const [createInvitation] = useCreateInvitationForGroupMutation();
 
   return (
     <div>
       <PrimaryButton
-        onClick={() => dispatch(createInvitationAsync(props.groupId))}
+        onClick={() => {
+          createInvitation({ groupId: props.groupId });
+        }}
       >
         Create invitation
       </PrimaryButton>

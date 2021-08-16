@@ -21,8 +21,8 @@ export const createGroupAsync = createAsyncThunk(
     await groupRef.set({
       id: groupRef.id,
       name: groupName,
-      members: [state.user.userId],
-      admin: state.user.userId,
+      members: [state.user.userId as string],
+      admin: state.user.userId as string,
     });
 
     const documentSnapshot = await groupRef.withConverter(groupConverter).get();

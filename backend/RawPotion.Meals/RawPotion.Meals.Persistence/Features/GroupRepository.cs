@@ -24,6 +24,7 @@ namespace RawPotion.Meals.Persistence.Features
         {
             return await _context.Groups.Include(g => g.Members)
                 .Include(g => g.Admin)
+                .AsSplitQuery()
                 .Where(g => g.Members.Any(m => m.Id == userId))
                 .ToListAsync();
         }
@@ -53,6 +54,9 @@ namespace RawPotion.Meals.Persistence.Features
         public async Task<Group?> GetGroupByIdAsync(int groupId)
             => await _context.Groups.Include(g => g.Admin)
                 .Include(g => g.Members)
+                .Include(g => g.Meals)
+                .ThenInclude(m => m.Group)
+                .AsSplitQuery()
                 .SingleOrDefaultAsync(g => g.Id == groupId);
     }
 }

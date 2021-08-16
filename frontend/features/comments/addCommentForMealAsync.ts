@@ -21,7 +21,7 @@ export const addCommentForMealAsync = createAsyncThunk(
       id: commentRef.id,
       date: "today - todo",
       mealId: params.mealId,
-      authorId: state.user.userId,
+      authorId: state.user.userId as string,
       text: params.text,
     };
 

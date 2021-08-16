@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace RawPotion.Meals.Domain.Entities
 {
     public record Meal
@@ -7,5 +9,8 @@ namespace RawPotion.Meals.Domain.Entities
         public Group Group { get; set; }
         public string Recipe { get; set; }
         public string Date { get; set; }
+
+        public ICollection<User> ParticipatingMembers { get; set; } =
+            new List<User>();
     }
 }

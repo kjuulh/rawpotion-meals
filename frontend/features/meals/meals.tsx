@@ -3,17 +3,18 @@ import { useRouter } from "next/router";
 import { Card } from "@components/common/card/card";
 import { CardTitle } from "@components/common/card/cardTitle";
 import { MealItem } from "@features/meals/mealItem";
+import { MealVm } from "@lib/api";
 
 export const Meals = (props: {
+  meals: MealVm[];
   groupId: number;
   limit?: number;
   order?: "newest";
   hide?: "old";
 }) => {
-  const router = useRouter();
-  //const meals = useAppSelector(selectMealsByGroupId(props.groupId));
-  const meals = [];
+  const { meals } = props;
 
+  const router = useRouter();
   return (
     <Card>
       <CardTitle>Upcoming Meals</CardTitle>

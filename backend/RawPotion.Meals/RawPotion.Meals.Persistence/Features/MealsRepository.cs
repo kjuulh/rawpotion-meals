@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using RawPotion.Meals.Application.Interfaces;
 using RawPotion.Meals.Application.Interfaces.Meals;
 using RawPotion.Meals.Domain.Entities;
@@ -22,5 +23,13 @@ namespace RawPotion.Meals.Persistence.Features
 
             return mealEntity.Entity;
         }
+
+        public Task<Meal> GetMealByIdAsync(int mealId)
+            => _applicationDbContext
+                .Meals
+                .Include(m => m.Group.Members)
+                .Include(m => m.ParticipatingMembers)
+                .AsSplitQuery()
+                .SingleOrDefaultAsync(m => m.Id == mealId);
     }
 }
