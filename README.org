@@ -22,8 +22,10 @@
 *** DONE Move groups
 *** DONE Move Meals
 ** TODO Fix invitations [0/2]
-- TODO Fix backend so a can be part of a group
-- TODO Fix frontend so that the invitation is part of the state and not url.
+- [-] Backend can get all invitations
+- [-] Fix performance issues
+- [ ] Fix backend so a can be part of a group
+- [ ] Fix frontend so that the invitation is part of the state and not url.
 
 * Fun stuff
 ** DONE Take a look at Redwood.js
