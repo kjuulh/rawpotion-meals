@@ -2,7 +2,6 @@ import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
 import { resetUser, selectUser } from "@features/user/userSlice";
 import React, { useEffect, useState } from "react";
-import { loginAsync } from "@features/user/loginAsync";
 import { Form } from "react-final-form";
 import { AuthForm } from "@features/auth/authForm";
 import { AuthHeading } from "@features/auth/authHeading";
@@ -13,10 +12,9 @@ import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
 import { AuthFormButton } from "@features/auth/authFormButton";
 import { AuthFormLink } from "@features/auth/authFormLink";
 import AuthFormInput from "@features/auth/authFormInput";
-import { useIfFirebase } from "@lib/firebase";
 import { useAuthenticateUserMutation } from "@lib/api";
 
-export const LoginForm = () => {
+export const LoginForm: any = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -25,10 +23,8 @@ export const LoginForm = () => {
 
   const [submitTriggered, setSubmitTriggered] = useState(false);
 
-  const [
-    authenticateUser,
-    { isLoading: isUpdating, data, isError, error, isSuccess },
-  ] = useAuthenticateUserMutation();
+  const [authenticateUser, { isLoading: isUpdating, isError, isSuccess }] =
+    useAuthenticateUserMutation();
 
   useEffect(() => {
     if (user?.userId && submitTriggered) {
@@ -43,24 +39,12 @@ export const LoginForm = () => {
   const onSubmit = (values: Record<string, any>) => {
     dispatch(resetUser);
 
-    useIfFirebase(
-      () => {
-        dispatch(
-          loginAsync({
-            email: values["email"],
-            password: values["password"],
-          })
-        );
+    authenticateUser({
+      authenticateUserRequest: {
+        email: values["email"],
+        password: values["password"],
       },
-      () => {
-        authenticateUser({
-          authenticateUserRequest: {
-            email: values["email"],
-            password: values["password"],
-          },
-        });
-      }
-    );
+    });
     setSubmitTriggered(true);
   };
 

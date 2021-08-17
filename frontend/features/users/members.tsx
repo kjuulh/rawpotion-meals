@@ -2,10 +2,10 @@ import Member from "./member";
 import { Card } from "@components/common/card/card";
 import { CardTitle } from "@components/common/card/cardTitle";
 import { FC } from "react";
-import { UserDto } from "@lib/api";
+import { UserVm } from "@lib/api";
 
 interface MembersProps {
-  members: UserDto[];
+  members: UserVm[];
   text: string;
   actions?: () => JSX.Element;
 }

@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import { UserDto } from "@lib/api";
+import { UserVm } from "@lib/api";
+import { FC } from "react";
 
-const Member = (props: { member: UserDto }) => {
+const Member: FC<{ member: UserVm }> = (props) => {
   const router = useRouter();
 
   return (

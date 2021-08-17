@@ -1,8 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import firebase from "firebase/app";
 import { AppState } from "@lib/redux/store";
-import { loginAsync } from "./loginAsync";
-import { registerAsync } from "./registerAsync";
 import { authenticateUser } from "@lib/api";
 import { AuthenticationResponse } from "@lib/api/rawpotion-mealplanner-api.generated";
 
@@ -19,14 +16,18 @@ const initialState: UserState = {
   status: "idle",
 };
 
+const deleteCookie = (name: string) => {
+  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+};
+
 export const signOutAsync = createAsyncThunk(
   "user/sign-out",
   async (_, thunkAPI): Promise<UserState> => {
-    await firebase.auth().signOut();
-
     thunkAPI.dispatch({
       type: "reset",
     });
+
+    deleteCookie("refreshToken");
 
     return {
       userId: undefined,
@@ -55,6 +56,7 @@ export const userSlice = createSlice({
       state.state = "not-logged-in";
       state.userId = undefined;
       state.email = undefined;
+      state.accessToken = undefined;
     },
     userIsSignedIn: (state, action: PayloadAction<AuthenticationResponse>) => {
       state.status = "idle";
@@ -65,25 +67,6 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(registerAsync.pending, (state) => {
-      state.status = "loading";
-    });
-    builder.addCase(registerAsync.fulfilled, (state, action) => {
-      state.state = "logged-in";
-      state.status = "idle";
-      state.userId = action.payload.userId;
-      state.email = action.payload.email;
-    });
-    builder.addCase(loginAsync.pending, (state) => {
-      state.status = "loading";
-    });
-    builder.addCase(loginAsync.fulfilled, (state, action) => {
-      state.userId = action.payload.userId;
-      state.email = action.payload.email;
-      state.status = "idle";
-      state.state = "logged-in";
-    });
-
     builder.addCase(signOutAsync.pending, (state) => {
       state.status = "loading";
     });

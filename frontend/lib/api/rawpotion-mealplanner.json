@@ -806,12 +806,12 @@
         },
         "additionalProperties": false
       },
-      "MealBriefVm": {
+      "MealWithoutGroupVm": {
         "required": [
           "date",
-          "groupId",
           "host",
           "id",
+          "participatingMembers",
           "recipe"
         ],
         "type": "object",
@@ -823,15 +823,17 @@
           "host": {
             "$ref": "#/components/schemas/UserVm"
           },
-          "groupId": {
-            "type": "integer",
-            "format": "int32"
-          },
           "recipe": {
             "type": "string"
           },
           "date": {
             "type": "string"
+          },
+          "participatingMembers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserVm"
+            }
           }
         },
         "additionalProperties": false
@@ -865,7 +867,7 @@
           "meals": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MealBriefVm"
+              "$ref": "#/components/schemas/MealWithoutGroupVm"
             }
           }
         },
@@ -919,6 +921,36 @@
           "groupId": {
             "type": "integer",
             "format": "int32"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MealBriefVm": {
+        "required": [
+          "date",
+          "groupId",
+          "host",
+          "id",
+          "recipe"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "host": {
+            "$ref": "#/components/schemas/UserVm"
+          },
+          "groupId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recipe": {
+            "type": "string"
           },
           "date": {
             "type": "string"

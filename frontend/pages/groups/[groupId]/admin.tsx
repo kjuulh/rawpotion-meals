@@ -2,7 +2,7 @@ import AdminArea from "../../../features/admin/adminArea";
 import { useRouter } from "next/router";
 import DashboardLayout from "@components/layouts/dashboardLayout";
 
-const AdminPage = () => {
+const AdminPage: any = () => {
   const router = useRouter();
   const { groupId } = router.query;
 
@@ -10,7 +10,7 @@ const AdminPage = () => {
     return <div>Error</div>;
   }
 
-  return <AdminArea groupId={groupId} />;
+  return <AdminArea groupId={parseInt(groupId as string)} />;
 };
 
 AdminPage.Layout = DashboardLayout;

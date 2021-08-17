@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import { MealVm } from "@lib/api";
+import { MealVm, MealWithoutGroupVm } from "@lib/api";
+import { FC } from "react";
 
-export const MealItem = ({
-  meal: { groupId, id, recipe, date },
-}: {
-  meal: MealVm;
-}) => {
+export const MealItem: FC<{
+  meal: MealVm | MealWithoutGroupVm;
+  groupId: number;
+}> = ({ meal: { id, recipe, date }, groupId }) => {
   const router = useRouter();
 
   return (

@@ -11,7 +11,7 @@ import GroupsList from "@features/groups/groupsList";
 import DashboardLayout from "@components/layouts/dashboardLayout";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
 
-const DashboardPage = () => {
+const DashboardPage: any = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);

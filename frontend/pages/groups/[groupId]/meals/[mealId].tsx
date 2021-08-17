@@ -54,7 +54,7 @@ export const Participants: FC<{
   );
 };
 
-const MealPage = () => {
+const MealPage: any = () => {
   const router = useRouter();
   const { groupId, mealId } = router.query;
   const user = useAppSelector(selectUser);

@@ -210,19 +210,19 @@ export type UserVm = {
   username: string;
   email: string;
 };
-export type MealBriefVm = {
+export type MealWithoutGroupVm = {
   id: number;
   host: UserVm;
-  groupId: number;
   recipe: string;
   date: string;
+  participatingMembers: UserVm[];
 };
 export type GroupVm = {
   id: number;
   name: string;
   admin: UserVm;
   members: UserVm[];
-  meals: MealBriefVm[];
+  meals: MealWithoutGroupVm[];
 };
 export type CreateGroupCommand = {
   name: string;
@@ -234,6 +234,13 @@ export type InvitationVm = {
 };
 export type InvitationsVm = {
   invitations?: InvitationVm[] | null;
+};
+export type MealBriefVm = {
+  id: number;
+  host: UserVm;
+  groupId: number;
+  recipe: string;
+  date: string;
 };
 export type CreateMealForGroupCommand = {
   recipe: string;

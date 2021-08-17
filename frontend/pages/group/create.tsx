@@ -1,46 +1,23 @@
 import { Field, Form } from "react-final-form";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  resetGroupState,
-  selectHasBeenCreated,
-} from "@features/groups/groupsSlice";
+import React from "react";
 import { useRouter } from "next/router";
-import { createGroupAsync } from "@features/groups/createGroupAsync";
-import { useIfFirebase } from "@lib/firebase";
 import { useCreateGroupMutation } from "@lib/api";
 
 const required = (value) => (value ? undefined : "Required");
 
-const CreateGroupPage = () => {
+const CreateGroupPage: any = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
-  const [hasBeenCreated, group] = useSelector(selectHasBeenCreated);
   const [createGroup, { isLoading, isError, isSuccess, data }] =
     useCreateGroupMutation();
 
   const onSubmit = (values: Record<string, any>) => {
-    useIfFirebase(
-      () => {
-        dispatch(createGroupAsync(values["groupName"]));
+    createGroup({
+      createGroupCommand: {
+        name: values["groupName"],
       },
-      () => {
-        createGroup({
-          createGroupCommand: {
-            name: values["groupName"],
-          },
-        });
-      }
-    );
+    });
   };
-
-  useEffect(() => {
-    if (hasBeenCreated) {
-      dispatch(resetGroupState());
-      router.push(`/groups/${group.id}`);
-    }
-  }, [hasBeenCreated]);
 
   if (isLoading) {
     return <div>Loading...</div>;

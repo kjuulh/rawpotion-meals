@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { FC } from "react";
 import { useAppSelector } from "@lib/redux/hooks";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import { CardTitle } from "@components/common/card/cardTitle";
 import { Card } from "@components/common/card/card";
 import { OutlinedButton } from "@components/common/buttons/outlinedButton";
-import { selectUserById } from "@features/users/usersSlice";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import {
   useGetInvitationForGroupQuery,
@@ -13,16 +12,7 @@ import {
 } from "@lib/api";
 import { selectUser } from "@features/user/userSlice";
 
-function InvitationMember(props: { memberId: string }) {
-  const member = useAppSelector(selectUserById(props.memberId));
-  if (!member) {
-    return null;
-  }
-
-  return <>{member.name}</>;
-}
-
-const AcceptInvitationPage = () => {
+const AcceptInvitationPage: FC = () => {
   const router = useRouter();
   const { groupId, invitationId } = router.query;
   const user = useAppSelector(selectUser);

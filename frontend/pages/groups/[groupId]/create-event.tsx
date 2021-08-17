@@ -11,7 +11,7 @@ import DashboardLayout from "@components/layouts/dashboardLayout";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
 import { useCreateMealMutation } from "@lib/api";
 
-const CreateEventPage = () => {
+const CreateEventPage: any = () => {
   const router = useRouter();
   const { groupId } = router.query;
 

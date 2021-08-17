@@ -7,23 +7,21 @@ import DashboardLayout from "@components/layouts/dashboardLayout";
 import { DashboardTitle } from "@components/common/typography/dashboardTitle";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
-import { GroupVm, MealVm, useGetGroupByIdQuery } from "@lib/api";
+import { GroupVm, useGetGroupByIdQuery } from "@lib/api";
 
-function GoToAdmin(props: {
+const GoToAdmin = (props: {
   userId: number;
   group: GroupVm;
   onClick: () => Promise<boolean>;
-}) {
-  return (
-    <>
-      {props.userId === props.group.admin.id && (
-        <PrimaryButton onClick={props.onClick}>Go to admin</PrimaryButton>
-      )}
-    </>
-  );
-}
+}) => (
+  <>
+    {props.userId === props.group.admin.id && (
+      <PrimaryButton onClick={props.onClick}>Go to admin</PrimaryButton>
+    )}
+  </>
+);
 
-const GroupPage = () => {
+const GroupPage: any = () => {
   const router = useRouter();
   const { groupId } = router.query;
   const user = useAppSelector(selectUser);
@@ -48,7 +46,7 @@ const GroupPage = () => {
       <BreadCrumbs />
       <div className="md:grid md:grid-cols-2 md:gap-10">
         <Meals
-          meals={data.meals.map((m) => ({ ...m } as unknown as MealVm))}
+          meals={data.meals}
           groupId={data.id}
           limit={5}
           order={"newest"}

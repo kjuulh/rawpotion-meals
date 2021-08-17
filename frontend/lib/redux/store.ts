@@ -1,31 +1,14 @@
-import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import {Action, configureStore, ThunkAction} from "@reduxjs/toolkit";
 
 import user from "@features/user/userSlice";
-import groups from "@features/groups/groupsSlice";
-import currentGroup from "@features/currentGroup/currentGroupSlice";
-import users from "@features/users/usersSlice";
-import meals from "@features/meals/mealsSlice";
-import comments from "@features/comments/commentsSlice";
-import invitations from "@features/invitations/invitationsSlice";
-import requests from "@features/requests/requestsSlice";
-import mealRatings from "@features/mealRatings/mealRatingsSlice";
-import recipes from "@features/recipes/recipesSlice";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import { api } from "@lib/api";
+import {setupListeners} from "@reduxjs/toolkit/query";
+import {api} from "@lib/api";
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const makeStore = () =>
   configureStore({
     reducer: {
       user,
-      groups,
-      currentGroup,
-      users,
-      meals,
-      comments,
-      invitations,
-      requests,
-      mealRatings,
-      recipes,
       [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>

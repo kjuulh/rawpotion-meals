@@ -3,15 +3,16 @@ import { useRouter } from "next/router";
 import { Card } from "@components/common/card/card";
 import { CardTitle } from "@components/common/card/cardTitle";
 import { MealItem } from "@features/meals/mealItem";
-import { MealVm } from "@lib/api";
+import { MealVm, MealWithoutGroupVm } from "@lib/api";
+import { FC } from "react";
 
-export const Meals = (props: {
-  meals: MealVm[];
+export const Meals: FC<{
+  meals: MealVm[] | MealWithoutGroupVm[];
   groupId: number;
   limit?: number;
   order?: "newest";
   hide?: "old";
-}) => {
+}> = (props) => {
   const { meals } = props;
 
   const router = useRouter();
@@ -23,7 +24,7 @@ export const Meals = (props: {
       ) : (
         <ul>
           {meals.slice(0, props.limit ? props.limit : 10000).map((m) => (
-            <MealItem key={m.id} meal={m} />
+            <MealItem key={m.id} meal={m} groupId={props.groupId} />
           ))}
         </ul>
       )}

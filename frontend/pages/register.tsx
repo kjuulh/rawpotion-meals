@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-final-form";
 import { selectUser } from "@features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
+import { useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
-import { registerAsync } from "@features/user/registerAsync";
 import { AuthForm } from "@features/auth/authForm";
 import { AuthHeading } from "@features/auth/authHeading";
 import { AuthFormTitle } from "@features/auth/authFormTitle";
@@ -13,11 +12,9 @@ import AuthFormInput from "@features/auth/authFormInput";
 import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
 import { AuthFormButton } from "@features/auth/authFormButton";
 import { AuthFormLink } from "@features/auth/authFormLink";
-import { useIfFirebase } from "@lib/firebase";
 import { useRegisterUserAccountMutation } from "@lib/api";
 
-const RegisterPage = () => {
-  const dispatch = useAppDispatch();
+const RegisterPage: any = () => {
   const router = useRouter();
   const user = useAppSelector(selectUser);
   const [
@@ -31,29 +28,16 @@ const RegisterPage = () => {
     if (user.userId && submitTriggered) {
       router.push("/dashboard");
     }
-  }, [user]);
+  }, [user, router, submitTriggered]);
 
   const onSubmit = (values: Record<string, any>) => {
-    useIfFirebase(
-      () => {
-        dispatch(
-          registerAsync({
-            name: values["name"],
-            email: values["email"],
-            password: values["password"],
-          })
-        );
+    registerUserAccount({
+      registerUserCommand: {
+        username: values["name"],
+        email: values["email"],
+        password: values["password"],
       },
-      () => {
-        registerUserAccount({
-          registerUserCommand: {
-            username: values["name"],
-            email: values["email"],
-            password: values["password"],
-          },
-        });
-      }
-    );
+    });
 
     setSubmitTriggered(true);
   };

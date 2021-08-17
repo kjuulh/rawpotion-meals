@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { GroupItem } from "./groupItem";
-import { GroupDto } from "@lib/api";
+import { GroupVm } from "@lib/api";
 
 interface GroupsListProps {
   onGroupClick: (groupId: string | number) => void;
-  groups: GroupDto[];
+  groups: GroupVm[];
 }
 
 const GroupsList: FC<GroupsListProps> = ({ onGroupClick, groups }) => {

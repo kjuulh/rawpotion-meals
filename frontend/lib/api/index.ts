@@ -4,4 +4,5 @@ export type {
   GroupsVm,
   UserVm,
   MealVm,
+  MealWithoutGroupVm,
 } from "./rawpotion-mealplanner-api.generated";
