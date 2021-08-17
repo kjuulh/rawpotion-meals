@@ -20,8 +20,10 @@ const RegisterPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const user = useAppSelector(selectUser);
-  const [registerUserAccount, { isLoading: isUpdating, error, isError }] =
-    useRegisterUserAccountMutation();
+  const [
+    registerUserAccount,
+    { isLoading: isUpdating, error, isError, isSuccess },
+  ] = useRegisterUserAccountMutation();
 
   const [submitTriggered, setSubmitTriggered] = useState(false);
 
@@ -58,6 +60,11 @@ const RegisterPage = () => {
 
   if (isError) {
     return <p>{JSON.stringify(error)}</p>;
+  }
+
+  if (isSuccess) {
+    router.push("/login");
+    return <div>Redirecting...</div>;
   }
 
   return (
