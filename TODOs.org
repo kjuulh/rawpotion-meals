@@ -27,7 +27,7 @@
 *** DONE [x] Fix backend so a user can be part of a group
 *** TODO [ ] Fix frontend so that the invitation is part of the state and not url.
 ** DONE Fix register so that redirect is automatic on success
-** TODO Remove old firebase related code
+** DONE Remove old firebase related code
 ** TODO Deploy backend to heroku
 *** TODO [ ] Deploy database
 ** TODO Deploy frontend to Vercel
