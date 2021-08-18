@@ -29,6 +29,7 @@ namespace RawPotion.Meals.Application.Features.Meals
             int userId,
             int groupId,
             string recipe,
+            string? description,
             string date)
         {
             var group = await _groupRepository.GetGroupByIdAsync(groupId);
@@ -39,16 +40,17 @@ namespace RawPotion.Meals.Application.Features.Meals
             if (user is null)
                 throw new ApplicationException("No user was found");
 
-            if (group.Members.Any(m => m.Id != userId))
+            if (group.Members.All(m => m.Id != userId))
                 throw new ApplicationException("User is not part of group");
 
             var meal = await _mealsRepository.CreateMealAsync(
-                new Meal()
+                new Meal
                 {
                     Host = user,
                     Date = date,
                     Group = group,
                     Recipe = recipe,
+                    Description = description,
                     ParticipatingMembers = new List<User> {user}
                 });
 

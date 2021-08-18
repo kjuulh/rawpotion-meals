@@ -21,6 +21,8 @@ namespace RawPotion.Meals.Application.Features.Meals.Queries.GetMealById
         [Required]
         public string Recipe { get; set; }
 
+        public string? Description { get; set; }
+
         [Required]
         public string Date { get; set; }
         

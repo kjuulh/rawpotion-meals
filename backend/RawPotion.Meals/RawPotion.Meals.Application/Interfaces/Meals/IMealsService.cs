@@ -9,6 +9,7 @@ namespace RawPotion.Meals.Application.Interfaces.Meals
             int userId,
             int groupId,
             string recipe,
+            string? description,
             string date);
     }
 }

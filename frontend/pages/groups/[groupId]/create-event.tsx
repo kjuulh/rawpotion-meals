@@ -28,6 +28,7 @@ const CreateEventPage: any = () => {
         groupId: parseInt(groupId as string),
         date: values["date"],
         recipe: values["recipe"],
+        description: values["description"],
       },
     });
   };
@@ -60,6 +61,14 @@ const CreateEventPage: any = () => {
                 name="recipe"
                 required
                 placeholder="What to serve?"
+                type="text"
+                fullWidth
+              />
+
+              <CardFormInput
+                label="Description"
+                name="description"
+                placeholder="Please provide some details"
                 type="text"
                 fullWidth
               />

@@ -32,7 +32,7 @@
 *** TODO [ ] Deploy database
 ** TODO Deploy frontend to Vercel
 ** TODO Introduce ui alerts
-** TODO Introduce description into page
+** DONE Introduce description into page
 ** TODO Introduce images into page
 ** TODO Style profile
 ** TODO Style create group

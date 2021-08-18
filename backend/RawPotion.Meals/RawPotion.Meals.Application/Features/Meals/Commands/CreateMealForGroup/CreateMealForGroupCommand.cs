@@ -12,6 +12,8 @@ namespace RawPotion.Meals.Application.Features.Meals.Commands.CreateMealForGroup
     {
         [Required]
         public string Recipe { get; init; }
+        
+        public string? Description { get; set; }
 
         [Required]
         public int GroupId { get; set; }
@@ -46,6 +48,7 @@ namespace RawPotion.Meals.Application.Features.Meals.Commands.CreateMealForGroup
                 userId,
                 request.GroupId,
                 request.Recipe,
+                request.Description,
                 request.Date);
 
             return _mapper.Map<MealBriefVm>(meal);

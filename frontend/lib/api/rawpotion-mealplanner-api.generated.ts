@@ -244,6 +244,7 @@ export type MealBriefVm = {
 };
 export type CreateMealForGroupCommand = {
   recipe: string;
+  description?: string | null;
   groupId: number;
   date: string;
 };
@@ -252,6 +253,7 @@ export type MealVm = {
   host: UserVm;
   group: GroupVm;
   recipe: string;
+  description?: string | null;
   date: string;
   participatingMembers: UserVm[];
 };

@@ -92,14 +92,20 @@ const MealPage: any = () => {
         <CardTitle>
           Name: <span>{meal.recipe}</span>
         </CardTitle>
+
+        {meal.description && (
+          <div>
+            <p>
+              <span>Description: </span>
+              <span>{meal.description}</span>
+            </p>
+          </div>
+        )}
+
         <p>
           <span className="font-medium uppercase">Date:</span>{" "}
           <span className="text-md">{meal.date}</span>
         </p>
-
-        {/*
-        <MealRatingComponent mealId={mealId as string} />
-        */}
       </Card>
 
       <Participants
@@ -107,10 +113,6 @@ const MealPage: any = () => {
         mealEvent={meal}
         userId={parseInt(user.userId as string)}
       />
-      {/*
-
-      <Comments mealId={meal.id} />
-*/}
     </div>
   );
 };

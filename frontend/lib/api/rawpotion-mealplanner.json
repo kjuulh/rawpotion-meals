@@ -918,6 +918,10 @@
           "recipe": {
             "type": "string"
           },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
           "groupId": {
             "type": "integer",
             "format": "int32"
@@ -981,6 +985,10 @@
           },
           "recipe": {
             "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
           },
           "date": {
             "type": "string"
