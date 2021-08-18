@@ -21,23 +21,24 @@
 ** DONE Move api implementation to mediator in applications
 *** DONE Move groups
 *** DONE Move Meals
-** TODO Fix invitations [3/4]
-*** DONE [x] Backend can get all invitations
-*** DONE [x] Fix performance issues
-*** DONE [x] Fix backend so a user can be part of a group
-*** TODO [ ] Fix frontend so that the invitation is part of the state and not url.
+** TODO Fix invitations [4/4]
+*** DONE Backend can get all invitations
+*** DONE Fix performance issues
+*** DONE Fix backend so a user can be part of a group
+*** DONE Fix frontend so that the invitation is part of the state and not url.
 ** DONE Fix register so that redirect is automatic on success
 ** DONE Remove old firebase related code
+** TODO Fix sign out
+** TODO Style profile
+** TODO Style create group
+** TODO Introduce ui alerts
+** TODO Replace int ids with slugs
 ** TODO Deploy backend to heroku
 *** TODO [ ] Deploy database
 ** TODO Deploy frontend to Vercel
-** TODO Introduce ui alerts
-** DONE Introduce description into page
 ** TODO Introduce images into page
-** TODO Style profile
-** TODO Style create group
-** TODO Replace int ids with slugs
 ** TODO Do a customer session to figure out what works and what doesn't
+** DONE Introduce description into page
 
 * Fun stuff
 ** DONE Take a look at Redwood.js

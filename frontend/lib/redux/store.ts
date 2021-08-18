@@ -1,6 +1,7 @@
 import {Action, configureStore, ThunkAction} from "@reduxjs/toolkit";
 
 import user from "@features/user/userSlice";
+import auth from "@features/auth/authSlice";
 import {setupListeners} from "@reduxjs/toolkit/query";
 import {api} from "@lib/api";
 
@@ -9,6 +10,7 @@ export const makeStore = () =>
   configureStore({
     reducer: {
       user,
+      auth,
       [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>

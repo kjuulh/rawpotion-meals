@@ -39,7 +39,7 @@ export const baseQueryWithAuth: BaseQueryFn<
       );
       result = await baseQuery(args, api, extraOptions);
     } else {
-      api.dispatch(signOutAsync);
+      api.dispatch(signOutAsync());
     }
   }
   return result;

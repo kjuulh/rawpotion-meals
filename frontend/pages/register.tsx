@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Form } from "react-final-form";
-import { selectUser } from "@features/user/userSlice";
-import { useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
 import { AuthForm } from "@features/auth/authForm";
 import { AuthHeading } from "@features/auth/authHeading";
@@ -16,19 +14,11 @@ import { useRegisterUserAccountMutation } from "@lib/api";
 
 const RegisterPage: any = () => {
   const router = useRouter();
-  const user = useAppSelector(selectUser);
+
   const [
     registerUserAccount,
     { isLoading: isUpdating, error, isError, isSuccess },
   ] = useRegisterUserAccountMutation();
-
-  const [submitTriggered, setSubmitTriggered] = useState(false);
-
-  useEffect(() => {
-    if (user.userId && submitTriggered) {
-      router.push("/dashboard");
-    }
-  }, [user, router, submitTriggered]);
 
   const onSubmit = (values: Record<string, any>) => {
     registerUserAccount({
@@ -38,8 +28,6 @@ const RegisterPage: any = () => {
         password: values["password"],
       },
     });
-
-    setSubmitTriggered(true);
   };
 
   if (isError) {

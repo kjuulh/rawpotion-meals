@@ -70,11 +70,11 @@ export const userSlice = createSlice({
     builder.addCase(signOutAsync.pending, (state) => {
       state.status = "loading";
     });
-    builder.addCase(signOutAsync.fulfilled, (state) => {
+    builder.addCase(signOutAsync.fulfilled, (state, action) => {
       state.status = "idle";
-      state.state = "unknown";
-      state.email = "";
-      state.userId = "";
+      state.state = action.payload.state;
+      state.email = action.payload.email;
+      state.userId = action.payload.userId;
     });
 
     builder.addMatcher(authenticateUser.matchFulfilled, (state, action) => {

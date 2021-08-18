@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
-import { resetUser, selectUser } from "@features/user/userSlice";
-import React, { useEffect, useState } from "react";
+import { resetUser } from "@features/user/userSlice";
+import React from "react";
 import { Form } from "react-final-form";
 import { AuthForm } from "@features/auth/authForm";
 import { AuthHeading } from "@features/auth/authHeading";
@@ -13,28 +13,15 @@ import { AuthFormButton } from "@features/auth/authFormButton";
 import { AuthFormLink } from "@features/auth/authFormLink";
 import AuthFormInput from "@features/auth/authFormInput";
 import { useAuthenticateUserMutation } from "@lib/api";
+import { selectReturnUrl } from "@features/auth/authSlice";
 
 export const LoginForm: any = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
-  const { returnUrl } = router.query;
-  const user = useAppSelector(selectUser);
-
-  const [submitTriggered, setSubmitTriggered] = useState(false);
+  const returnUrl = useAppSelector(selectReturnUrl);
 
   const [authenticateUser, { isLoading: isUpdating, isError, isSuccess }] =
     useAuthenticateUserMutation();
-
-  useEffect(() => {
-    if (user?.userId && submitTriggered) {
-      if (returnUrl && typeof returnUrl === "string") {
-        router.push(returnUrl);
-        return;
-      }
-      router.push("/dashboard");
-    }
-  }, [user]);
 
   const onSubmit = (values: Record<string, any>) => {
     dispatch(resetUser);
@@ -45,11 +32,16 @@ export const LoginForm: any = () => {
         password: values["password"],
       },
     });
-    setSubmitTriggered(true);
   };
 
   if (isSuccess) {
+    if (returnUrl) {
+      router.push(returnUrl);
+      return <div>Redirecting...</div>;
+    }
+
     router.push("/dashboard");
+    return <div>Redirecting...</div>;
   }
 
   return (
