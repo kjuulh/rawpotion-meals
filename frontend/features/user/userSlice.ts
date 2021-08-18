@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from "@lib/redux/store";
-import { authenticateUser } from "@lib/api";
+import { api, authenticateUser } from "@lib/api";
 import { AuthenticationResponse } from "@lib/api/rawpotion-mealplanner-api.generated";
 
 export interface UserState {
@@ -16,26 +16,22 @@ const initialState: UserState = {
   status: "idle",
 };
 
-const deleteCookie = (name: string) => {
-  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-};
-
 export const signOutAsync = createAsyncThunk(
-  "user/sign-out",
-  async (_, thunkAPI): Promise<UserState> => {
-    thunkAPI.dispatch({
-      type: "reset",
-    });
+    "user/sign-out",
+    async (_, thunkAPI): Promise<UserState> => {
+      thunkAPI.dispatch({
+        type: "reset",
+      });
 
-    deleteCookie("refreshToken");
+      thunkAPI.dispatch(api.endpoints.revokeAccessToken.initiate({}))
 
-    return {
-      userId: undefined,
-      email: undefined,
-      status: "idle",
-      state: "not-logged-in",
-    };
-  }
+      return {
+        userId: undefined,
+        email: undefined,
+        status: "idle",
+        state: "not-logged-in",
+      };
+    }
 );
 
 export const userSlice = createSlice({
@@ -43,8 +39,8 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     userIsAlreadySignedIn: (
-      state,
-      action: PayloadAction<{ email: string; userId: string }>
+        state,
+        action: PayloadAction<{ email: string; userId: string }>
     ) => {
       state.status = "idle";
       state.state = "logged-in";
@@ -89,8 +85,8 @@ export const userSlice = createSlice({
   },
 });
 
-export const { userIsAlreadySignedIn, resetUser, userIsSignedIn } =
-  userSlice.actions;
+export const {userIsAlreadySignedIn, resetUser, userIsSignedIn} =
+    userSlice.actions;
 
 export const selectUser = (state: AppState) => state.user;
 

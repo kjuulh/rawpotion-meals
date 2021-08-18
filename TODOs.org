@@ -21,14 +21,14 @@
 ** DONE Move api implementation to mediator in applications
 *** DONE Move groups
 *** DONE Move Meals
-** TODO Fix invitations [4/4]
+** DONE Fix invitations [4/4]
 *** DONE Backend can get all invitations
 *** DONE Fix performance issues
 *** DONE Fix backend so a user can be part of a group
 *** DONE Fix frontend so that the invitation is part of the state and not url.
 ** DONE Fix register so that redirect is automatic on success
 ** DONE Remove old firebase related code
-** TODO Fix sign out
+** DONE Fix sign out
 ** TODO Style profile
 ** TODO Style create group
 ** TODO Introduce ui alerts

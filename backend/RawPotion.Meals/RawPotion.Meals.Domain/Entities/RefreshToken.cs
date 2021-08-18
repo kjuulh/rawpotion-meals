@@ -13,7 +13,9 @@ namespace RawPotion.Meals.Domain.Entities
         public DateTime Created { get; set; }
         public string CreatedByIp { get; set; }
         public User User { get; set; }
-        public bool IsActive { get; set; } = true;
+        public bool IsActive => !IsRevoked && !IsExpired;
+        public bool IsExpired => DateTime.UtcNow >= Expires;
+        public bool IsRevoked => Revoked is not null;
         public DateTime? Revoked { get; set; }
         public string? RevokedByIp { get; set; }
         public string? ReasonRevoked { get; set; }

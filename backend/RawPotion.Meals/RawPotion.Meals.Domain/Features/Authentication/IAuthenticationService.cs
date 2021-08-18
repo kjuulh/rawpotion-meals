@@ -15,6 +15,8 @@ namespace RawPotion.Meals.Domain.Features.Authentication
             refreshToken)> RefreshToken(
             string? refreshToken,
             string? ipAddress);
+
+        Task RevokeAccessToken(string token, string ipAddress);
     }
 
     public class AuthenticationResponse

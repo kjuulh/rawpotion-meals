@@ -28,8 +28,6 @@ namespace RawPotion.Meals.Persistence.Configurations
                     u => u.RefreshTokens,
                     navigationBuilder =>
                     {
-                        navigationBuilder.Property(r => r.IsActive)
-                            .HasDefaultValue(true);
                         navigationBuilder.WithOwner(r => r.User);
                     });
 

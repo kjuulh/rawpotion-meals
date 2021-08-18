@@ -89,6 +89,19 @@ namespace RawPotion.Meals.Application.Features.Authentication
                 }, newRefreshToken.Token);
         }
 
+        public async Task RevokeAccessToken(string token, string ipAddress)
+        {
+            var user = await GetUserByRefreshTokenAsync(token);
+            var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
+
+            if (!refreshToken.IsActive)
+                throw new ApplicationException("Invalid token");
+            
+            RevokeRefreshToken(refreshToken, ipAddress, "Revoked without replacement");
+
+            await _userRepository.UpdateAsync(user);
+        }
+
         private void RemoveOldRefreshToken(
             User user)
         {

@@ -20,6 +20,12 @@ export const api = createApi({
     >({
       query: () => ({ url: `/api/authentication/refresh-token` }),
     }),
+    revokeAccessToken: build.mutation<
+      RevokeAccessTokenApiResponse,
+      RevokeAccessTokenApiArg
+    >({
+      query: () => ({ url: `/api/authentication/revoke-token`, method: "PUT" }),
+    }),
     createGroup: build.mutation<CreateGroupApiResponse, CreateGroupApiArg>({
       query: (queryArg) => ({
         url: `/api/groups`,
@@ -127,6 +133,8 @@ export type AuthenticateUserApiArg = {
 export type RefreshUserTokenApiResponse =
   /** status 200 Success */ AuthenticationResponse;
 export type RefreshUserTokenApiArg = {};
+export type RevokeAccessTokenApiResponse = unknown;
+export type RevokeAccessTokenApiArg = {};
 export type CreateGroupApiResponse = /** status 200 Success */ GroupVm;
 export type CreateGroupApiArg = {
   createGroupCommand: CreateGroupCommand;
@@ -274,6 +282,7 @@ export type WeatherForecast = {
 export const {
   useAuthenticateUserMutation,
   useRefreshUserTokenQuery,
+  useRevokeAccessTokenMutation,
   useCreateGroupMutation,
   useGetGroupByIdQuery,
   useGetInvitationsForGroupQuery,

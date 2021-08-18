@@ -84,6 +84,19 @@
         }
       }
     },
+    "/api/authentication/revoke-token": {
+      "put": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Revoke access token",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/groups": {
       "post": {
         "tags": [

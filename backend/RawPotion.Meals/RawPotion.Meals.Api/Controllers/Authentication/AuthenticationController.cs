@@ -1,9 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RawPotion.Meals.Application.Interfaces.Authentication;
 using RawPotion.Meals.Domain.Features.Authentication;
 
 namespace Rawpotion.Meals.Api.Controllers.Authentication
@@ -16,10 +18,14 @@ namespace Rawpotion.Meals.Api.Controllers.Authentication
         private readonly IAuthenticationService
             _authenticationService;
 
+        private readonly ICurrentUserService _currentUserService;
+
         public AuthenticationController(
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            ICurrentUserService currentUserService)
         {
             _authenticationService = authenticationService;
+            _currentUserService = currentUserService;
         }
 
         [HttpPost(Name = "Authenticate user")]
@@ -59,6 +65,25 @@ namespace Rawpotion.Meals.Api.Controllers.Authentication
             SetTokenCookie(response.refreshToken);
             return Ok(response.authenticateResponse);
         }
+
+        [HttpPut("revoke-token", Name = "Revoke access token")]
+        [Authorize]
+        public async Task<IActionResult> RevokeAccessToken()
+        {
+            var requestCookie = Request.Cookies["refreshToken"];
+            var ipAddress = IpAddress();
+
+            if (new[]
+            {
+                requestCookie,
+                ipAddress
+            }.Any(f => f is null))
+                return BadRequest();
+            await _authenticationService.RevokeAccessToken(requestCookie, ipAddress);
+
+            return Ok();
+        }
+
 
         private string? IpAddress()
         {
