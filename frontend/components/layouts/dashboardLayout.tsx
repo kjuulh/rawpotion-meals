@@ -1,5 +1,11 @@
 import { FC } from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+
+const Toaster = dynamic(
+  () => import("react-hot-toast").then((mod) => mod.Toaster),
+  { ssr: false }
+);
 
 const DashboardLayout: FC = ({ children }) => {
   const router = useRouter();
@@ -14,6 +20,21 @@ const DashboardLayout: FC = ({ children }) => {
           {"<"}
         </button>
       </nav>
+      <Toaster
+        position="bottom-center"
+        gutter={8}
+        toastOptions={{
+          duration: 5000,
+
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
+        }}
+      />
     </div>
   );
 };

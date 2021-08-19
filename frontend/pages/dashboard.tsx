@@ -10,6 +10,7 @@ import {
 import GroupsList from "@features/groups/groupsList";
 import DashboardLayout from "@components/layouts/dashboardLayout";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
+import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
 
 const DashboardPage: any = () => {
   const router = useRouter();
@@ -26,7 +27,12 @@ const DashboardPage: any = () => {
   }
 
   if (isError) {
-    return <div>Some error occurred</div>;
+    dispatch(
+      sendToastAsync({
+        message: "Could not fetch groups for some reason",
+        type: "error",
+      })
+    );
   }
 
   return (

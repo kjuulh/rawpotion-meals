@@ -2,6 +2,8 @@ import {Action, configureStore, ThunkAction} from "@reduxjs/toolkit";
 
 import user from "@features/user/userSlice";
 import auth from "@features/auth/authSlice";
+import toaster from "./toaster/toasterSlice";
+
 import {setupListeners} from "@reduxjs/toolkit/query";
 import {api} from "@lib/api";
 
@@ -11,6 +13,7 @@ export const makeStore = () =>
     reducer: {
       user,
       auth,
+      toaster,
       [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware) =>

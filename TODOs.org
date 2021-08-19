@@ -29,9 +29,10 @@
 ** DONE Fix register so that redirect is automatic on success
 ** DONE Remove old firebase related code
 ** DONE Fix sign out
+** DONE Introduce ui alerts
+*** DONE https://react-hot-toast.com/docs/use-toaster
 ** TODO Style profile
 ** TODO Style create group
-** TODO Introduce ui alerts
 ** TODO Replace int ids with slugs
 ** TODO Deploy backend to heroku
 *** TODO [ ] Deploy database

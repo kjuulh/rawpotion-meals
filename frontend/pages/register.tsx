@@ -11,8 +11,11 @@ import { AuthFormButtonGroup } from "@features/auth/authFormButtonGroup";
 import { AuthFormButton } from "@features/auth/authFormButton";
 import { AuthFormLink } from "@features/auth/authFormLink";
 import { useRegisterUserAccountMutation } from "@lib/api";
+import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
+import { useAppDispatch } from "@lib/redux/hooks";
 
 const RegisterPage: any = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const [
@@ -35,6 +38,11 @@ const RegisterPage: any = () => {
   }
 
   if (isSuccess) {
+    dispatch(
+      sendToastAsync({
+        message: "Logged in!",
+      })
+    );
     router.push("/login");
     return <div>Redirecting...</div>;
   }

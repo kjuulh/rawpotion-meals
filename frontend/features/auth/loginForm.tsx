@@ -14,6 +14,7 @@ import { AuthFormLink } from "@features/auth/authFormLink";
 import AuthFormInput from "@features/auth/authFormInput";
 import { useAuthenticateUserMutation } from "@lib/api";
 import { selectReturnUrl } from "@features/auth/authSlice";
+import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
 
 export const LoginForm: any = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,12 @@ export const LoginForm: any = () => {
   };
 
   if (isSuccess) {
+    dispatch(
+      sendToastAsync({
+        message: "Logged in!",
+      })
+    );
+
     if (returnUrl) {
       router.push(returnUrl);
       return <div>Redirecting...</div>;

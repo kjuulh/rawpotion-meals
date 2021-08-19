@@ -10,8 +10,11 @@ import {
 import DashboardLayout from "@components/layouts/dashboardLayout";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
 import { useCreateMealMutation } from "@lib/api";
+import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
+import { useAppDispatch } from "@lib/redux/hooks";
 
 const CreateEventPage: any = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { groupId } = router.query;
 
@@ -42,6 +45,7 @@ const CreateEventPage: any = () => {
   }
 
   if (isSuccess) {
+    dispatch(sendToastAsync({ message: "Created event", type: "success" }));
     router.push(`/groups/${groupId}/meals/${data.id}`);
     return <div>Redirecting...</div>;
   }
