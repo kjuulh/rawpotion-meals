@@ -2,9 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, AppState } from "@lib/redux/store";
 import { toast } from "react-hot-toast";
 
-interface ToasterState {}
-
-const initialState: ToasterState = {};
+const initialState = {};
 
 interface SendToastAsyncArgs {
   message: string;
@@ -42,6 +40,7 @@ const toasterSlice = createSlice({
   extraReducers: (builder) => {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     builder.addCase(sendToastAsync.pending, (_) => {});
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     builder.addCase(sendToastAsync.fulfilled, (_) => {});
   },
 });
