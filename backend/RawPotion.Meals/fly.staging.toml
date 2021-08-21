@@ -6,8 +6,8 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 
 [env]
-  BACKEND_BASE_URL = https://rawpotion-meals-backend-staging.fly.dev
-  FRONTEND_BASE_URL = https://rawpotion-meals-frontend-staging.fly.dev
+  BACKEND_BASE_URL = "https://rawpotion-meals-backend-staging.fly.dev"
+  FRONTEND_BASE_URL = "https://rawpotion-meals-frontend-staging.fly.dev"
 
 [experimental]
   allowed_public_ports = []
