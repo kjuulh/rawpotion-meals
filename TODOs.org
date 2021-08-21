@@ -4,6 +4,8 @@
 ** TODO Replace int ids with slugs
 ** TODO Extract comment components to create a common style library
 
+** TODO Backend expose errors properly
+
 ** TODO Login page
 *** TODO Add keep me logged in (ticked by default)
 *** TODO Introduce forgotten passwords
@@ -54,3 +56,5 @@
 *** TODO Cleaning up database
 ** TODO Setup real time updates
 ** TODO Integrate cypress for end2end tests
+** TODO Add more stuff to home page
+*** TODO Maybe a guide or just an about section
