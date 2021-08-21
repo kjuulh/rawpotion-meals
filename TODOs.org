@@ -36,7 +36,7 @@
 ** TODO Replace int ids with slugs
 ** TODO Deploy backend to heroku
 *** TODO [ ] Deploy database
-** TODO Deploy frontend to Vercel
+** DONE Deploy frontend to Vercel
 ** TODO Introduce images into page
 ** TODO Do a customer session to figure out what works and what doesn't
 ** DONE Introduce description into page

@@ -9,6 +9,8 @@ WORKDIR /src
 COPY ["RawPotion.Meals.Api/RawPotion.Meals.Api.csproj", "RawPotion.Meals.Api/"]
 COPY ["RawPotion.Meals.Application/RawPotion.Meals.Application.csproj", "RawPotion.Meals.Application/"]
 COPY ["RawPotion.Meals.Domain/RawPotion.Meals.Domain.csproj", "RawPotion.Meals.Domain/"]
+COPY ["RawPotion.Meals.Persistence/RawPotion.Meals.Persistence.csproj", "RawPotion.Meals.Persistence/"]
+COPY ["RawPotion.Meals.Common/RawPotion.Meals.Common.csproj", "RawPotion.Meals.Common/"]
 
 RUN dotnet restore "RawPotion.Meals.Api/RawPotion.Meals.Api.csproj"
 COPY . .
