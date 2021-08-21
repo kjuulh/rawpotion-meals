@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,15 +15,11 @@ namespace RawPotion.Meals.Application.Common.Behaviors
         private readonly ILogger<TRequest> _logger;
         private readonly ICurrentUserService _currentUserService;
 
-        public PerformanceBehaviour(
-            ILogger<TRequest> logger,
-            ICurrentUserService currentUserService
-        )
+        public PerformanceBehaviour(ILogger<TRequest> logger)
         {
             _timer = new Stopwatch();
 
             _logger = logger;
-            _currentUserService = currentUserService;
         }
 
         public async Task<TResponse> Handle(
@@ -41,13 +38,11 @@ namespace RawPotion.Meals.Application.Common.Behaviors
             if (elapsedMilliseconds > 500)
             {
                 var requestName = typeof(TRequest).Name;
-                var userId = _currentUserService.UserId;
 
                 _logger.LogWarning(
-                    "RawPotion.Meals Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
+                    "RawPotion.Meals Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}",
                     requestName,
                     elapsedMilliseconds,
-                    userId,
                     request);
             }
 
