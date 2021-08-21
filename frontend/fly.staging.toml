@@ -11,6 +11,10 @@ kill_timeout = 5
   allowed_public_ports = []
   auto_rollback = true
 
+[build]
+  [build.args]
+    BACKEND_BASE_URL = "https://rawpotion-meals-backend-staging.fly.dev"
+    
 [[services]]
   http_checks = []
   internal_port = 3000

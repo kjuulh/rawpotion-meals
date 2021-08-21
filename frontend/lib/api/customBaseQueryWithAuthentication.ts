@@ -9,7 +9,7 @@ import { AppState } from "@lib/redux/store";
 import { AuthenticationResponse } from "@lib/api/rawpotion-mealplanner-api.generated";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8080/",
+  baseUrl: process.env.NEXT_PUBLIC_BACKEND_BASE_URL || "http://localhost:8080/",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as AppState).user.accessToken;

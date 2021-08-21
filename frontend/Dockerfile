@@ -11,6 +11,10 @@ FROM node:14-alpine AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
+
+ARG BACKEND_BASE_URL
+ENV NEXT_PUBLIC_BACKEND_BASE_URL $BACKEND_BASE_URL
+
 RUN yarn build
 
 # Production image, copy all the files and run next

@@ -33,18 +33,22 @@ namespace Rawpotion.Meals.Api
         public void ConfigureServices(
             IServiceCollection services)
         {
+            var frontendBaseUrl =
+                Configuration.GetValue<string>("FRONTEND_BASE_URL");
+
             services.AddControllers();
 
             services.AddCors(
                 options =>
                 {
                     options.AddDefaultPolicy(
-                        builder =>
-                            builder
-                                .WithOrigins("http://localhost:3000")
-                                .AllowCredentials()
-                                .AllowAnyHeader()
-                                .AllowAnyMethod());
+                        builder => builder
+                            .WithOrigins(
+                                "http://localhost:3000",
+                                frontendBaseUrl)
+                            .AllowCredentials()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod());
                 });
 
             services
