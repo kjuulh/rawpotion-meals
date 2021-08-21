@@ -99,6 +99,7 @@ namespace Rawpotion.Meals.Api.Controllers.Authentication
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
+                SameSite = SameSiteMode.None,
                 Expires = DateTimeOffset.UtcNow.AddMonths(3)
             };
             Response.Cookies.Append(
