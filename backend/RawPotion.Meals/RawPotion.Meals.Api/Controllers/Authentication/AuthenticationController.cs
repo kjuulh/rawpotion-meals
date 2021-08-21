@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using RawPotion.Meals.Application.Interfaces.Authentication;
 using RawPotion.Meals.Domain.Features.Authentication;
 
@@ -18,14 +19,14 @@ namespace Rawpotion.Meals.Api.Controllers.Authentication
         private readonly IAuthenticationService
             _authenticationService;
 
-        private readonly ICurrentUserService _currentUserService;
+        private readonly IConfigurationProvider _configurationProvider;
 
         public AuthenticationController(
             IAuthenticationService authenticationService,
-            ICurrentUserService currentUserService)
+            IConfigurationProvider configurationProvider)
         {
             _authenticationService = authenticationService;
-            _currentUserService = currentUserService;
+            _configurationProvider = configurationProvider;
         }
 
         [HttpPost(Name = "Authenticate user")]

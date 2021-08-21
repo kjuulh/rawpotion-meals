@@ -1,55 +1,56 @@
 #+TITLE: Todos
 
 * Primary
-** DONE Create backend project
-** DONE Startup frontend project
-** DONE Setup dockerfile
-** DONE Setup api generation
-** DONE Get frontend to run locally
-** DONE Setup database [4/4]
- - [X] Add postgres to docker
- - [X] Add postgres to backend
- - [X] Create configurations for dbcontext
- - [X] Run migrations on startup
-** DONE Append login
-*** DONE Setup error handling for user registration
-*** DONE Create a simple JWT scheme
-*** DONE Setup database
-** DONE Setup Mediator on backend
-** DONE Setup AutoMapper
-** NO Setup poll intervals for apis
-** DONE Move api implementation to mediator in applications
-*** DONE Move groups
-*** DONE Move Meals
-** DONE Fix invitations [4/4]
-*** DONE Backend can get all invitations
-*** DONE Fix performance issues
-*** DONE Fix backend so a user can be part of a group
-*** DONE Fix frontend so that the invitation is part of the state and not url.
-** DONE Fix register so that redirect is automatic on success
-** DONE Remove old firebase related code
-** DONE Fix sign out
-** DONE Introduce ui alerts
-*** DONE https://react-hot-toast.com/docs/use-toaster
-** TODO Style profile
-** TODO Style create group
 ** TODO Replace int ids with slugs
-** TODO Deploy backend to heroku
-*** TODO [ ] Deploy database
-** DONE Deploy frontend to Vercel
-** TODO Introduce images into page
-** TODO Do a customer session to figure out what works and what doesn't
-** DONE Introduce description into page
+** TODO Extract comment components to create a common style library
 
-* Fun stuff
-** DONE Take a look at Redwood.js
-** DONE Take a look at Blitz.js
+** TODO Login page
+*** TODO Add keep me logged in (ticked by default)
+*** TODO Introduce forgotten passwords
+**** TODO Sending mails
+
+** TODO Dashboard page
+*** TODO Add list of all meals a user can participate in
+*** TODO Add a navbar for
+**** TODO Profile, Settings, Groups etc.
+
+** TODO Profile page
+*** TODO Style profile
+
+** TODO Create group page
+*** TODO Style create group
+
+** TODO Group page
+*** TODO Add shortcut to attend meal
+**** TODO Add attending status as well
+*** TODO Add group information page
+**** TODO So that a user can leave a group
+
+** TODO Group admin page
+*** TODO Add button to delete group
+*** TODO Add list of members, so that admin can kick them
+
+** TODO Create meal page
+*** TODO Add predefined location to form
+
+** TODO Meal page
+*** TODO Add edit button for host
+*** TODO Refine description
+*** TODO Show location
+*** TODO Show exact time
+*** TODO Fix dates on meal items, I.E. order by Date and activity
+*** TODO Introduce images into page
 
 * Research list
 ** TODO Execution planning
 
 * Icebox
-** TODO Database backups (maybe)
-** TODO Sending mails
+** TODO Do a customer session to figure out what works and what doesn't
+** DONE Database backups (maybe)
 ** TODO Sending sms'
 ** TODO Integrate google calendar
+** TODO Message queue in the background
+*** TODO Sending emails
+*** TODO Cleaning up database
+** TODO Setup real time updates
+** TODO Integrate cypress for end2end tests
