@@ -19,14 +19,10 @@ namespace Rawpotion.Meals.Api.Controllers.Authentication
         private readonly IAuthenticationService
             _authenticationService;
 
-        private readonly IConfigurationProvider _configurationProvider;
-
         public AuthenticationController(
-            IAuthenticationService authenticationService,
-            IConfigurationProvider configurationProvider)
+            IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
-            _configurationProvider = configurationProvider;
         }
 
         [HttpPost(Name = "Authenticate user")]
@@ -80,7 +76,9 @@ namespace Rawpotion.Meals.Api.Controllers.Authentication
                 ipAddress
             }.Any(f => f is null))
                 return BadRequest();
-            await _authenticationService.RevokeAccessToken(requestCookie, ipAddress);
+            await _authenticationService.RevokeAccessToken(
+                requestCookie,
+                ipAddress);
 
             return Ok();
         }

@@ -1,0 +1,201 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/kjuulh/git/github/kjuulh/rawpotion-meals/TODOs.org
+
+
+* DONE Create backend project
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Startup frontend project
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Setup dockerfile
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Setup api generation
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Get frontend to run locally
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Setup database [4/4]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+- [X] Add postgres to docker
+- [X] Add postgres to backend
+- [X] Create configurations for dbcontext
+- [X] Run migrations on startup
+
+* DONE Append login
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+** DONE Setup error handling for user registration
+** DONE Create a simple JWT scheme
+** DONE Setup database
+
+* DONE Setup Mediator on backend
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Setup AutoMapper
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* NO Setup poll intervals for apis
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: NO
+  :END:
+
+* DONE Move api implementation to mediator in applications
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+** DONE Move groups
+** DONE Move Meals
+
+* DONE Fix invitations [4/4]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+** DONE Backend can get all invitations
+** DONE Fix performance issues
+** DONE Fix backend so a user can be part of a group
+** DONE Fix frontend so that the invitation is part of the state and not url.
+
+* DONE Fix register so that redirect is automatic on success
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Remove old firebase related code
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Fix sign out
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Introduce ui alerts
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+** DONE https://react-hot-toast.com/docs/use-toaster
+
+* DONE Deploy backend to heroku
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+** DONE [ ] Deploy database
+
+* DONE Deploy frontend to Vercel
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Introduce description into page
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_OLPATH: Primary
+  :ARCHIVE_CATEGORY: TODOs
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* Fun stuff
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2021-08-21 Sat 23:22
+  :ARCHIVE_FILE: ~/git/github/kjuulh/rawpotion-meals/TODOs.org
+  :ARCHIVE_CATEGORY: TODOs
+  :END:
+** DONE Take a look at Redwood.js
+** DONE Take a look at Blitz.js
+
