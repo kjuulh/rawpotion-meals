@@ -13,6 +13,7 @@ COPY ["RawPotion.Meals.Persistence/RawPotion.Meals.Persistence.csproj", "RawPoti
 COPY ["RawPotion.Meals.Common/RawPotion.Meals.Common.csproj", "RawPotion.Meals.Common/"]
 
 RUN dotnet restore "RawPotion.Meals.Api/RawPotion.Meals.Api.csproj"
+
 COPY . .
 WORKDIR "/src/RawPotion.Meals.Api"
 RUN dotnet build "RawPotion.Meals.Api.csproj" -c Release -o /app/build

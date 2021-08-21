@@ -8,6 +8,8 @@ services:
     ports:
       - 8080:80
       - 8443:443
+    environment:
+      ConnectionStrings__Postgres: Host=database;Database=rawpotion_meals;Username=rawpotion_backend;Password=somethingverysecret_123
     depends_on:
       - database
 
