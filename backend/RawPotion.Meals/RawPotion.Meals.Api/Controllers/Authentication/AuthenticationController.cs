@@ -100,7 +100,8 @@ namespace Rawpotion.Meals.Api.Controllers.Authentication
             {
                 HttpOnly = true,
                 SameSite = SameSiteMode.None,
-                Expires = DateTimeOffset.UtcNow.AddMonths(3)
+                Expires = DateTimeOffset.UtcNow.AddMonths(3),
+                Secure = true
             };
             Response.Cookies.Append(
                 "refreshToken",
