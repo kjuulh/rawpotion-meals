@@ -1,1 +1,1 @@
-export * from "./dashboardTitle";
+export * from "./headings";

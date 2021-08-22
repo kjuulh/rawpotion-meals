@@ -1,10 +1,10 @@
 import Invitations from "../invitations/invitations";
-import { DashboardTitle } from "@components/common/typography/dashboardTitle";
+import { Headings } from "@components/common/typography/headings";
 import { FC } from "react";
 
 const AdminArea: FC<{ groupId: number }> = (props) => (
   <div className="space-y-8">
-    <DashboardTitle>Admin area</DashboardTitle>
+    <Headings>Admin area</Headings>
     <Invitations groupId={props.groupId} />
   </div>
 );
