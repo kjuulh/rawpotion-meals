@@ -2,11 +2,7 @@ import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { selectUser, signOutAsync } from "@features/user/userSlice";
 import { useRouter } from "next/router";
 import { useGetGroupsForUserQuery } from "@lib/api/rawpotion-mealplanner-api.generated";
-import {
-  DashboardTitle,
-  OutlinedButton,
-  PrimaryButton,
-} from "@components/common";
+import { Headings, OutlinedButton, PrimaryButton } from "@components/common";
 import GroupsList from "@features/groups/groupsList";
 import DashboardLayout from "@components/layouts/dashboardLayout";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
@@ -37,7 +33,7 @@ const DashboardPage: any = () => {
 
   return (
     <div className="space-y-4 box-border">
-      <DashboardTitle>Dashboard Page</DashboardTitle>
+      <Headings>Dashboard Page</Headings>
       <BreadCrumbs />
 
       <div>

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
-import { DashboardTitle } from "@components/common/typography/dashboardTitle";
+import { Headings } from "@components/common/typography/headings";
 import { CardTitle } from "@components/common/card/cardTitle";
 import { Card } from "@components/common/card/card";
 import { OutlinedButton } from "@components/common/buttons/outlinedButton";
@@ -51,7 +51,7 @@ const AcceptInvitationPage: FC = () => {
   if (user.state === "not-logged-in") {
     return (
       <div className="py-8 px-10 space-y-8 md:max-w-[calc(80%+1rem)] lg:max-w-[calc(50%+1rem)] mx-auto">
-        <DashboardTitle>Accept invitation</DashboardTitle>
+        <Headings>Accept invitation</Headings>
 
         <p>
           We need to you to login to your account before you can accept an
@@ -83,7 +83,7 @@ const AcceptInvitationPage: FC = () => {
 
   return (
     <div className="py-8 px-10 space-y-8 md:max-w-[calc(80%+1rem)] lg:max-w-[calc(50%+1rem)] mx-auto">
-      <DashboardTitle>Accept invitation page</DashboardTitle>
+      <Headings>Accept invitation page</Headings>
 
       <Card>
         <CardTitle>
