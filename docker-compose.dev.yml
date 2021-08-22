@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: backend/RawPotion.Meals
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80
+      - 8443:443
+    environment:
+      ConnectionStrings__Postgres: Host=database;Database=rawpotion_meals;Username=rawpotion_backend;Password=somethingverysecret_123
+      Jwt__Secret: "somethingverysecretohyes"
+      FRONTEND_BASE_URL: "http://localhost:3000"
+      BACKEND_BASE_URL: "http://localhost:8080"
+    depends_on:
+      - database
+
+  database:
+    build:
+      context: database/postgres
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_PASSWORD: somethingsecret_123
+      RAWPOTION_MEALS_POSTGRES_USER_PASSWORD: somethingverysecret_123
+    ports:
+      - 5432:5432
+
+  frontend:
+    build:
+      context: frontend/
+      dockerfile: Dockerfile
+      args:
+        BACKEND_BASE_URL: http://something:8080
+    environment:
+      BACKEND_BASE_URL: http://something:8080
+    ports:
+      - 3000:3000

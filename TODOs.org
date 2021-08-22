@@ -1,0 +1,69 @@
+#+TITLE: Todos
+
+* Primary
+** TODO Replace int ids with slugs
+
+** TODO Extract comment components to create a common style library
+
+** TODO Backend expose errors properly
+
+** TODO Landing page
+*** TODO Iterate design
+
+** TODO Login page
+*** TODO Add keep me logged in (ticked by default)
+*** TODO Introduce forgotten passwords
+**** TODO Sending mails
+
+** TODO Dashboard page
+*** TODO Add list of all meals a user can participate in
+*** TODO Add a navbar for
+**** TODO Profile, Settings, Groups etc.
+
+** TODO Profile page
+*** TODO Style profile
+
+** TODO Create group page
+*** TODO Style create group
+
+** TODO Group page
+*** TODO Add shortcut to attend meal
+**** TODO Add attending status as well
+*** TODO Add group information page
+**** TODO So that a user can leave a group
+
+** TODO Group admin page
+*** TODO Add button to delete group
+*** TODO Add list of members, so that admin can kick them
+
+** TODO Create meal page
+*** TODO Add predefined location to form
+
+** TODO Meal page
+*** TODO Add edit button for host
+*** TODO Refine description
+*** TODO Show location
+*** TODO Show exact time
+*** TODO Fix dates on meal items, I.E. order by Date and activity
+*** TODO Introduce images into page
+
+** TODO Fix loading
+** TODO Fix error screens
+** TODO Fix redirects
+
+* Research list
+** TODO Execution planning
+
+* Icebox
+** TODO Do a customer session to figure out what works and what doesn't
+** DONE Database backups (maybe)
+** TODO Sending sms'
+** TODO Integrate google calendar
+** TODO Message queue in the background
+*** TODO Sending emails
+*** TODO Cleaning up database
+** TODO Setup real time updates
+** TODO Integrate cypress for end2end tests
+** TODO Add more stuff to home page
+*** TODO Maybe a guide or just an about section
+** TODO Feature requests form

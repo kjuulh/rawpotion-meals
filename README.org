@@ -1,0 +1,52 @@
+#+TITLE: Rawpotion Mealplanner
+#+OPTIONS: toc:2
+
+* About The Project
+
+TODO IMAGE HERE
+
+Mealplanner has one purpose, sharing your when you want to provide meals for your select group of people, and what you're gonna eat. Simple as that. The reason Mealplanner was built is because I didn't find a tool like it anywhere. I wanted something simple, responsive and nice to use, that fit my in my opinion simple but niche requirements.
+
+An important factor of this project was that it is to be used by non-technical people, so that rules out terminal based solutions, text documents and so on. In short I needed something which passed the wife-factor.
+
+I am happy to say that this tool and previous generations of it, has been in use for a few years in my household, with great success.
+
+Here is some of the reasons why you should use this project:
+
+- It is open and extendable, Open API, supports a pluggable domain event architecture
+- It supports most major databases (through Entity Framework)
+- It is using real time updates to keep data fresh, and the ui responsive
+
+This may not support your entire usecase, so feel free to submit an issue for your feature request, of course after checking the roadmap
+
+* Built With
+
+The project is split into three parts:
+
+- The backend, which is written in C# using the .NET 5 soon to be .NET 6, written in a CQRS kind of style using a variety of libraries
+- The database, currently only Postgres, but I expect it would be easy to add other relational databases, as the project doesn't use any niche features
+- The frontend, which is written in typescript using Nextjs, using redux-toolkit and friends for statemanagement, as well as the fantastic Signalr and RTKQ for apis.
+
+* Getting Started
+
+This is how to get started with the project.
+
+
+** Prerequisites
+
+It probably works with earlier versions, I just haven't tested it.
+
+- docker 20.10.8+
+- docker-compose 1.29.2+
+
+* Roadmap
+
+See TODOs.org for the current roadmap. Feel free to post a feature request under the issues tab.
+
+* License
+
+Distributed under the MIT License, See LICENSE for more information
+
+* Contact
+
+Kasper Juul Hermansen - contact@kjuulh.io
