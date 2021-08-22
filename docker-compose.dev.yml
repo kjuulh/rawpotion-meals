@@ -10,6 +10,9 @@ services:
       - 8443:443
     environment:
       ConnectionStrings__Postgres: Host=database;Database=rawpotion_meals;Username=rawpotion_backend;Password=somethingverysecret_123
+      Jwt__Secret: "somethingverysecretohyes"
+      FRONTEND_BASE_URL: "http://localhost:3000"
+      BACKEND_BASE_URL: "http://localhost:8080"
     depends_on:
       - database
 

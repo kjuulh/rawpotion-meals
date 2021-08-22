@@ -2,9 +2,13 @@
 
 * Primary
 ** TODO Replace int ids with slugs
+
 ** TODO Extract comment components to create a common style library
 
 ** TODO Backend expose errors properly
+
+** TODO Landing page
+*** TODO Iterate design
 
 ** TODO Login page
 *** TODO Add keep me logged in (ticked by default)
@@ -43,6 +47,10 @@
 *** TODO Fix dates on meal items, I.E. order by Date and activity
 *** TODO Introduce images into page
 
+** TODO Fix loading
+** TODO Fix error screens
+** TODO Fix redirects
+
 * Research list
 ** TODO Execution planning
 
@@ -58,3 +66,4 @@
 ** TODO Integrate cypress for end2end tests
 ** TODO Add more stuff to home page
 *** TODO Maybe a guide or just an about section
+** TODO Feature requests form
