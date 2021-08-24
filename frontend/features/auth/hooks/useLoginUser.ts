@@ -42,9 +42,9 @@ export const useLoginUser: UseLoginUserType = () => {
 
     if (returnUrl) {
       router.push(returnUrl);
+    } else {
+      router.push("/dashboard");
     }
-
-    router.push("/dashboard");
   }
 
   return [
