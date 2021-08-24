@@ -4,7 +4,7 @@ import React from "react";
 import {
   Card,
   CardFormInput,
-  Headings,
+  Heading,
   OutlinedButton,
 } from "@components/common";
 import DashboardLayout from "@components/layouts/dashboardLayout";
@@ -52,7 +52,7 @@ const CreateEventPage: any = () => {
 
   return (
     <div className="space-y-8">
-      <Headings>Create Event</Headings>
+      <Heading>Create Event</Heading>
       <BreadCrumbs />
 
       <Card>

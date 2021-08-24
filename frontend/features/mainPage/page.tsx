@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useIfUserLoggedInRedirectTo } from "@features/mainPage/hooks";
+import { FC } from "react";
 import {
   MainPageButtonGroup,
   MainPageCallToAction,
@@ -8,7 +8,7 @@ import {
   MainPageDescription,
   MainPageTitle,
 } from "@features/mainPage/components";
-import { FC } from "react";
+import { useIfUserLoggedInRedirectTo } from "@features/mainPage/hooks";
 
 export const MainPage: FC = () => {
   const router = useRouter();

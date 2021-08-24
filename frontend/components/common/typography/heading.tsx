@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 import classNames from "classnames";
 
-export const Headings: FC<HTMLAttributes<HTMLHeadingElement>> = (props) => (
+export const Heading: FC<HTMLAttributes<HTMLHeadingElement>> = (props) => (
   <h1
     className={classNames(
       "text-2xl text-yellow-500 font-semibold tracking-wide",

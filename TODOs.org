@@ -4,6 +4,13 @@
 ** TODO Replace int ids with slugs
 
 ** TODO Extract comment components to create a common style library
+*** TODO Extract from
+**** DONE Homepage
+**** DONE Dashboard
+**** TODO Authentication
+**** TODO Group
+**** TODO Meal
+**** TODO Create Meal
 
 ** TODO Backend expose errors properly
 

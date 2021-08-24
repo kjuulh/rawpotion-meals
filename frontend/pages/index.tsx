@@ -1,4 +1,4 @@
-import { MainPage } from "@features/mainPage/page";
+import { MainPage } from "@features/mainPage";
 
 const HomePage: any = () => <MainPage />;
 

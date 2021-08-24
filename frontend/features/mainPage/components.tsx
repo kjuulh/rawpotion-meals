@@ -3,7 +3,7 @@ import {
   OutlinedButton,
   PrimaryButton,
   SubHeading,
-  Headings,
+  Heading,
 } from "@components/common";
 
 export const MainPageContainer: FC = (props) => (
@@ -12,9 +12,7 @@ export const MainPageContainer: FC = (props) => (
   </div>
 );
 
-export const MainPageTitle: FC = (props) => (
-  <Headings>{props.children}</Headings>
-);
+export const MainPageTitle: FC = (props) => <Heading>{props.children}</Heading>;
 
 export const MainPageDescription: FC = (props) => (
   <SubHeading>{props.children}</SubHeading>

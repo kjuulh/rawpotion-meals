@@ -2,11 +2,17 @@ import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { selectUser, signOutAsync } from "@features/user/userSlice";
 import { useRouter } from "next/router";
 import { useGetGroupsForUserQuery } from "@lib/api/rawpotion-mealplanner-api.generated";
-import { Headings, OutlinedButton, PrimaryButton } from "@components/common";
+import {
+  ButtonGroup,
+  Heading,
+  OutlinedButton,
+  PrimaryButton,
+} from "@components/common";
 import GroupsList from "@features/groups/groupsList";
 import DashboardLayout from "@components/layouts/dashboardLayout";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
 import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
+import { DashboardHeading, DashboardSection } from "@features/dashboard";
 
 const DashboardPage: any = () => {
   const router = useRouter();
@@ -32,34 +38,38 @@ const DashboardPage: any = () => {
   }
 
   return (
-    <div className="space-y-4 box-border">
-      <Headings>Dashboard Page</Headings>
-      <BreadCrumbs />
+    <>
+      <DashboardHeading>
+        <Heading>Dashboard Page</Heading>
+        <BreadCrumbs />
+      </DashboardHeading>
 
-      <div>
+      <DashboardSection>
         <GroupsList
           groups={data.groups}
           onGroupClick={(groupId) => router.push(`/groups/${groupId}`)}
         />
-      </div>
 
-      <div className="flex flex-row gap-4">
-        <OutlinedButton onClick={() => router.push(`/users/${user.userId}`)}>
-          Profile
-        </OutlinedButton>
-        <OutlinedButton
-          onClick={() => {
-            dispatch(signOutAsync());
-            router.push("/");
-          }}
-        >
-          Sign out
-        </OutlinedButton>
-        <PrimaryButton onClick={() => router.push("/group/create")}>
-          Create group
-        </PrimaryButton>
-      </div>
-    </div>
+        <ButtonGroup>
+          <OutlinedButton onClick={() => router.push(`/users/${user.userId}`)}>
+            Profile
+          </OutlinedButton>
+
+          <OutlinedButton
+            onClick={() => {
+              dispatch(signOutAsync());
+              router.push("/");
+            }}
+          >
+            Sign out
+          </OutlinedButton>
+
+          <PrimaryButton onClick={() => router.push("/group/create")}>
+            Create group
+          </PrimaryButton>
+        </ButtonGroup>
+      </DashboardSection>
+    </>
   );
 };
 

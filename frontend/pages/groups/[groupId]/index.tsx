@@ -4,7 +4,7 @@ import { Meals } from "@features/meals/meals";
 import { useAppSelector } from "@lib/redux/hooks";
 import { selectUser } from "@features/user/userSlice";
 import DashboardLayout from "@components/layouts/dashboardLayout";
-import { Headings } from "@components/common/typography/headings";
+import { Heading } from "@components/common/typography/heading";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
 import { GroupVm, useGetGroupByIdQuery } from "@lib/api";
@@ -42,7 +42,7 @@ const GroupPage: any = () => {
 
   return (
     <div className="space-y-8">
-      <Headings>{data.name}</Headings>
+      <Heading>{data.name}</Heading>
       <BreadCrumbs />
       <div className="md:grid md:grid-cols-2 md:gap-10">
         <Meals

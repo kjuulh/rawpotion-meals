@@ -3,7 +3,9 @@ import { useAppSelector } from "@lib/redux/hooks";
 import { selectUser } from "@features/user/userSlice";
 import { useEffect } from "react";
 
-export const useIfUserLoggedInRedirectTo = (destination: string) => {
+export const useIfUserLoggedInRedirectTo: (destination: string) => void = (
+  destination: string
+) => {
   const router = useRouter();
   const user = useAppSelector(selectUser);
 
@@ -11,5 +13,5 @@ export const useIfUserLoggedInRedirectTo = (destination: string) => {
     if (user.state === "logged-in") {
       router.push(destination);
     }
-  }, [user, router]);
+  }, [user, router, destination]);
 };

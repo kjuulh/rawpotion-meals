@@ -4,7 +4,7 @@ import { useAppSelector } from "@lib/redux/hooks";
 import Members from "../../../../features/users/members";
 import { PrimaryButton } from "@components/common/buttons/primaryButton";
 import DashboardLayout from "@components/layouts/dashboardLayout";
-import { Headings } from "@components/common/typography/headings";
+import { Heading } from "@components/common/typography/heading";
 import { Card } from "@components/common/card/card";
 import { CardTitle } from "@components/common/card/cardTitle";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
@@ -85,7 +85,7 @@ const MealPage: any = () => {
 
   return (
     <div className="space-y-8">
-      <Headings>Meal</Headings>
+      <Heading>Meal</Heading>
       <BreadCrumbs />
 
       <Card>
