@@ -1,1 +1,3 @@
-export const required = (value) => (value ? undefined : "Required");
+type RequiredFormType = (value: boolean) => undefined | "Required";
+export const required: RequiredFormType = (value) =>
+  value ? undefined : "Required";

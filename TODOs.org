@@ -7,7 +7,7 @@
 *** TODO Extract from
 **** DONE Homepage
 **** DONE Dashboard
-**** TODO Authentication
+**** DONE Authentication
 **** TODO Group
 **** TODO Meal
 **** TODO Create Meal

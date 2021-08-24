@@ -15,6 +15,7 @@ export const authSlice = createSlice({
       state.returnUrl = action.payload;
     },
     resetAuth: (state) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       state = { ...initialState };
     },
   },

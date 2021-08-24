@@ -1,3 +1,5 @@
+import React, { FC } from "react";
+import { useRouter } from "next/router";
 import { Form } from "react-final-form";
 import {
   AuthForm,
@@ -10,47 +12,34 @@ import {
   AuthHeading,
   AuthInputGroup,
 } from "@features/auth/components";
-import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
-import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
-import { useRouter } from "next/router";
 import { VisualAlert } from "@components/common/alerts/visualAlert";
-import { selectReturnUrl } from "@features/auth/authSlice";
-import { useLoginUser } from "@features/auth/hooks";
+import { useRegisterUser } from "@features/auth/hooks/useRegisterUser";
 
-export const LoginForm: any = () => {
-  const dispatch = useAppDispatch();
+export const RegisterForm: FC = () => {
   const router = useRouter();
-  const returnUrl = useAppSelector(selectReturnUrl);
-
-  const [loginUser, { isLoading, isSuccess, isError }] = useLoginUser();
+  const [registerUser, { isLoading, isSuccess, isError }] = useRegisterUser();
 
   if (isSuccess) {
-    dispatch(
-      sendToastAsync({
-        message: "Logged in!",
-      })
-    );
-
-    if (returnUrl) {
-      router.push(returnUrl);
-      return <div>Redirecting...</div>;
-    }
-
-    router.push("/dashboard");
     return <div>Redirecting...</div>;
   }
 
   return (
     <Form
-      onSubmit={loginUser}
-      render={({ handleSubmit, valid }) => (
+      onSubmit={registerUser}
+      render={({ handleSubmit }) => (
         <AuthForm onSubmit={handleSubmit}>
           <AuthHeading>
-            <AuthFormTitle>Login</AuthFormTitle>
+            <AuthFormTitle>Register</AuthFormTitle>
             <AuthFormCancelButton onClick={() => router.push("/")} />
           </AuthHeading>
 
           <AuthInputGroup>
+            <AuthFormInput
+              name={"name"}
+              text={"Name"}
+              type="text"
+              placeholder="NAME"
+            />
             <AuthFormInput
               name={"email"}
               text={"Email"}
@@ -66,19 +55,16 @@ export const LoginForm: any = () => {
           </AuthInputGroup>
 
           <VisualAlert active={isError} type="error">
-            Your credentials were incorrect please try again
+            Something went wrong, please try again with other values or contact
+            the server admin
           </VisualAlert>
 
           <AuthFormButtonGroup>
-            <AuthFormButton loading={isLoading} disabled={!valid}>
-              Login
-            </AuthFormButton>
-            <AuthFormLink href="/register">Register</AuthFormLink>
+            <AuthFormButton loading={isLoading}>Register</AuthFormButton>
+            <AuthFormLink href="/login">Login</AuthFormLink>
           </AuthFormButtonGroup>
         </AuthForm>
       )}
     />
   );
 };
-
-export default LoginForm;

@@ -1,6 +1,6 @@
 import React, { FC, InputHTMLAttributes } from "react";
 import { Field } from "react-final-form";
-import { required } from "./utility";
+import { required } from "../utility";
 import { InvalidInput } from "./invalidInput";
 
 interface AuthFormInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -8,7 +8,7 @@ interface AuthFormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   text: string;
 }
 
-const AuthFormInput: FC<AuthFormInputProps> = (props) => (
+export const AuthFormInput: FC<AuthFormInputProps> = (props) => (
   <Field
     name={props.name}
     validate={required}
@@ -25,5 +25,3 @@ const AuthFormInput: FC<AuthFormInputProps> = (props) => (
     )}
   />
 );
-
-export default AuthFormInput;
