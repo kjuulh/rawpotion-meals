@@ -32,7 +32,7 @@ export const useRegisterUser: UseRegisterUserType = () => {
   if (isSuccess) {
     dispatch(
       sendToastAsync({
-        message: "Logged in!",
+        message: "You have been added to the system!",
       })
     );
     router.push("/login");
