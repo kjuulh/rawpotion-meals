@@ -1,8 +1,9 @@
-import { useAppDispatch } from "@lib/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
 import { useAuthenticateUserMutation } from "@lib/api";
 import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
 import { resetUser } from "@features/user/userSlice";
+import { selectReturnUrl } from "@features/auth/authSlice";
 
 type UseLoginUserType = () => [
   (values: Record<string, any>) => void,
@@ -16,6 +17,7 @@ type UseLoginUserType = () => [
 export const useLoginUser: UseLoginUserType = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const returnUrl = useAppSelector(selectReturnUrl);
 
   const [authenticateUser, { isLoading, isError, isSuccess }] =
     useAuthenticateUserMutation();
@@ -37,7 +39,12 @@ export const useLoginUser: UseLoginUserType = () => {
         message: "Logged in!",
       })
     );
-    router.push("/login");
+
+    if (returnUrl) {
+      router.push(returnUrl);
+    }
+
+    router.push("/dashboard");
   }
 
   return [

@@ -10,33 +10,16 @@ import {
   AuthHeading,
   AuthInputGroup,
 } from "@features/auth/components";
-import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
-import { useAppDispatch, useAppSelector } from "@lib/redux/hooks";
 import { useRouter } from "next/router";
 import { VisualAlert } from "@components/common/alerts/visualAlert";
-import { selectReturnUrl } from "@features/auth/authSlice";
 import { useLoginUser } from "@features/auth/hooks";
 
 export const LoginForm: any = () => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
-  const returnUrl = useAppSelector(selectReturnUrl);
 
   const [loginUser, { isLoading, isSuccess, isError }] = useLoginUser();
 
   if (isSuccess) {
-    dispatch(
-      sendToastAsync({
-        message: "Logged in!",
-      })
-    );
-
-    if (returnUrl) {
-      router.push(returnUrl);
-      return <div>Redirecting...</div>;
-    }
-
-    router.push("/dashboard");
     return <div>Redirecting...</div>;
   }
 
