@@ -6,13 +6,14 @@ import {
   ButtonGroup,
   Heading,
   OutlinedButton,
-  PrimaryButton,
+  PrimaryLink,
 } from "@components/common";
 import GroupsList from "@features/groups/groupsList";
 import DashboardLayout from "@components/layouts/dashboardLayout";
 import BreadCrumbs from "@components/layouts/breadCrumbs";
 import { sendToastAsync } from "@lib/redux/toaster/toasterSlice";
 import { DashboardHeading, DashboardSection } from "@features/dashboard";
+import { OutlinedLink } from "@components/common/links/primaryLink";
 
 const DashboardPage: any = () => {
   const router = useRouter();
@@ -51,10 +52,7 @@ const DashboardPage: any = () => {
         />
 
         <ButtonGroup>
-          <OutlinedButton onClick={() => router.push(`/users/${user.userId}`)}>
-            Profile
-          </OutlinedButton>
-
+          <OutlinedLink href={"/users/${user.userId}"}>Profile</OutlinedLink>
           <OutlinedButton
             onClick={() => {
               dispatch(signOutAsync());
@@ -63,10 +61,7 @@ const DashboardPage: any = () => {
           >
             Sign out
           </OutlinedButton>
-
-          <PrimaryButton onClick={() => router.push("/group/create")}>
-            Create group
-          </PrimaryButton>
+          <PrimaryLink href={"/group/create"}>Create group</PrimaryLink>
         </ButtonGroup>
       </DashboardSection>
     </>

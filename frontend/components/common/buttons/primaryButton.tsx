@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FC } from "react";
+import React, { ButtonHTMLAttributes, FC } from "react";
 import classNames from "classnames";
 
 export const PrimaryButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = (
