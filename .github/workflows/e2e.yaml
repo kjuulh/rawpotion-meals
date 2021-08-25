@@ -4,7 +4,7 @@ on: [push]
 
 defaults:
   run:
-    working-directory: tests/e2e
+    working-directory: ./tests/e2e
 
 jobs:
   e2e-tests-run:
