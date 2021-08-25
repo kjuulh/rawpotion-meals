@@ -13,7 +13,6 @@ jobs:
 
   e2e-tests-run:
     runs-on: self-hosted
-    container: cypress/browsers:node12.18.3-chrome87-ff82
     needs: e2e-docker-compose-up
     steps:
       - name: Checkout
