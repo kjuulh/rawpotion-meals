@@ -9,6 +9,7 @@
 **** DONE Dashboard
 **** DONE Authentication
 **** TODO Group
+***** DONE Create group page
 **** TODO Meal
 **** TODO Create Meal
 
