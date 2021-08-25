@@ -11,8 +11,4 @@ jobs:
       - name: Build the docker-compose stack
         env:
           CI: true
-          CYPRESS_BASE_URL: http://frontend:3000
-        run: >-
-          docker-compose -f docker-compose.e2e.yml run
-          -e CYPRESS_BASE_URL=\${CYPRESS_BASE_URL}
-          e2e 
+        run: docker-compose -f docker-compose.e2e.yml run e2e 
