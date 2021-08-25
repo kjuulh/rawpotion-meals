@@ -2,6 +2,10 @@ name: End to end tests
 
 on: [push]
 
+defaults:
+  run:
+    working-directory: tests/e2e
+
 jobs:
   e2e-tests-run:
     runs-on: self-hosted
@@ -12,7 +16,7 @@ jobs:
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
-        working-directory: './tests/e2e'
         uses: cypress-io/github-action@v2
         with:
+          build: yarn
           start: yarn start
