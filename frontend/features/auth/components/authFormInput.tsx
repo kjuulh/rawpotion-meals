@@ -1,6 +1,6 @@
 import React, { FC, InputHTMLAttributes } from "react";
 import { Field } from "react-final-form";
-import { required } from "../utility";
+import { required } from "@lib/forms/utility";
 import { InvalidInput } from "./invalidInput";
 
 interface AuthFormInputProps extends InputHTMLAttributes<HTMLInputElement> {
