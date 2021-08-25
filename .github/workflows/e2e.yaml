@@ -2,10 +2,6 @@ name: End to end tests
 
 on: [push]
 
-defaults:
-  run:
-    working-directory: ./tests/e2e
-
 jobs:
   e2e-tests-run:
     runs-on: self-hosted
@@ -18,5 +14,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: yarn
-          start: yarn start
+          build: yarn --cwd ./tests/e2e/ install
+          start: yarn --cwd ./tests/e2e/ start
