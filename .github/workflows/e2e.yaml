@@ -20,8 +20,4 @@ jobs:
         run: >-
           docker-compose -f docker-compose.e2e.yml down
 
-      - name: Cleanup folders
-        uses: colpal/actions-clean@v1
-        if: ${{ always() }}
-
 
