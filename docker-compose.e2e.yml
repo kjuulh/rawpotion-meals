@@ -42,7 +42,7 @@ services:
     image: 'cypress/included:3.4.1'
     working_dir: /e2e
     volumes:
-      - tests/e2e:/e2e
+      - ./tests/e2e:/e2e
     environment:
       - CYPRESS_baseUrl=${CYPRESS_BASE_URL}
     entrypoint: cypress run --config video=false
