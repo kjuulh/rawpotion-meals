@@ -1,23 +1,20 @@
-import { Field, Form } from "react-final-form";
+import { Form } from "react-final-form";
 import React from "react";
-import { useRouter } from "next/router";
-import { useCreateGroupMutation } from "@lib/api";
-
-const required = (value) => (value ? undefined : "Required");
+import DashboardLayout from "@components/layouts/dashboardLayout";
+import { DashboardHeading, DashboardSection } from "@features/dashboard";
+import BreadCrumbs from "@components/layouts/breadCrumbs";
+import {
+  Card,
+  CardFormInput,
+  Heading,
+  PrimaryButton,
+} from "@components/common";
+import { CardActionArea } from "@components/common/card/cardActionArea";
+import { VerticalSpacer } from "@components/common/modifiers/verticalSpacer";
+import { useCreateGroup } from "@features/groups/create/useCreateGroup";
 
 const CreateGroupPage: any = () => {
-  const router = useRouter();
-
-  const [createGroup, { isLoading, isError, isSuccess, data }] =
-    useCreateGroupMutation();
-
-  const onSubmit = (values: Record<string, any>) => {
-    createGroup({
-      createGroupCommand: {
-        name: values["groupName"],
-      },
-    });
-  };
+  const [createGroup, { isLoading, isSuccess, isError }] = useCreateGroup();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -28,35 +25,44 @@ const CreateGroupPage: any = () => {
   }
 
   if (isSuccess) {
-    router.push(`/groups/${data.id}`);
     return <div>Redirecting</div>;
   }
 
   return (
-    <div>
-      <h1>Create group page</h1>
+    <>
+      <DashboardHeading>
+        <Heading>Create Group</Heading>
+        <BreadCrumbs />
+      </DashboardHeading>
 
-      <Form
-        onSubmit={onSubmit}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <Field
-              name="groupName"
-              validate={required}
-              render={({ input, meta }) => (
-                <div>
-                  <label>Group name</label>
-                  <input type="text" placeholder="Group name" {...input} />
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
-            />
-            <button>Create</button>
-          </form>
-        )}
-      />
-    </div>
+      <DashboardSection>
+        <Card>
+          <Form
+            onSubmit={createGroup}
+            render={({ handleSubmit }) => (
+              <form onSubmit={handleSubmit}>
+                <VerticalSpacer amount={4}>
+                  <CardFormInput
+                    name="groupName"
+                    label="Group name"
+                    required
+                    placeholder="What is the name of your future group?"
+                    type="text"
+                  />
+
+                  <CardActionArea>
+                    <PrimaryButton>Create</PrimaryButton>
+                  </CardActionArea>
+                </VerticalSpacer>
+              </form>
+            )}
+          />
+        </Card>
+      </DashboardSection>
+    </>
   );
 };
+
+CreateGroupPage.Layout = DashboardLayout;
 
 export default CreateGroupPage;
