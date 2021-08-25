@@ -15,4 +15,4 @@ jobs:
         run: >-
           docker-compose -f docker-compose.e2e.yml run
           -e CYPRESS_BASE_URL=\${CYPRESS_BASE_URL}
-          cypress
+          e2e 
