@@ -38,6 +38,14 @@ services:
       - 3000:3000
 
   e2e:
+    container_name: 'cypress-e2e'
+    image: 'cypress/included:3.4.1'
+    working_dir: /tests/e2e
+    volumes:
+      - .:/e2e
+    environment:
+      - CYPRESS_baseUrl=${CYPRESS_BASE_URL}
+    entrypoint: cypress run --config video=false
     image: cypress/base:latest
     depends_on:
     - frontend
