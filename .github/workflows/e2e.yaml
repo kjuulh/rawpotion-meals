@@ -15,5 +15,4 @@ jobs:
         working-directory: './tests/e2e'
         uses: cypress-io/github-action@v2
         with:
-          build: yarn
           start: yarn start
