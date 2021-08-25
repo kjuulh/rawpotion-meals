@@ -1,0 +1,23 @@
+name: End to end tests
+
+on: [push]
+
+jobs:
+  e2e-docker-compose-up:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build the docker-compose stack
+        run: docker-compose -f docker-compose.e2e.yml up -d --build backend frontend database
+      - name: Run end to end
+        env:
+          CI: true
+        run: docker-compose -f docker-compose.e2e.yml run e2e 
+
+      - name: Cleanup docker
+        if: ${{ success() }}
+        run: >-
+          docker-compose -f docker-compose.e2e.yml down
+
+
