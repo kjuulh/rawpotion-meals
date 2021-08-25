@@ -3,16 +3,23 @@ name: End to end tests
 on: [push]
 
 jobs:
+  e2e-docker-compose-up:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build the docker-compose stack
+        run: docker-compose -f docker-compose.dev.yml up -d --build
+
   e2e-tests-run:
     runs-on: self-hosted
     container: cypress/browsers:node12.18.3-chrome87-ff82
+    needs: e2e-docker-compose-up
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
-      - name: Build the docker-compose stack
-        run: docker-compose -f docker-compose.dev.yml up -d
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
