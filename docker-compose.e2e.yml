@@ -44,8 +44,8 @@ services:
     volumes:
       - ./tests/e2e:/e2e
     environment:
-      - CYPRESS_baseUrl=http://frontend:3000
-    entrypoint: cypress run --config video=false
+      CYPRESS_BASE_URL: http://frontend:3000
+    entrypoint: cypress run --config video=false --env CYPRESS_BASE_URL=http://frontend:3000/
     depends_on:
     - frontend
     - backend
