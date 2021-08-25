@@ -40,9 +40,9 @@ services:
   e2e:
     container_name: 'cypress-e2e'
     image: 'cypress/included:3.4.1'
-    working_dir: /tests/e2e
+    working_dir: /e2e
     volumes:
-      - .:/e2e
+      - tests/e2e:/e2e
     environment:
       - CYPRESS_baseUrl=${CYPRESS_BASE_URL}
     entrypoint: cypress run --config video=false
