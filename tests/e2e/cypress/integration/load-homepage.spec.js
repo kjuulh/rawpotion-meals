@@ -2,7 +2,7 @@
 
 describe('Home page', () => {
     beforeEach(() => {
-        cy.visit(Cypress.env('CYPRESS_BASE_URL') ?? "http://localhost:3000");
+        cy.visit(Cypress.env('CYPRESS_BASE_URL') || "http://localhost:3000");
     })
 
     it('should load', function () {
