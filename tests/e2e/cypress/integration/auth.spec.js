@@ -39,7 +39,7 @@ function registerAndLogin() {
 
 describe('Auth', () => {
     beforeEach(() => {
-        cy.visit(Cypress.env('CYPRESS_BASE_URL') ?? "http://localhost:3000");
+        cy.visit(Cypress.env('CYPRESS_BASE_URL') || "http://localhost:3000");
         cy.get("button").contains('Register').click();
         cy.url().should("include", "/register");
     })
