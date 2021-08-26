@@ -11,8 +11,8 @@ services:
     environment:
       ConnectionStrings__Postgres: Host=database;Database=rawpotion_meals;Username=rawpotion_backend;Password=somethingverysecret_123
       Jwt__Secret: "somethingverysecretohyes"
-      FRONTEND_BASE_URL: "http://localhost:3000"
-      BACKEND_BASE_URL: "http://localhost:8080"
+      FRONTEND_BASE_URL: "http://frontend:3000"
+      BACKEND_BASE_URL: "http://backend"
     depends_on:
       - database
 
@@ -31,9 +31,9 @@ services:
       context: frontend/
       dockerfile: Dockerfile
       args:
-        BACKEND_BASE_URL: http://localhost:8080
+        BACKEND_BASE_URL: http://backend
     environment:
-      BACKEND_BASE_URL: http://localhost:8080
+      BACKEND_BASE_URL: http://backend
     ports:
       - 3000:3000
 
