@@ -31,9 +31,9 @@ services:
       context: frontend/
       dockerfile: Dockerfile
       args:
-        BACKEND_BASE_URL: http://something:8080
+        BACKEND_BASE_URL: http://localhost:8080
     environment:
-      BACKEND_BASE_URL: http://something:8080
+      BACKEND_BASE_URL: http://localhost:8080
     ports:
       - 3000:3000
 
