@@ -10,6 +10,8 @@
 **** DONE Authentication
 **** TODO Group
 ***** DONE Create group page
+***** TODO Join group
+****** Fix invitation cache invalidation when creating new invitations the list isn't automatically updated
 **** TODO Meal
 **** TODO Create Meal
 
